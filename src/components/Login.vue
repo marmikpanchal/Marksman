@@ -1,9 +1,14 @@
 <template>
     <div id="login">
-        <h1>Login</h1>
-        <input type="text" name="username" v-model="input.username" placeholder="Username" />
-        <input type="password" name="password" v-model="input.password" placeholder="Password" />
-        <button type="button" v-on:click="login()">Login</button>
+        <div id="title">
+            <h1>MARKSMAN</h1>
+        </div>
+        <div id="inputBox">
+            <h2>Type in your Username and Password</h2>
+            <input type="text" name="username" v-model="input.username" placeholder="Username" />
+            <input type="password" name="password" v-model="input.password" placeholder="Password" />
+            <button type="button" v-on:click="login()">Login</button>
+        </div>
     </div>
 </template>
 
@@ -37,7 +42,21 @@
 </script>
 
 <style scoped>
-    #login {
+
+    h1 {
+        color: #000000;
+        font-family: Helvetica, 'Open Sans', Arial, sans-serif;
+        font-size: 48px;
+        font-weight: bold;
+    }
+
+    #title {
+        padding-top: 80px;
+        text-align: center;
+    }
+
+    #inputBox {
+        text-align: center;
         width: 500px;
         border: 1px solid #CCCCCC;
         background-color: #FFFFFF;
