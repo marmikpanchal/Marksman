@@ -34,9 +34,11 @@
                         body: JSON.stringify({username, password, email})
                     }).then(response => {
                         if (response.status === 200) {
-                            this.$emit("user_id", response.body);
-                            this.$emit("authenticated", true);
-                            this.$router.replace({ name: "secure" });
+                            response.text().then(body => {
+                                this.$emit("id", body);
+                                this.$emit("authenticated", true);
+                                this.$router.replace({ name: "secure" });
+                            })                           
                         } else {
                             console.log("The username and / or password is incorrect");
                         }
