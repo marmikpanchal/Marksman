@@ -8,6 +8,10 @@
             <input type="text" name="username" v-model="input.username" placeholder="Username" />
             <input type="password" name="password" v-model="input.password" placeholder="Password" />
             <button type="button" v-on:click="login()">Login</button>
+            <br />
+            <br />
+            <button type="button" v-on:click="register()">Don't have an account?</button>
+
         </div>
     </div>
 </template>
@@ -36,6 +40,9 @@
                 } else {
                     console.log("A username and password must be present");
                 }
+            },
+            register() {
+                this.$router.replace({ name: "register" });
             }
         }
     }
