@@ -26,13 +26,21 @@
         methods: {
             login() {
                 if(this.input.username != "" && this.input.password != "") {
-                    if(this.input.username == this.$parent.mockAccount.username 
-                        && this.input.password == this.$parent.mockAccount.password) {
-                        this.$emit("authenticated", true);
-                        this.$router.replace({ name: "secure" });
-                    } else {
-                        console.log("The username and / or password is incorrect");
-                    }
+                    const email = '';
+                    const username = this.input.username;
+                    const password = this.input.password;
+                    fetch('http://localhost:8081/login', {
+                        method: 'POST',
+                        body: JSON.stringify({username, password, email})
+                    }).then(response => {
+                        if (response.status === 200) {
+                            this.$emit("user_id", response.body);
+                            this.$emit("authenticated", true);
+                            this.$router.replace({ name: "secure" });
+                        } else {
+                            console.log("The username and / or password is incorrect");
+                        }
+                    });
                 } else {
                     console.log("A username and password must be present");
                 }
