@@ -1,4 +1,36 @@
 <template>
+  <v-app id="inspire">
+      <app>Marksman</app>
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout align-center justify-center>
+          <v-flex xs12 sm8 md4>
+            <v-card class="elevation-12">
+              <v-toolbar dark color="primary">
+                <v-toolbar-title>Login</v-toolbar-title>
+                <v-spacer></v-spacer>
+                
+              </v-toolbar>
+              <v-card-text>
+                <v-form>
+                  <v-text-field prepend-icon="person" name="login" type="text" v-model="input.username" label="Login"></v-text-field>
+                  <v-text-field id="password" prepend-icon="lock" name="password" type="password" v-model="input.password" label="Password"></v-text-field>
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn v-on:click="register()" target="_blank">Register</v-btn>
+                <v-btn color="primary" v-on:click="login()">Login</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
+  </v-app>
+</template>
+
+<!-- <template>
     <div id="login">
         <div id="title">
             <h1>MARKSMAN</h1>
@@ -14,7 +46,7 @@
 
         </div>
     </div>
-</template>
+</template> -->
 
 <script>
     export default {
@@ -60,11 +92,13 @@
 
 <style scoped>
 
-    h1 {
+    app {
         color: #000000;
         font-family: Helvetica, 'Open Sans', Arial, sans-serif;
         font-size: 48px;
         font-weight: bold;
+        text-align: center;
+        padding-top: 80px;
     }
 
     #title {
