@@ -35,9 +35,9 @@
                 </v-form>
               </v-card-text>
               <v-card-actions>
-                <v-btn v-on:click="register()" depressed target="_blank">Register</v-btn>
-                <v-spacer></v-spacer>
                 
+                <v-spacer></v-spacer>
+                <v-btn v-on:click="register()" depressed target="_blank">Register</v-btn>
                 <v-btn color="primary" v-on:click="login()">Login</v-btn>
               </v-card-actions>
             </v-card>
