@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div id="register">
         <div id="title">
 
@@ -15,6 +15,60 @@
         </div>
 
     </div>
+</template> -->
+
+
+<template>
+  <v-app id="inspire">
+      <h1>Marksman</h1>
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout align-center justify-center>
+          <v-flex xs12 sm8 md4>
+            <v-card class="elevation-12">
+              <v-toolbar dark color="purple">
+                <v-toolbar-title>Become a Marksman</v-toolbar-title>
+                <v-spacer></v-spacer>
+                
+              </v-toolbar>
+              <v-card-text>
+                <v-form>
+                  <v-text-field 
+                    prepend-icon="person" 
+                    name="username" 
+                    type="text" 
+                    v-model="input.username" 
+                    label="Username"
+                    placeholder="Create a username"></v-text-field>
+                  <v-text-field 
+                    id="password" 
+                    prepend-icon="lock" 
+                    name="password" 
+                    type="password" 
+                    v-model="input.password" 
+                    label="Password"
+                    placeholder="Create a password"
+                    required></v-text-field>
+                  <v-text-field 
+                    prepend-icon="email" 
+                    name="email" 
+                    type="email" 
+                    label="Email" 
+                    placeholder="eg. marksman@gmail.com"
+                    required
+                    v-model="input.email"></v-text-field>
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="purple" v-on:click="registerAccount()">Register</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
@@ -69,5 +123,11 @@
         border: 1px solid #CCCCCC;
         padding: 20px;
         margin-top: 10px;
+    }
+
+    h1 {
+        text-align: center;
+        padding-top: 80px;
+        font-size: 48px;
     }
 </style>
