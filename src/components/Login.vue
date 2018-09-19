@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-      <app>Marksman</app>
+      <h1>Marksman</h1>
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
@@ -99,6 +99,12 @@
         font-weight: bold;
         text-align: center;
         padding-top: 80px;
+    }
+
+    h1 {
+        text-align: center;
+        padding-top: 80px;
+        font-size: 48px;
     }
 
     #title {
