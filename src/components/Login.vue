@@ -1,13 +1,13 @@
 <template>
   <v-app id="inspire">
-      <h1>Marksman</h1>
+      <p>Marksman</p>
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
               
-              <v-toolbar dark color="primary">
+              <v-toolbar dark color="green">
                 <v-toolbar-title>Login</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <span style="font-weight: bold">Sign in with: </span>
@@ -41,8 +41,8 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn v-on:click="register()" depressed target="_blank">Register</v-btn>
-                <v-btn color="primary" v-on:click="login()">Login</v-btn>
+                <v-btn class = "vbtn" color ="primary" v-on:click="register()" depressed target="_blank">Register</v-btn>
+                <v-btn class="vbtn" color="green" text v-on:click="login()">Login</v-btn>
               </v-card-actions>
             
             </v-card>
@@ -136,10 +136,13 @@
         padding-top: 80px;
     }
 
-    h1 {
+    p {
+        font-family: courier, courier-new;
         text-align: center;
-        padding-top: 80px;
-        font-size: 48px;
+        margin-top: 80px;
+        margin-bottom: -80px;
+        font-size: 70px;
+        font-weight: bold;
     }
 
     #title {
@@ -182,6 +185,12 @@
         border-radius: 3px;
         background-color: white;
         color: red;
-        box-shadow: 0 3px 0 #0f69ff;
+        /*box-shadow: 0 3px 0 #0f69ff;*/
     }
+
+    .vbtn {
+        color: white;
+        font-weight: bold;
+    }
+
 </style>
