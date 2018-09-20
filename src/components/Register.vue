@@ -26,7 +26,7 @@
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
-              <v-toolbar dark color="purple">
+              <v-toolbar dark color="primary">
                 <v-toolbar-title>Become a Marksman</v-toolbar-title>
                 <v-spacer></v-spacer>
                 
@@ -61,7 +61,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="purple" v-on:click="registerAccount()">Register</v-btn>
+                <v-btn color="primary" v-on:click="registerAccount()">Register</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
