@@ -62,6 +62,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="primary" v-on:click="registerAccount()">Register</v-btn>
+                <v-btn color="grey" v-on:click="back()">Back</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -112,6 +113,9 @@
                 } else {
                     console.log("Enter all fields");
                 }
+            },
+            back() {
+                this.$router.replace({ name: "login" });
             }
         }
     }
