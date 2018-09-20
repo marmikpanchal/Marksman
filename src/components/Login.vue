@@ -10,11 +10,14 @@
               <v-toolbar dark color="primary">
                 <v-toolbar-title>Login</v-toolbar-title>
                 <v-spacer></v-spacer>
-                Sign in with:
+                <span style="font-weight: bold">Sign in with: </span>
                 <fb-signin-button :params="fbSignInParams" @success="onSignInSuccess" @error="onSignInError">
                     Facebook
                 </fb-signin-button>
                 
+                <g-signin-button :params="googleSignInParams" @success="onSignInSuccess" @error="onSignInError">
+                    Google
+                </g-signin-button>
                <!--  <v-tooltip bottom>
                   <v-btn slot="activator" :href="source" icon large target="_blank">
                     <v-icon medium></v-icon>
@@ -76,11 +79,15 @@
                 input: {
                     username: "",
                     password: ""
+                },
+                googleSignInParams: {
+                    client_id: '70896974977-l1buj1md4d3n9okh9omce20fnaqsp9es.apps.googleusercontent.com'
+                    // Web: 70896974977-l1buj1md4d3n9okh9omce20fnaqsp9es.apps.googleusercontent.com
+                    // Native: 70896974977-rm9e7ei3dl3b64tntpi3co1rif7crfd3.apps.googleusercontent.com
                 }
             }
         },
         methods: {
-            
 
             login() {
                 if(this.input.username != "" && this.input.password != "") {
@@ -107,6 +114,12 @@
             },
             register() {
                 this.$router.replace({ name: "register" });
+            },
+            onSignInSuccess (googleUser) {
+                const profile = googleUser.getBasicProfile()
+            },
+            onSignInError (error) {
+              console.log('OH NOES', error)
             }
         }
     }
@@ -145,6 +158,7 @@
     }
 
     .fb-signin-button {
+        font-weight: bold;
         margin-left: 10px;
         width: 100px;
         text-align: center;
@@ -155,5 +169,19 @@
         background-color: #4267b2;
         color: #fff;
         cursor: pointer;
+    }
+
+    .g-signin-button {
+        margin-left: 10px;
+        cursor: pointer;
+        font-weight: bold;
+        width: 100px;
+        text-align: center;
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 3px;
+        background-color: white;
+        color: red;
+        box-shadow: 0 3px 0 #0f69ff;
     }
 </style>
