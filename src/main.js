@@ -10,10 +10,12 @@ import '../node_modules/jquery/dist/jquery.min.js';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap/dist/js/bootstrap.min.js';
 import FBSignInButton from 'vue-facebook-signin-button'
+import GSignInButton from 'vue-google-signin-button'
 
 Vue.config.productionTip = false
 Vue.use(FBSignInButton)
 Vue.use(Vuetify)
+Vue.use(GSignInButton)
 
 /* eslint-disable no-new */
 new Vue({
