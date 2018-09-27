@@ -135,22 +135,10 @@
                                     <div class="todo-list">
                                     <div class="tdl-holder tdl-content">
                                         <ul>
-                                            <li><label>
-					                            <input type="checkbox"><i class="bg-primary"></i><span>A task</span>
-					                            <a href='#' class="ti-close"></a>				                                
-				                            </label></li>
-                                            <li><label>
-					                            <input type="checkbox"><i class="bg-success"></i><span>A task</span>
-					                            <a href='#' class="ti-close"></a>				                                
-				                            </label></li>
-				                            <li><label>
-					                            <input type="checkbox"><i class="bg-warning"></i><span>A task</span>
-					                            <a href='#' class="ti-close"></a>				                                
-				                            </label></li>
-				                            <li><label>
-					                            <input type="checkbox"><i class="bg-danger"></i><span>A task</span>
-					                            <a href='#' class="ti-close"></a>				                                
-				                            </label></li>
+                                            <li v-for="(task, index) in tasks" :key="index"><label>
+                                                <input type="checkbox"><i :class="colours[index%colours.length]"></i><span>{{task.task_description}}</span>
+                                                <a href='#' class="ti-close"></a>				                                
+                                            </label></li>
                                         </ul>
                                         <input type="text" class="tdl-new form-control" placeholder="Type here">                                      
                                     </div>
@@ -174,12 +162,8 @@
         name: 'Secure',
         data() {
             return {
-                subjects: [
-                    // {name: "COMP9323"},
-                    // {name: "COMP1234"},
-                    // {name: "COMP1232"},
-                    // {name: "COMP1231"}
-                ],
+                subjects: [],
+                tasks: [],
                 colours: [
                     "bg-primary",
                     "bg-warning",
@@ -202,14 +186,25 @@
                             response.json().then(subs => {
                                 subs.forEach(subject => {
                                     this.subjects.push(subject);
-                                });
-                                
-                            })                           
+                                }); 
+                            });                           
                         } else {
                             console.log("Cannot retrieve subjects");
                         }
             });
-                
+            fetch(`http://localhost:8081/tasks/${this.$parent.user_id}`, {
+                        method: 'GET',
+                    }).then(response => {
+                        if (response.status === 200) {
+                            response.json().then(tasks => {
+                                tasks.forEach(task => {
+                                    this.tasks.push(task);
+                                }); 
+                            });                           
+                        } else {
+                            console.log("Cannot retrieve tasks");
+                        }
+            });                
         }
         
     }
