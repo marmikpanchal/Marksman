@@ -87,7 +87,7 @@
                             <a href="#">Subjects</a>
                         </li>
                         <li class="breadcrumb-item active">
-                            <a>subject.name</a>
+                            <a>this.name</a>
                         </li>
                     </ol>
                     <!-- End breadcrumbs -->
@@ -171,6 +171,21 @@
                             console.log("Cannot retrieve subjects");
                         }
             });
+
+            fetch('http://localhost:8081/assessments/${this.$parent.user_id}', {
+                method: 'GET',
+            }).then(response => {
+                if (response.status === 200) {
+                    response.json().then(asss => {
+                        asss.forEach(assessment => {
+                            this.assessments.push(assessment);
+                        });
+                    })
+                } else {
+                    console.log("Cannot retrieve assessments");
+                }
+            });
+                
                 
         }
         
