@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import LoginComponent from "@/components/Login"
 import SecureComponent from "@/components/Secure"
 import RegisterComponent from "@/components/Register"
+import SubjectComponent from "@/components/Subject"
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
         path: "/register",
         name: "register",
         component: RegisterComponent
+    },
+    {
+        path: "/subject",
+        name: "subject",
+        component: SubjectComponent
     }
   ]
 })

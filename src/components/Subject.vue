@@ -1,4 +1,3 @@
-<script></script>
 
 <template>    
     <body id="page-top">
@@ -52,13 +51,13 @@
         <div id="wrapper">
             <!-- Sidebar -->
             <ul class="sidebar navbar-nav">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="index.html">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="subjects.html">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Subjects</span>
@@ -85,15 +84,17 @@
                     <!-- Breadcrumbs -->
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="#">Dashboard</a>
+                            <a href="#">Assessments</a>
                         </li>
-                        <li class="breadcrumb-item active">Overview</li>
+                        <li class="breadcrumb-item active">
+                            <a>this.name</a>
+                        </li>
                     </ol>
                     <!-- End breadcrumbs -->
                     <!-- Subjects -->
                     <!-- If there are subjects -->
                     <div v-if="subjects.length > 0" class="row">
-                        <div v-for="(subject, index) in subjects" class="col-xl-3 col-sm-6 mb-3" :key="index">
+                        <div v-for="(subject, index) in subjects" class="col-xl-12 col-sm-12 mb-3" :key="index">
                             <div :class="'card text-white ' + colours[index%colours.length] + ' o-hidden h-100'">
                                 <div class="card-body">
                                     <div class="card-body-icon">
@@ -115,40 +116,38 @@
                         <span>No subjects, please add a subject</span>
                     </div>
                     <!-- End subjects -->
-                    <div class="row">
-                        <!-- Calendar -->
-                        <div class="col-lg-7">
-                            <div class="card mb-3"> 
-                                <div class="card-header">Calendar</div>
+
+
+                    <!-- Assessments -->
+                    <!-- If there are assessments -->
+                    <div v-if="assessments.length > 0" class="row">
+                        <div v-for="(assessment, index) in assessments" class="col-xl-12 col-sm-12 mb-3" :key="index">
+                            <div :class="'card text-white ' + colours[index%colours.length] + ' o-hidden h-100'">
                                 <div class="card-body">
-                                    <canvas id="myBarChart" width="100%" height="50"></canvas>
-                                 </div>
-                                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                                    <div class="card-body-icon">
+                                        <i class="fas fa-fw fa-comments"></i>
+                                    </div>
+                                    <div class="mr-5">{{assessment.name}}</div>
+                                </div>
+                                <a v-on:click="next(assessment, $event)" class="card-footer text-white clearfix small z-1" href="">
+                                    <span class="float-left">View Details</span>
+                                    <span class="float-right">
+                                        <i class="fas fa-angle-right"></i>
+                                    </span>
+                                </a>
                             </div>
                         </div>
-                        <!-- End calendar -->
-                        <!-- To-do list -->
-                        <div class="col-lg-5">
-                            <div class="card mb-3">
-                                <div class="card-header">To-Do List</div>
-                                <div class="card-body">
-                                    <div class="todo-list">
-                                    <div class="tdl-holder tdl-content">
-                                        <ul>
-                                            <li v-for="(task, index) in tasks" :key="index"><label>
-                                                <input type="checkbox"><i :class="colours[index%colours.length]"></i><span>{{task.task_description}}</span>
-                                                <a href='#' class="ti-close"></a>				                                
-                                            </label></li>
-                                        </ul>
-                                        <input type="text" class="tdl-new form-control" placeholder="Type here">                                      
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End to-do list -->
                     </div>
+                    <!-- If there aren't assessments-->
+                    <div v-else class="row">
+                        <span>No assessments, please add an assessment</span>
+                    </div>
+                    <!-- End assessments -->
+
+
+
+
+
                 </div>     
             </div>
             <!-- End dashboard -->
@@ -159,11 +158,16 @@
 
 <script>
     export default {
-        name: 'Secure',
+        name: 'Subject',
         data() {
             return {
-                subjects: [],
-                tasks: [],
+                subjects: [
+                    // {name: "COMP9323"},
+                    // {name: "COMP1234"},
+                    // {name: "COMP1232"},
+                    // {name: "COMP1231"}
+                ],
+                assessments: [],
                 colours: [
                     "bg-primary",
                     "bg-warning",
@@ -175,12 +179,11 @@
         methods: {
             next(subject, event) {
                 event.preventDefault();
-
-                this.$emit("subject_id", subject.id);
-                console.log("TRYING TO DEBUG");
-                console.log(subject);
-                console.log(subject.id); // this works
-                this.$router.replace({ name: "subject" });
+                 alert(JSON.stringify(subject));
+            },
+            next(assessment, event) {
+                event.preventDefault();
+                 alert(JSON.stringify(assessment));
             }
         },
         mounted() {
@@ -191,25 +194,44 @@
                             response.json().then(subs => {
                                 subs.forEach(subject => {
                                     this.subjects.push(subject);
-                                }); 
-                            });                           
+                                });
+                                
+                            })                           
                         } else {
                             console.log("Cannot retrieve subjects");
                         }
             });
-            fetch(`http://localhost:8081/tasks/${this.$parent.user_id}`, {
+
+            fetch(`http://localhost:8081/assessments/${this.$parent.subject_id}`, {
                         method: 'GET',
                     }).then(response => {
                         if (response.status === 200) {
-                            response.json().then(tasks => {
-                                tasks.forEach(task => {
-                                    this.tasks.push(task);
-                                }); 
-                            });                           
+                            response.json().then(asss => {
+                                asss.forEach(assessment => {
+                                    this.assessments.push(assessment);
+                                });
+                                
+                            })                           
                         } else {
-                            console.log("Cannot retrieve tasks");
+                            console.log("Cannot retrieve assessments");
                         }
-            });                
+            });
+
+            // fetch('http://localhost:8081/assessments/${this.$parent.subject_id}', {
+            //     method: 'GET',
+            // }).then(response => {
+            //     if (response.status === 200) {
+            //         response.json().then(asss => {
+            //             asss.forEach(assessment => {
+            //                 this.assessments.push(assessment);
+            //             });
+            //         })
+            //     } else {
+            //         console.log("Cannot retrieve assessments");
+            //     }
+            // });
+                
+                
         }
         
     }
