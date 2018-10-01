@@ -1,4 +1,3 @@
-<script></script>
 
 <template>    
     <body id="page-top">
@@ -52,13 +51,13 @@
         <div id="wrapper">
             <!-- Sidebar -->
             <ul class="sidebar navbar-nav">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="index.html">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="subjects.html">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Subjects</span>
@@ -85,15 +84,17 @@
                     <!-- Breadcrumbs -->
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="#">Dashboard</a>
+                            <a href="#">Subjects</a>
                         </li>
-                        <li class="breadcrumb-item active">Overview</li>
+                        <li class="breadcrumb-item active">
+                            <a>subject.name</a>
+                        </li>
                     </ol>
                     <!-- End breadcrumbs -->
                     <!-- Subjects -->
                     <!-- If there are subjects -->
                     <div v-if="subjects.length > 0" class="row">
-                        <div v-for="(subject, index) in subjects" class="col-xl-3 col-sm-6 mb-3" :key="index">
+                        <div v-for="(subject, index) in subjects" class="col-xl-12 col-sm-12 mb-3" :key="index">
                             <div :class="'card text-white ' + colours[index%colours.length] + ' o-hidden h-100'">
                                 <div class="card-body">
                                     <div class="card-body-icon">
@@ -115,52 +116,12 @@
                         <span>No subjects, please add a subject</span>
                     </div>
                     <!-- End subjects -->
-                    <div class="row">
-                        <!-- Calendar -->
-                        <div class="col-lg-7">
-                            <div class="card mb-3"> 
-                                <div class="card-header">Calendar</div>
-                                <div class="card-body">
-                                    <canvas id="myBarChart" width="100%" height="50"></canvas>
-                                 </div>
-                                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                            </div>
-                        </div>
-                        <!-- End calendar -->
-                        <!-- To-do list -->
-                        <div class="col-lg-5">
-                            <div class="card mb-3">
-                                <div class="card-header">To-Do List</div>
-                                <div class="card-body">
-                                    <div class="todo-list">
-                                    <div class="tdl-holder tdl-content">
-                                        <ul>
-                                            <li><label>
-					                            <input type="checkbox"><i class="bg-primary"></i><span>A task</span>
-					                            <a href='#' class="ti-close"></a>				                                
-				                            </label></li>
-                                            <li><label>
-					                            <input type="checkbox"><i class="bg-success"></i><span>A task</span>
-					                            <a href='#' class="ti-close"></a>				                                
-				                            </label></li>
-				                            <li><label>
-					                            <input type="checkbox"><i class="bg-warning"></i><span>A task</span>
-					                            <a href='#' class="ti-close"></a>				                                
-				                            </label></li>
-				                            <li><label>
-					                            <input type="checkbox"><i class="bg-danger"></i><span>A task</span>
-					                            <a href='#' class="ti-close"></a>				                                
-				                            </label></li>
-                                        </ul>
-                                        <input type="text" class="tdl-new form-control" placeholder="Type here">                                      
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End to-do list -->
-                    </div>
+
+
+
+
+
+
                 </div>     
             </div>
             <!-- End dashboard -->
@@ -171,7 +132,7 @@
 
 <script>
     export default {
-        name: 'Secure',
+        name: 'Subject',
         data() {
             return {
                 subjects: [
@@ -191,6 +152,7 @@
         methods: {
             next(subject, event) {
                 event.preventDefault();
+                // alert(JSON.stringify(subject));
                 this.$router.replace({ name: "subject" });
             }
         },

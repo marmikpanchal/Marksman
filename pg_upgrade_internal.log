@@ -1,0 +1,8 @@
+Running in verbose mode
+
+-----------------------------------------------------------------
+  pg_upgrade run on Sat Sep 29 15:44:52 2018
+-----------------------------------------------------------------
+
+check for "/usr/local/Cellar/postgresql/9.3.4/bin" failed: No such file or directory
+
