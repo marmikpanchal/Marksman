@@ -175,6 +175,11 @@
         methods: {
             next(subject, event) {
                 event.preventDefault();
+
+                this.$emit("subject_id", subject.id);
+                console.log("TRYING TO DEBUG");
+                console.log(subject);
+                console.log(subject.id); // this works
                 this.$router.replace({ name: "subject" });
             }
         },

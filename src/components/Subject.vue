@@ -84,7 +84,7 @@
                     <!-- Breadcrumbs -->
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="#">Subjects</a>
+                            <a href="#">Assessments</a>
                         </li>
                         <li class="breadcrumb-item active">
                             <a>this.name</a>
@@ -117,6 +117,32 @@
                     </div>
                     <!-- End subjects -->
 
+
+                    <!-- Assessments -->
+                    <!-- If there are assessments -->
+                    <div v-if="assessments.length > 0" class="row">
+                        <div v-for="(assessment, index) in assessments" class="col-xl-12 col-sm-12 mb-3" :key="index">
+                            <div :class="'card text-white ' + colours[index%colours.length] + ' o-hidden h-100'">
+                                <div class="card-body">
+                                    <div class="card-body-icon">
+                                        <i class="fas fa-fw fa-comments"></i>
+                                    </div>
+                                    <div class="mr-5">{{assessment.name}}</div>
+                                </div>
+                                <a v-on:click="next(assessment, $event)" class="card-footer text-white clearfix small z-1" href="">
+                                    <span class="float-left">View Details</span>
+                                    <span class="float-right">
+                                        <i class="fas fa-angle-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- If there aren't assessments-->
+                    <div v-else class="row">
+                        <span>No assessments, please add an assessment</span>
+                    </div>
+                    <!-- End assessments -->
 
 
 
@@ -152,8 +178,11 @@
         methods: {
             next(subject, event) {
                 event.preventDefault();
-                // alert(JSON.stringify(subject));
-                this.$router.replace({ name: "subject" });
+                 alert(JSON.stringify(subject));
+            },
+            next(assessment, event) {
+                event.preventDefault();
+                 alert(JSON.stringify(assessment));
             }
         },
         mounted() {
@@ -172,19 +201,34 @@
                         }
             });
 
-            fetch('http://localhost:8081/assessments/${this.$parent.user_id}', {
-                method: 'GET',
-            }).then(response => {
-                if (response.status === 200) {
-                    response.json().then(asss => {
-                        asss.forEach(assessment => {
-                            this.assessments.push(assessment);
-                        });
-                    })
-                } else {
-                    console.log("Cannot retrieve assessments");
-                }
+            fetch(`http://localhost:8081/assessments/${this.$parent.subject_id}`, {
+                        method: 'GET',
+                    }).then(response => {
+                        if (response.status === 200) {
+                            response.json().then(asss => {
+                                asss.forEach(assessment => {
+                                    this.assessments.push(assessment);
+                                });
+                                
+                            })                           
+                        } else {
+                            console.log("Cannot retrieve assessments");
+                        }
             });
+
+            // fetch('http://localhost:8081/assessments/${this.$parent.subject_id}', {
+            //     method: 'GET',
+            // }).then(response => {
+            //     if (response.status === 200) {
+            //         response.json().then(asss => {
+            //             asss.forEach(assessment => {
+            //                 this.assessments.push(assessment);
+            //             });
+            //         })
+            //     } else {
+            //         console.log("Cannot retrieve assessments");
+            //     }
+            // });
                 
                 
         }
