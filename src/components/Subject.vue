@@ -167,6 +167,7 @@
                     // {name: "COMP1232"},
                     // {name: "COMP1231"}
                 ],
+                assessments: [],
                 colours: [
                     "bg-primary",
                     "bg-warning",
