@@ -3,7 +3,7 @@
     <body id="page-top">
         <!-- Navbar -->
         <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-            <a class="navbar-brand mr-1" href="index.html">Marksman</a>
+            <a v-on:click="goSecure($event)" class="navbar-brand mr-1" href="">Marksman</a>
             <!-- Navbar search -->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
                 <div class="input-group">
@@ -52,13 +52,13 @@
             <!-- Sidebar -->
             <ul class="sidebar navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">
+                    <a v-on:click="goSecure($event)" class="nav-link" href="">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="subjects.html">
+                    <a v-on:click="goSubject($event)" class="nav-link" href="">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Subjects</span>
                     </a>
@@ -81,13 +81,18 @@
             <!-- Dashboard -->
             <div id="content-wrapper">
                 <div class="container-fluid">
+
+                    
                     <!-- Breadcrumbs -->
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="#">Assessments</a>
+                            <a href="#">Assessments for</a>
                         </li>
                         <li class="breadcrumb-item active">
-                            <a>this.name</a>
+                            <div v-if="subjects.length > 0" class="row">
+                                Trying to get it to display subject name but this won't work as subject_id != index in local subjects array
+                                <!-- <div class="mr-5">{{subjects[subject_id].name}}</div> -->
+                            </div>
                         </li>
                     </ol>
                     <!-- End breadcrumbs -->
@@ -103,13 +108,58 @@
                                     <div class="card-body-icon">
                                         <i class="fas fa-fw fa-comments"></i>
                                     </div>
-                                    <div class="mr-5">{{assessment.name}}</div>
+                                    <div class="mr-5">{{assessment.name}}
+                                        <button type="button" class="btn btn-info btn-sm">Save</button>
+                                    </div>
+                                    <!-- <div class="mr-5">{{JSON.stringify(assessment)}}</div> -->
                                 </div>
-                                <a v-on:click="next(assessment, $event)" class="card-footer text-white clearfix small z-1" href="">
-                                    <span class="float-left">View Details</span>
-                                    <span class="float-right">
-                                        <i class="fas fa-angle-right"></i>
+                                <!-- <a v-on:click="next(assessment, $event)" class="card-footer text-white clearfix small z-1" href=""> -->
+                                    <!-- <span class="float-left">View Details</span> -->
+                                    <span class="float">
+                                        <!-- <i class="fas fa-angle-right"></i> -->
+
+                                        <ul class="details">
+                                            <!-- <li class="detail-item">
+                                                <a href="#">{{JSON.stringify(assessment)}}</a>
+                                                <a href="#"></a>
+                                                <a href="#"></a>
+                                                <a href="#"></a>
+                                                <a href="#"></a>
+                                            </li> -->
+                                            
+                                            <li class="list-group-item list-group-item-secondary">Total Mark: {{assessment.total_mark}}</li>
+                                            <li class="list-group-item list-group-item-secondary">Actual Mark: {{assessment.actual_mark}}</li>
+                                            <li class="list-group-item list-group-item-secondary">Goal Mark: {{assessment.goal_mark}}</li>
+                                            <li class="list-group-item list-group-item-secondary">Weighting: {{assessment.weight}}</li>
+
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="detail1">Total Mark:</label>
+                                                    <input type="detail" class="form-control" id="detail1" placeholder=assessment.total_mark>
+                                                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="detail2">Actual Mark:</label>
+                                                    <input type="detail" class="form-control" id="detail2" placeholder=assessment.actual_mark>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="detail3">Goal Mark:</label>
+                                                    <input type="detail" class="form-control" id="detail3" placeholder=assessment.goal_mark>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="detail4">Weighting:</label>
+                                                    <input type="detail" class="form-control" id="detail4" placeholder=weighting>
+                                                </div>
+                                                </form>
+
+                                        </ul>
+
+
                                     </span>
+
+                                    
+
+
                                 </a>
                             </div>
                         </div>
@@ -160,7 +210,15 @@
             next(assessment, event) {
                 event.preventDefault();
                  alert(JSON.stringify(assessment));
-            }
+            },
+            goSecure(event) {
+                event.preventDefault();
+                this.$router.push({ name: "secure" });
+            },
+            goSubject(event) {
+                event.preventDefault();
+                this.$router.push({ name: "subject" });
+           },
         },
         mounted() {
             fetch(`http://localhost:8081/subjects/${this.$parent.user_id}`, {

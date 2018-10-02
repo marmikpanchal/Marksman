@@ -4,7 +4,7 @@
     <body id="page-top">
         <!-- Navbar -->
         <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-            <a class="navbar-brand mr-1" href="index.html">Marksman</a>
+            <a v-on:click="goSecure($event)" class="navbar-brand mr-1" href="">Marksman</a>
             <!-- Navbar search -->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
                 <div class="input-group">
@@ -53,13 +53,13 @@
             <!-- Sidebar -->
             <ul class="sidebar navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.html">
+                    <a v-on:click="goSecure($event)" class="nav-link" href="">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="subjects.html">
+                    <a v-on:click="goSubject($event)" class="nav-link" href="">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Subjects</span>
                     </a>
@@ -180,8 +180,16 @@
                 console.log("TRYING TO DEBUG");
                 console.log(subject);
                 console.log(subject.id); // this works
-                this.$router.replace({ name: "subject" });
-            }
+                this.$router.push({ name: "subject" });
+            },
+            goSecure(event) {
+                event.preventDefault();
+                this.$router.push({ name: "secure" });
+            },
+            goSubject(event) {
+                event.preventDefault();
+                this.$router.push({ name: "subject" });
+           },
         },
         mounted() {
             fetch(`http://localhost:8081/subjects/${this.$parent.user_id}`, {
