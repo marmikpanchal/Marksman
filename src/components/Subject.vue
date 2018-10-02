@@ -104,12 +104,35 @@
                                         <i class="fas fa-fw fa-comments"></i>
                                     </div>
                                     <div class="mr-5">{{assessment.name}}</div>
+                                    <!-- <div class="mr-5">{{JSON.stringify(assessment)}}</div> -->
                                 </div>
                                 <a v-on:click="next(assessment, $event)" class="card-footer text-white clearfix small z-1" href="">
-                                    <span class="float-left">View Details</span>
-                                    <span class="float-right">
-                                        <i class="fas fa-angle-right"></i>
+                                    <!-- <span class="float-left">View Details</span> -->
+                                    <span class="float">
+                                        <!-- <i class="fas fa-angle-right"></i> -->
+
+                                        <ul class="details">
+                                            <!-- <li class="detail-item">
+                                                <a href="#">{{JSON.stringify(assessment)}}</a>
+                                                <a href="#"></a>
+                                                <a href="#"></a>
+                                                <a href="#"></a>
+                                                <a href="#"></a>
+                                            </li> -->
+                                            
+                                            <li class="list-group-item list-group-item-secondary">Total Mark: {{assessment.total_mark}}</li>
+                                            <li class="list-group-item list-group-item-secondary">Actual Mark: {{assessment.actual_mark}}</li>
+                                            <li class="list-group-item list-group-item-secondary">Goal Mark: {{assessment.goal_mark}}</li>
+                                            <li class="list-group-item list-group-item-secondary">Weighting: {{assessment.weight}}</li>
+
+                                        </ul>
+
+
                                     </span>
+
+                                    
+
+
                                 </a>
                             </div>
                         </div>
