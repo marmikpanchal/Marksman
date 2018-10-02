@@ -180,15 +180,15 @@
                 console.log("TRYING TO DEBUG");
                 console.log(subject);
                 console.log(subject.id); // this works
-                this.$router.replace({ name: "subject" });
+                this.$router.push({ name: "subject" });
             },
             goSecure(event) {
                 event.preventDefault();
-                this.$router.replace({ name: "secure" });
+                this.$router.push({ name: "secure" });
             },
             goSubject(event) {
                 event.preventDefault();
-                this.$router.replace({ name: "subject" });
+                this.$router.push({ name: "subject" });
            },
         },
         mounted() {

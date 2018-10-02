@@ -213,11 +213,11 @@
             },
             goSecure(event) {
                 event.preventDefault();
-                this.$router.replace({ name: "secure" });
+                this.$router.push({ name: "secure" });
             },
             goSubject(event) {
                 event.preventDefault();
-                this.$router.replace({ name: "subject" });
+                this.$router.push({ name: "subject" });
            },
         },
         mounted() {
