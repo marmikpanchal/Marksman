@@ -145,7 +145,6 @@
                                                     <label for="detail4">Weighting:</label>
                                                     <input type="detail" class="form-control" id="detail4" placeholder=weighting>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary">Submit</button>
                                                 </form>
 
                                         </ul>
