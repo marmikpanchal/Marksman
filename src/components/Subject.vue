@@ -103,10 +103,12 @@
                                     <div class="card-body-icon">
                                         <i class="fas fa-fw fa-comments"></i>
                                     </div>
-                                    <div class="mr-5">{{assessment.name}}</div>
+                                    <div class="mr-5">{{assessment.name}}
+                                        <button type="button" class="btn btn-info btn-sm">Save</button>
+                                    </div>
                                     <!-- <div class="mr-5">{{JSON.stringify(assessment)}}</div> -->
                                 </div>
-                                <a v-on:click="next(assessment, $event)" class="card-footer text-white clearfix small z-1" href="">
+                                <!-- <a v-on:click="next(assessment, $event)" class="card-footer text-white clearfix small z-1" href=""> -->
                                     <!-- <span class="float-left">View Details</span> -->
                                     <span class="float">
                                         <!-- <i class="fas fa-angle-right"></i> -->
@@ -124,6 +126,27 @@
                                             <li class="list-group-item list-group-item-secondary">Actual Mark: {{assessment.actual_mark}}</li>
                                             <li class="list-group-item list-group-item-secondary">Goal Mark: {{assessment.goal_mark}}</li>
                                             <li class="list-group-item list-group-item-secondary">Weighting: {{assessment.weight}}</li>
+
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="detail1">Total Mark:</label>
+                                                    <input type="detail" class="form-control" id="detail1" placeholder=assessment.total_mark>
+                                                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="detail2">Actual Mark:</label>
+                                                    <input type="detail" class="form-control" id="detail2" placeholder=assessment.actual_mark>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="detail3">Goal Mark:</label>
+                                                    <input type="detail" class="form-control" id="detail3" placeholder=assessment.goal_mark>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="detail4">Weighting:</label>
+                                                    <input type="detail" class="form-control" id="detail4" placeholder=weighting>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                </form>
 
                                         </ul>
 
