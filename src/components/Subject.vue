@@ -91,31 +91,7 @@
                         </li>
                     </ol>
                     <!-- End breadcrumbs -->
-                    <!-- Subjects -->
-                    <!-- If there are subjects -->
-                    <div v-if="subjects.length > 0" class="row">
-                        <div v-for="(subject, index) in subjects" class="col-xl-12 col-sm-12 mb-3" :key="index">
-                            <div :class="'card text-white ' + colours[index%colours.length] + ' o-hidden h-100'">
-                                <div class="card-body">
-                                    <div class="card-body-icon">
-                                        <i class="fas fa-fw fa-comments"></i>
-                                    </div>
-                                    <div class="mr-5">{{subject.name}}</div>
-                                </div>
-                                <a v-on:click="next(subject, $event)" class="card-footer text-white clearfix small z-1" href="">
-                                    <span class="float-left">View Details</span>
-                                    <span class="float-right">
-                                        <i class="fas fa-angle-right"></i>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- If there aren't subjects-->
-                    <div v-else class="row">
-                        <span>No subjects, please add a subject</span>
-                    </div>
-                    <!-- End subjects -->
+
 
 
                     <!-- Assessments -->
