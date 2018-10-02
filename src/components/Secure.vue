@@ -53,13 +53,13 @@
             <!-- Sidebar -->
             <ul class="sidebar navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.html">
+                    <a v-on:click="goSecure($event)" class="nav-link" href="">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="subjects.html">
+                    <a v-on:click="goSubject($event)" class="nav-link" href="">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Subjects</span>
                     </a>
@@ -181,7 +181,15 @@
                 console.log(subject);
                 console.log(subject.id); // this works
                 this.$router.replace({ name: "subject" });
-            }
+            },
+            goSecure(event) {
+                event.preventDefault();
+                this.$router.replace({ name: "secure" });
+            },
+            goSubject(event) {
+                event.preventDefault();
+                this.$router.replace({ name: "subject" });
+           },
         },
         mounted() {
             fetch(`http://localhost:8081/subjects/${this.$parent.user_id}`, {
