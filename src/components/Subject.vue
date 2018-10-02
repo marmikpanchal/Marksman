@@ -81,13 +81,18 @@
             <!-- Dashboard -->
             <div id="content-wrapper">
                 <div class="container-fluid">
+
+                    
                     <!-- Breadcrumbs -->
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="#">Assessments</a>
+                            <a href="#">Assessments for</a>
                         </li>
                         <li class="breadcrumb-item active">
-                            <a>this.name</a>
+                            <div v-if="subjects.length > 0" class="row">
+                                Trying to get it to display subject name but this won't work as subject_id != index in local subjects array
+                                <!-- <div class="mr-5">{{subjects[subject_id].name}}</div> -->
+                            </div>
                         </li>
                     </ol>
                     <!-- End breadcrumbs -->
