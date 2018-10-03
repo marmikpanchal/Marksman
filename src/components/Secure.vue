@@ -92,6 +92,7 @@
                     <!-- End breadcrumbs -->
                     <!-- Subjects -->
                     <!-- If there are subjects -->
+
                     <div v-if="subjects.length > 0" class="row">
                         <div v-for="(subject, index) in subjects" class="col-xl-3 col-sm-6 mb-3" :key="index">
                             <div :class="'card text-white ' + colours[index%colours.length] + ' o-hidden h-100'">
@@ -114,6 +115,32 @@
                     <div v-else class="row">
                         <span>No subjects, please add a subject</span>
                     </div>
+
+                    
+                    <div>
+                        <b-button class="mb-3" variant="success" @click="showModal">
+                            Add Subject
+                        </b-button>
+                        <b-modal ref="Modal" hide-footer title="Adding a Subject">
+                            <div class="d-block text-center">
+                                <h3 style="margin-top: 15px">Fill in the details</h3>
+                            </div>
+                            <div>
+                                <b-container fluid>
+                                    <b-row class="my-1" :key="type">
+                                        <b-col class="mt-5" sm="3"><strong>Subject Name: </strong></b-col>
+                                        <b-col class="mt-5" sm="9"><b-form-input></b-form-input></b-col>
+                                        <b-col class="mt-3" sm="3"><strong>Goal Mark: </strong></b-col>
+                                        <b-col class="mt-3" sm="9"><b-form-input></b-form-input></b-col>
+                                    </b-row>
+                                </b-container>
+                            </div>
+                            <b-btn class="mt-5" variant="danger" block @click="hideModal">Cancel</b-btn>
+                            <b-btn class = "mt-3" variant="success" block >Save Changes</b-btn>
+                        </b-modal>
+                    </div>
+
+
                     <!-- End subjects -->
                     <div class="row">
                         <!-- Calendar -->
@@ -190,6 +217,8 @@
                 event.preventDefault();
                 this.$router.push({ name: "subject" });
            },
+           showModal() { this.$refs.Modal.show() },
+           hideModal() { this.$refs.Modal.hide() }
         },
         mounted() {
             fetch(`http://localhost:8081/subjects/${this.$parent.user_id}`, {
@@ -222,6 +251,14 @@
         
     }
 </script>
+
+<style>
+.modal-dialog {
+    margin-top: 150px;
+    width: auto;
+    pointer-events: none;
+}
+</style>
 
 <style src= "../assets/vendor/bootstrap/css/bootstrap.min.css" scoped></style>
 <style src= "../assets/vendor/fontawesome-free/css/all.min.css" scoped></style>
