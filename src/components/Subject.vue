@@ -77,12 +77,12 @@
                 </li>
             </ul>
             <!-- End sidebar -->
-    
+
             <!-- Dashboard -->
             <div id="content-wrapper">
                 <div class="container-fluid">
 
-                    
+
                     <!-- Breadcrumbs -->
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
@@ -97,28 +97,46 @@
                     </ol>
                     <!-- End breadcrumbs -->
 
+                    <!-- <div>
+                        <modal ref="Modal"></modal>
+                        <button class="btn btn-info" @click="showModal">Add Assessment</button>
+                    </div> -->
 
 
-                    <!-- Assessments -->
-                    <!-- If there are assessments -->
-                    <div v-if="assessments.length > 0" class="row">
-                        <div v-for="(assessment, index) in assessments" class="col-xl-12 col-sm-12 mb-3" :key="index">
-                            <div :class="'card text-white ' + colours[index%colours.length] + ' o-hidden h-100'">
-                                <div class="card-body">
-                                    <div class="card-body-icon">
-                                        <i class="fas fa-fw fa-comments"></i>
-                                    </div>
-                                    <div class="mr-5">{{assessment.name}}
-                                        <button type="button" class="btn btn-info btn-sm">Save</button>
-                                    </div>
-                                    <!-- <div class="mr-5">{{JSON.stringify(assessment)}}</div> -->
+                    <div>
+                        <b-button @click="showModal">
+                            Open Modal
+                        </b-button>
+                        <b-modal ref="Modal" hide-footer title="Using Component Methods">
+                            <div class="d-block text-center">
+                                <h3>Hello From My Modal!</h3>
+                            </div>
+                            <b-btn class="mt-3" variant="outline-danger" block @click="hideModal">Close Me</b-btn>
+                        </b-modal>
+                    </div>
+
+
+
+                <!-- Assessments -->
+                <!-- If there are assessments -->
+                <div v-if="assessments.length > 0" class="row">
+                    <div v-for="(assessment, index) in assessments" class="col-xl-12 col-sm-12 mb-3" :key="index">
+                        <div :class="'card text-white ' + colours[index%colours.length] + ' o-hidden h-100'">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fas fa-fw fa-comments"></i>
                                 </div>
-                                <!-- <a v-on:click="next(assessment, $event)" class="card-footer text-white clearfix small z-1" href=""> -->
-                                    <!-- <span class="float-left">View Details</span> -->
-                                    <span class="float">
-                                        <!-- <i class="fas fa-angle-right"></i> -->
+                                <div class="mr-5">{{assessment.name}}
+                                    <button type="button" class="btn btn-info btn-sm">Save</button>
+                                </div>
+                                <!-- <div class="mr-5">{{JSON.stringify(assessment)}}</div> -->
+                            </div>
+                            <!-- <a v-on:click="next(assessment, $event)" class="card-footer text-white clearfix small z-1" href=""> -->
+                                <!-- <span class="float-left">View Details</span> -->
+                                <span class="float">
+                                    <!-- <i class="fas fa-angle-right"></i> -->
 
-                                        <ul class="details">
+                                    <ul class="details">
                                             <!-- <li class="detail-item">
                                                 <a href="#">{{JSON.stringify(assessment)}}</a>
                                                 <a href="#"></a>
@@ -150,16 +168,10 @@
                                                     <label for="detail4">Weighting:</label>
                                                     <input type="detail" class="form-control" id="detail4" placeholder=weighting>
                                                 </div>
-                                                </form>
+                                            </form>
 
                                         </ul>
-
-
                                     </span>
-
-                                    
-
-
                                 </a>
                             </div>
                         </div>
@@ -183,8 +195,10 @@
 </template>
 
 <script>
+    // import Modal from './Modal.vue';
     export default {
         name: 'Subject',
+        // components: { Modal },
         data() {
             return {
                 subjects: [
@@ -192,64 +206,66 @@
                     // {name: "COMP1234"},
                     // {name: "COMP1232"},
                     // {name: "COMP1231"}
-                ],
-                assessments: [],
-                colours: [
+                    ],
+                    assessments: [],
+                    colours: [
                     "bg-primary",
                     "bg-warning",
                     "bg-success",
                     "bg-danger"
-                ]
-            };
-        },
-        methods: {
-            next(subject, event) {
-                event.preventDefault();
-                 alert(JSON.stringify(subject));
+                    ]
+                };
             },
-            next(assessment, event) {
-                event.preventDefault();
-                 alert(JSON.stringify(assessment));
+            methods: {
+                next(subject, event) {
+                    event.preventDefault();
+                    alert(JSON.stringify(subject));
+                },
+                next(assessment, event) {
+                    event.preventDefault();
+                    alert(JSON.stringify(assessment));
+                },
+                goSecure(event) {
+                    event.preventDefault();
+                    this.$router.push({ name: "secure" });
+                },
+                goSubject(event) {
+                    event.preventDefault();
+                    this.$router.push({ name: "subject" });
+                },
+                showModal() { this.$refs.Modal.show() },
+                hideModal() { this.$refs.Modal.hide() }
             },
-            goSecure(event) {
-                event.preventDefault();
-                this.$router.push({ name: "secure" });
-            },
-            goSubject(event) {
-                event.preventDefault();
-                this.$router.push({ name: "subject" });
-           },
-        },
-        mounted() {
-            fetch(`http://localhost:8081/subjects/${this.$parent.user_id}`, {
-                        method: 'GET',
-                    }).then(response => {
-                        if (response.status === 200) {
-                            response.json().then(subs => {
-                                subs.forEach(subject => {
-                                    this.subjects.push(subject);
-                                });
-                                
-                            })                           
-                        } else {
-                            console.log("Cannot retrieve subjects");
-                        }
-            });
+            mounted() {
+                fetch(`http://localhost:8081/subjects/${this.$parent.user_id}`, {
+                    method: 'GET',
+                }).then(response => {
+                    if (response.status === 200) {
+                        response.json().then(subs => {
+                            subs.forEach(subject => {
+                                this.subjects.push(subject);
+                            });
 
-            fetch(`http://localhost:8081/assessments/${this.$parent.subject_id}`, {
-                        method: 'GET',
-                    }).then(response => {
-                        if (response.status === 200) {
-                            response.json().then(asss => {
-                                asss.forEach(assessment => {
-                                    this.assessments.push(assessment);
-                                });
-                                
-                            })                           
-                        } else {
-                            console.log("Cannot retrieve assessments");
-                        }
-            });
+                        })                           
+                    } else {
+                        console.log("Cannot retrieve subjects");
+                    }
+                });
+
+                fetch(`http://localhost:8081/assessments/${this.$parent.subject_id}`, {
+                    method: 'GET',
+                }).then(response => {
+                    if (response.status === 200) {
+                        response.json().then(asss => {
+                            asss.forEach(assessment => {
+                                this.assessments.push(assessment);
+                            });
+
+                        })                           
+                    } else {
+                        console.log("Cannot retrieve assessments");
+                    }
+                });
 
             // fetch('http://localhost:8081/assessments/${this.$parent.subject_id}', {
             //     method: 'GET',
@@ -264,8 +280,8 @@
             //         console.log("Cannot retrieve assessments");
             //     }
             // });
-                
-                
+
+
         }
         
     }

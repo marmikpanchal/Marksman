@@ -4,17 +4,21 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
+import BootstrapVue from 'bootstrap-vue'
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '../node_modules/jquery/dist/jquery.min.js';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap/dist/js/bootstrap.min.js';
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 import FBSignInButton from 'vue-facebook-signin-button'
 import GSignInButton from 'vue-google-signin-button'
 
 Vue.config.productionTip = false
 Vue.use(FBSignInButton)
 Vue.use(Vuetify)
+Vue.use(BootstrapVue)
 Vue.use(GSignInButton)
 
 /* eslint-disable no-new */
