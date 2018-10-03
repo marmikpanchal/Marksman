@@ -97,21 +97,33 @@
                     </ol>
                     <!-- End breadcrumbs -->
 
-                    <!-- <div>
-                        <modal ref="Modal"></modal>
-                        <button class="btn btn-info" @click="showModal">Add Assessment</button>
-                    </div> -->
-
 
                     <div>
-                        <b-button @click="showModal">
-                            Open Modal
+                        <b-button class="mb-3" variant="success" @click="showModal">
+                            Add Assessment
                         </b-button>
-                        <b-modal ref="Modal" hide-footer title="Using Component Methods">
+                        <b-modal ref="Modal" hide-footer title="Adding an Assessment">
                             <div class="d-block text-center">
-                                <h3>Hello From My Modal!</h3>
+                                <h3 style="margin-top: 15px">Fill in the details</h3>
                             </div>
-                            <b-btn class="mt-3" variant="outline-danger" block @click="hideModal">Close Me</b-btn>
+                            <div>
+                                <b-container fluid>
+                                    <b-row class="my-1" :key="type">
+                                        <b-col class="mt-3" sm="3"><strong>Name: </strong></b-col>
+                                        <b-col class="mt-3" sm="9"><b-form-input></b-form-input></b-col>
+                                        <b-col class="mt-3" sm="3"><strong>Total Mark: </strong></b-col>
+                                        <b-col class="mt-3" sm="9"><b-form-input></b-form-input></b-col>
+                                        <b-col class="mt-3" sm="3"><strong>Actual Mark: </strong></b-col>
+                                        <b-col class="mt-3" sm="9"><b-form-input></b-form-input></b-col>
+                                        <b-col class="mt-3" sm="3"><strong>Goal Mark: </strong></b-col>
+                                        <b-col class="mt-3" sm="9"><b-form-input></b-form-input></b-col>
+                                        <b-col class="mt-3" sm="3"><strong>Weighting Mark: </strong></b-col>
+                                        <b-col class="mt-3 mb-3" sm="9"><b-form-input></b-form-input></b-col>
+                                    </b-row>
+                                </b-container>
+                            </div>
+                            <b-btn class="mt-5" variant="danger" block @click="hideModal">Cancel</b-btn>
+                            <b-btn class = "mt-3" variant="success" block >Save Changes</b-btn>
                         </b-modal>
                     </div>
 
@@ -286,6 +298,15 @@
         
     }
 </script>
+
+
+<style>
+.modal-dialog {
+    margin-top: 150px;
+    width: auto;
+    pointer-events: none;
+}
+</style>
 
 <style src= "../assets/vendor/bootstrap/css/bootstrap.min.css" scoped></style>
 <style src= "../assets/vendor/fontawesome-free/css/all.min.css" scoped></style>
