@@ -57,12 +57,16 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-item active">
-                    <a v-on:click="goSubject($event)" class="nav-link" href="">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="subjects.html" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Subjects</span>
+                        <span>Subjects</span><span class="caret"></span>
                     </a>
-                </li>
+                    <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                        <a class="dropdown-item" href="">COMP</a>
+                        <a class="dropdown-item" href="">COMP</a>
+                    </div>
+                </li> 
                 <li class="nav-item">
                     <a class="nav-link" href="calendar.html">
                         <i class="fas fa-fw fa-table"></i>
@@ -81,8 +85,6 @@
             <!-- Dashboard -->
             <div id="content-wrapper">
                 <div class="container-fluid">
-
-
                     <!-- Breadcrumbs -->
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
@@ -96,109 +98,145 @@
                         </li>
                     </ol>
                     <!-- End breadcrumbs -->
-
-
-                    <div>
-                        <b-button class="mb-3" variant="success" @click="showModal">
-                            Add Assessment
-                        </b-button>
-                        <b-modal ref="Modal" hide-footer title="Adding an Assessment">
-                            <div class="d-block text-center">
-                                <h3 style="margin-top: 15px">Fill in the details</h3>
-                            </div>
-                            <div>
-                                <b-container fluid>
-                                    <b-row class="my-1" :key="type">
-                                        <b-col class="mt-3" sm="3"><strong>Name: </strong></b-col>
-                                        <b-col class="mt-3" sm="9"><b-form-input v-model="name"></b-form-input></b-col>
-                                        <b-col class="mt-3" sm="3"><strong>Total Mark: </strong></b-col>
-                                        <b-col class="mt-3" sm="9"><b-form-input v-model="total_mark"></b-form-input></b-col>
-                                        <b-col class="mt-3" sm="3"><strong>Actual Mark: </strong></b-col>
-                                        <b-col class="mt-3" sm="9"><b-form-input v-model="actual_mark"></b-form-input></b-col>
-                                        <b-col class="mt-3" sm="3"><strong>Goal Mark: </strong></b-col>
-                                        <b-col class="mt-3" sm="9"><b-form-input v-model="goal_mark"></b-form-input></b-col>
-                                        <b-col class="mt-3" sm="3"><strong>Weighting Mark: </strong></b-col>
-                                        <b-col class="mt-3 mb-3" sm="9"><b-form-input v-model="weight"></b-form-input></b-col>
-                                    </b-row>
-                                </b-container>
-                            </div>
-                            <b-btn class="mt-5" variant="danger" block @click="hideModal">Cancel</b-btn>
-                            <b-btn class = "mt-3" variant="success" block v-on:click="createAssessment()">Save Changes</b-btn>
-                        </b-modal>
-                    </div>
-
-
-
-                <!-- Assessments -->
-                <!-- If there are assessments -->
-                <div v-if="assessments.length > 0" class="row">
-                    <div v-for="(assessment, index) in assessments" class="col-xl-12 col-sm-12 mb-3" :key="index">
-                        <div :class="'card text-white ' + colours[index%colours.length] + ' o-hidden h-100'">
-                            <div class="card-body">
-                                <div class="card-body-icon">
-                                    <i class="fas fa-fw fa-comments"></i>
-                                </div>
-                                <div class="mr-5">{{assessment.name}}
-                                    <button type="button" class="btn btn-info btn-sm">Save</button>
-                                </div>
-                                <!-- <div class="mr-5">{{JSON.stringify(assessment)}}</div> -->
-                            </div>
-                            <!-- <a v-on:click="next(assessment, $event)" class="card-footer text-white clearfix small z-1" href=""> -->
-                                <!-- <span class="float-left">View Details</span> -->
-                                <span class="float">
-                                    <!-- <i class="fas fa-angle-right"></i> -->
-
-                                    <ul class="details">
-                                            <!-- <li class="detail-item">
-                                                <a href="#">{{JSON.stringify(assessment)}}</a>
-                                                <a href="#"></a>
-                                                <a href="#"></a>
-                                                <a href="#"></a>
-                                                <a href="#"></a>
-                                            </li> -->
-                                            
-                                            <li class="list-group-item list-group-item-secondary">Total Mark: {{assessment.total_mark}}</li>
-                                            <li class="list-group-item list-group-item-secondary">Actual Mark: {{assessment.actual_mark}}</li>
-                                            <li class="list-group-item list-group-item-secondary">Goal Mark: {{assessment.goal_mark}}</li>
-                                            <li class="list-group-item list-group-item-secondary">Weighting: {{assessment.weight}}</li>
-
-                                            <form>
-                                                <div class="form-group">
-                                                    <label for="detail1">Total Mark:</label>
-                                                    <input type="detail" class="form-control" id="detail1" placeholder=assessment.total_mark>
-                                                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="detail2">Actual Mark:</label>
-                                                    <input type="detail" class="form-control" id="detail2" placeholder=assessment.actual_mark>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="detail3">Goal Mark:</label>
-                                                    <input type="detail" class="form-control" id="detail3" placeholder=assessment.goal_mark>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="detail4">Weighting:</label>
-                                                    <input type="detail" class="form-control" id="detail4" placeholder=weighting>
-                                                </div>
-                                            </form>
-
-                                        </ul>
-                                    </span>
-                                </a>
+                    <!-- Progress bar -->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fas fa-chart-area"></i>
+                            Your current progress
+                        </div>
+                        <div class="card-body">
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
+                        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                     </div>
-                    <!-- If there aren't assessments-->
-                    <div v-else class="row">
-                        <span>No assessments, please add an assessment</span>
+                    <!-- End progress bar -->
+                    <!-- Assessment box -->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            Assessments
+                        </div>
+                        <div class="card-body">
+                            <!-- Add assessment modal -->
+                            <div>
+                                <b-button class="mb-3" variant="success" @click="showModal">
+                                    Add Assessment
+                                </b-button>
+                                <b-modal ref="Modal" hide-footer title="Adding an Assessment">
+                                    <div class="d-block text-center">
+                                        <h3 style="margin-top: 15px">Fill in the details</h3>
+                                    </div>
+                                    <div>
+                                        <b-container fluid>
+                                            <b-row class="my-1" :key="type">
+                                                <b-col class="mt-3" sm="3"><strong>Name: </strong></b-col>
+                                                <b-col class="mt-3" sm="9"><b-form-input v-model="name"></b-form-input></b-col>
+                                                <b-col class="mt-3" sm="3"><strong>Total Mark: </strong></b-col>
+                                                <b-col class="mt-3" sm="9"><b-form-input v-model="total_mark"></b-form-input></b-col>
+                                                <b-col class="mt-3" sm="3"><strong>Actual Mark: </strong></b-col>
+                                                <b-col class="mt-3" sm="9"><b-form-input v-model="actual_mark"></b-form-input></b-col>
+                                                <b-col class="mt-3" sm="3"><strong>Goal Mark: </strong></b-col>
+                                                <b-col class="mt-3" sm="9"><b-form-input v-model="goal_mark"></b-form-input></b-col>
+                                                <b-col class="mt-3" sm="3"><strong>Weighting Mark: </strong></b-col>
+                                                <b-col class="mt-3 mb-3" sm="9"><b-form-input v-model="weight"></b-form-input></b-col>
+                                            </b-row>
+                                        </b-container>
+                                    </div>
+                                    <b-btn class="mt-5" variant="danger" block @click="hideModal">Cancel</b-btn>
+                                    <b-btn class = "mt-3" variant="success" block v-on:click="createAssessment()">Save Changes</b-btn>
+                                </b-modal>
+                            </div>
+                            <!-- End add assessment modal -->
+                            <div class="accordion vertical">
+                                <ul>
+                                    <li>
+                                        <input type="checkbox" id="checkbox-1" name="checkbox-accordion" />
+                                        <label for="checkbox-1">Assignment 1</label>
+                                        <div class="content">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" id="checkbox-2" name="checkbox-accordion" />
+                                        <label for="checkbox-2">Assignment 2</label>
+                                        <div class="content">
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                     </div>
-                    <!-- End assessments -->
+                    <!-- End assessment box -->
 
+                    <!-- Assessments -->
+                    <!-- If there are assessments -->
+                    <div v-if="assessments.length > 0" class="row">
+                        <div v-for="(assessment, index) in assessments" class="col-xl-12 col-sm-12 mb-3" :key="index">
+                            <div :class="'card text-white ' + colours[index%colours.length] + ' o-hidden h-100'">
+                                <div class="card-body">
+                                    <div class="card-body-icon">
+                                        <i class="fas fa-fw fa-comments"></i>
+                                    </div>
+                                    <div class="mr-5">{{assessment.name}}
+                                        <button type="button" class="btn btn-info btn-sm">Save</button>
+                                    </div>
+                                    <!-- <div class="mr-5">{{JSON.stringify(assessment)}}</div> -->
+                                </div>
+                                <!-- <a v-on:click="next(assessment, $event)" class="card-footer text-white clearfix small z-1" href=""> -->
+                                    <!-- <span class="float-left">View Details</span> -->
+                                    <span class="float">
+                                        <!-- <i class="fas fa-angle-right"></i> -->
 
+                                        <ul class="details">
+                                                <!-- <li class="detail-item">
+                                                    <a href="#">{{JSON.stringify(assessment)}}</a>
+                                                    <a href="#"></a>
+                                                    <a href="#"></a>
+                                                    <a href="#"></a>
+                                                    <a href="#"></a>
+                                                </li> -->
+                                                
+                                                <li class="list-group-item list-group-item-secondary">Total Mark: {{assessment.total_mark}}</li>
+                                                <li class="list-group-item list-group-item-secondary">Actual Mark: {{assessment.actual_mark}}</li>
+                                                <li class="list-group-item list-group-item-secondary">Goal Mark: {{assessment.goal_mark}}</li>
+                                                <li class="list-group-item list-group-item-secondary">Weighting: {{assessment.weight}}</li>
 
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label for="detail1">Total Mark:</label>
+                                                        <input type="detail" class="form-control" id="detail1" placeholder=assessment.total_mark>
+                                                        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="detail2">Actual Mark:</label>
+                                                        <input type="detail" class="form-control" id="detail2" placeholder=assessment.actual_mark>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="detail3">Goal Mark:</label>
+                                                        <input type="detail" class="form-control" id="detail3" placeholder=assessment.goal_mark>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="detail4">Weighting:</label>
+                                                        <input type="detail" class="form-control" id="detail4" placeholder=weighting>
+                                                    </div>
+                                                </form>
 
-
-                </div>     
+                                            </ul>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- If there aren't assessments-->
+                        <div v-else class="row">
+                            <div class="card-body">
+                                <span>No assessments, please add an assessment</span>
+                            </div>
+                        </div> 
+                    </div>  
+                    <!-- End assessments -->   
             </div>
             <!-- End dashboard -->
         </div>

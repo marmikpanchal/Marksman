@@ -58,12 +58,16 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a v-on:click="goSubject($event)" class="nav-link" href="">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="subjects.html" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Subjects</span>
+                        <span>Subjects</span><span class="caret"></span>
                     </a>
-                </li>
+                    <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                        <a class="dropdown-item" href="">COMP2111</a>
+                        <a class="dropdown-item" href="">COMP3121</a>
+                    </div>
+                </li> 
                 <li class="nav-item">
                     <a class="nav-link" href="calendar.html">
                         <i class="fas fa-fw fa-table"></i>
@@ -91,8 +95,28 @@
                     </ol>
                     <!-- End breadcrumbs -->
                     <!-- Subjects -->
+                    <!-- An example pie -->
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-6 mb-3">
+                            <div class="card-body">
+                                <div class="circle-progress" data-percentage="20">
+				                    <span class="circle-progress-left">
+					                    <span class="circle-progress-bar"></span>
+				                    </span>
+				                    <span class="circle-progress-right">
+					                    <span class="circle-progress-bar"></span>
+				                    </span>
+				                    <div class="circle-progress-value">
+					                    <div>
+					                        COMP2111
+					                        <span>20/100</span>
+					                    </div>
+				                    </div>
+			                    </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- If there are subjects -->
-
                     <div v-if="subjects.length > 0" class="row">
                         <div v-for="(subject, index) in subjects" class="col-xl-3 col-sm-6 mb-3" :key="index">
                             <div :class="'card text-white ' + colours[index%colours.length] + ' o-hidden h-100'">
@@ -112,10 +136,12 @@
                         </div>
                     </div>
                     <!-- If there aren't subjects-->
+                    <!-- If there aren't subjects -->
                     <div v-else class="row">
-                        <span>No subjects, please add a subject</span>
+                        <div class="card-body">
+                            <span>No subjects, please add a subject</span>
+                        </div>
                     </div>
-
                     
                     <div>
                         <b-button class="mb-3" variant="success" @click="showModal">
@@ -180,7 +206,16 @@
             </div>
             <!-- End dashboard -->
         </div>
-        <!-- End main page -->    
+        <!-- End main page --> 
+        <!-- Footer -->
+        <footer class="sticky-footer">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright © Marksman 2018</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End footer -->   
     </body>
 </template>
 
