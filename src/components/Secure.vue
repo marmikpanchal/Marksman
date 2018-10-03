@@ -129,14 +129,14 @@
                                 <b-container fluid>
                                     <b-row class="my-1" :key="type">
                                         <b-col class="mt-5" sm="3"><strong>Subject Name: </strong></b-col>
-                                        <b-col class="mt-5" sm="9"><b-form-input></b-form-input></b-col>
+                                        <b-col class="mt-5" sm="9"><b-form-input v-model="name"></b-form-input></b-col>
                                         <b-col class="mt-3" sm="3"><strong>Goal Mark: </strong></b-col>
-                                        <b-col class="mt-3" sm="9"><b-form-input></b-form-input></b-col>
+                                        <b-col class="mt-3" sm="9"><b-form-input v-model="goal_mark"></b-form-input></b-col>
                                     </b-row>
                                 </b-container>
                             </div>
                             <b-btn class="mt-5" variant="danger" block @click="hideModal">Cancel</b-btn>
-                            <b-btn class = "mt-3" variant="success" block >Save Changes</b-btn>
+                            <b-btn class = "mt-3" variant="success" block v-on:click="createSubject()">Save Changes</b-btn>
                         </b-modal>
                     </div>
 
@@ -196,7 +196,11 @@
                     "bg-warning",
                     "bg-success",
                     "bg-danger"
-                ]
+                ],
+                name: '',
+                goal_mark: 0,
+                component: 0
+
             };
         },
         methods: {
@@ -204,6 +208,7 @@
                 event.preventDefault();
 
                 this.$emit("subject_id", subject.id);
+                this.$emit("subject_name", subject.name);
                 console.log("TRYING TO DEBUG");
                 console.log(subject);
                 console.log(subject.id); // this works
@@ -218,17 +223,28 @@
                 this.$router.push({ name: "subject" });
            },
            showModal() { this.$refs.Modal.show() },
-           hideModal() { this.$refs.Modal.hide() }
-        },
-        mounted() {
-            fetch(`http://localhost:8081/subjects/${this.$parent.user_id}`, {
+           hideModal() { this.$refs.Modal.hide() },
+           createSubject() {
+               fetch(`http://localhost:8081/subjects`, {
+                   method: 'POST',
+                   headers: {"Content-Type": "application/json"},
+                   body: JSON.stringify({
+                       user_id: this.$parent.user_id,
+                       name: this.name,
+                       goal_mark: this.goal_mark
+                   })
+               }).then(response => {
+                   this.hideModal()
+                   this.getInfo();
+               })
+           },
+           getInfo() {
+               fetch(`http://localhost:8081/subjects/${this.$parent.user_id}`, {
                         method: 'GET',
                     }).then(response => {
                         if (response.status === 200) {
                             response.json().then(subs => {
-                                subs.forEach(subject => {
-                                    this.subjects.push(subject);
-                                }); 
+                                    this.subjects = subs;
                             });                           
                         } else {
                             console.log("Cannot retrieve subjects");
@@ -239,14 +255,19 @@
                     }).then(response => {
                         if (response.status === 200) {
                             response.json().then(tasks => {
-                                tasks.forEach(task => {
-                                    this.tasks.push(task);
-                                }); 
+                                this.tasks = tasks;
                             });                           
                         } else {
                             console.log("Cannot retrieve tasks");
                         }
             });                
+           }
+
+
+
+        },
+        mounted() {
+           this.getInfo();
         }
         
     }

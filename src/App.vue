@@ -5,7 +5,7 @@
                 <button>Logout</button>
             </router-link>
         </div>
-        <router-view @authenticated="setAuthenticated" @id="setId" @subject_id="setSubjectId"/>
+        <router-view @authenticated="setAuthenticated" @id="setId" @subject_id="setSubjectId" @subject_name="setSubjectName"/>
         <!-- <router-view @id="setId" /> -->
     </div>
 </template>
@@ -18,6 +18,7 @@
                 authenticated: false,
                 user_id: 0,
                 subject_id: 0,
+                subject_name: '',
                 mockAccount: {
                     username: "ligma",
                     password: "ballz"
@@ -45,7 +46,11 @@
             },
             setSubjectId(id) {
                 this.subject_id = id;
+            },
+            setSubjectName(name) {
+                this.subject_name = name;
             }
+            
         }
 	}
 </script>

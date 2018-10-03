@@ -86,7 +86,7 @@
                     <!-- Breadcrumbs -->
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="#">Assessments for</a>
+                            <a href="#">Assessments for {{this.$parent.subject_name}}</a>
                         </li>
                         <li class="breadcrumb-item active">
                             <div v-if="subjects.length > 0" class="row">
@@ -110,20 +110,20 @@
                                 <b-container fluid>
                                     <b-row class="my-1" :key="type">
                                         <b-col class="mt-3" sm="3"><strong>Name: </strong></b-col>
-                                        <b-col class="mt-3" sm="9"><b-form-input></b-form-input></b-col>
+                                        <b-col class="mt-3" sm="9"><b-form-input v-model="name"></b-form-input></b-col>
                                         <b-col class="mt-3" sm="3"><strong>Total Mark: </strong></b-col>
-                                        <b-col class="mt-3" sm="9"><b-form-input></b-form-input></b-col>
+                                        <b-col class="mt-3" sm="9"><b-form-input v-model="total_mark"></b-form-input></b-col>
                                         <b-col class="mt-3" sm="3"><strong>Actual Mark: </strong></b-col>
-                                        <b-col class="mt-3" sm="9"><b-form-input></b-form-input></b-col>
+                                        <b-col class="mt-3" sm="9"><b-form-input v-model="actual_mark"></b-form-input></b-col>
                                         <b-col class="mt-3" sm="3"><strong>Goal Mark: </strong></b-col>
-                                        <b-col class="mt-3" sm="9"><b-form-input></b-form-input></b-col>
+                                        <b-col class="mt-3" sm="9"><b-form-input v-model="goal_mark"></b-form-input></b-col>
                                         <b-col class="mt-3" sm="3"><strong>Weighting Mark: </strong></b-col>
-                                        <b-col class="mt-3 mb-3" sm="9"><b-form-input></b-form-input></b-col>
+                                        <b-col class="mt-3 mb-3" sm="9"><b-form-input v-model="weight"></b-form-input></b-col>
                                     </b-row>
                                 </b-container>
                             </div>
                             <b-btn class="mt-5" variant="danger" block @click="hideModal">Cancel</b-btn>
-                            <b-btn class = "mt-3" variant="success" block >Save Changes</b-btn>
+                            <b-btn class = "mt-3" variant="success" block v-on:click="createAssessment()">Save Changes</b-btn>
                         </b-modal>
                     </div>
 
@@ -225,7 +225,12 @@
                     "bg-warning",
                     "bg-success",
                     "bg-danger"
-                    ]
+                    ],
+                    name: '',
+                    total_mark: '',
+                    actual_mark: '',
+                    goal_mark: '',
+                    weight: ''
                 };
             },
             methods: {
@@ -246,56 +251,43 @@
                     this.$router.push({ name: "subject" });
                 },
                 showModal() { this.$refs.Modal.show() },
-                hideModal() { this.$refs.Modal.hide() }
+                hideModal() { this.$refs.Modal.hide() },
+
+                createAssessment() {
+                    fetch(`http://localhost:8081/assessments`, {
+                        method: 'POST',
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({
+                            subject_id: this.$parent.subject_id,
+                            name: this.name,
+                            total_mark: this.total_mark,
+                            actual_mark: this.actual_mark,
+                            goal_mark: this.goal_mark,
+                            weight: this.weight
+                        })
+                    }).then(response => {
+                        this.hideModal()
+                        this.getInfo();
+                    })
+                },
+                getInfo() {
+                    fetch(`http://localhost:8081/assessments/${this.$parent.subject_id}`, {
+                        method: 'GET',
+                    }).then(response => {
+                        if (response.status === 200) {
+                            response.json().then(assessments => {
+                                    this.assessments = assessments
+                            })                           
+                        } else {
+                            console.log("Cannot retrieve assessments");
+                        }
+                    });
+                }
             },
+          
             mounted() {
-                fetch(`http://localhost:8081/subjects/${this.$parent.user_id}`, {
-                    method: 'GET',
-                }).then(response => {
-                    if (response.status === 200) {
-                        response.json().then(subs => {
-                            subs.forEach(subject => {
-                                this.subjects.push(subject);
-                            });
-
-                        })                           
-                    } else {
-                        console.log("Cannot retrieve subjects");
-                    }
-                });
-
-                fetch(`http://localhost:8081/assessments/${this.$parent.subject_id}`, {
-                    method: 'GET',
-                }).then(response => {
-                    if (response.status === 200) {
-                        response.json().then(asss => {
-                            asss.forEach(assessment => {
-                                this.assessments.push(assessment);
-                            });
-
-                        })                           
-                    } else {
-                        console.log("Cannot retrieve assessments");
-                    }
-                });
-
-            // fetch('http://localhost:8081/assessments/${this.$parent.subject_id}', {
-            //     method: 'GET',
-            // }).then(response => {
-            //     if (response.status === 200) {
-            //         response.json().then(asss => {
-            //             asss.forEach(assessment => {
-            //                 this.assessments.push(assessment);
-            //             });
-            //         })
-            //     } else {
-            //         console.log("Cannot retrieve assessments");
-            //     }
-            // });
-
-
-        }
-        
+                this.getInfo();
+            }  
     }
 </script>
 
