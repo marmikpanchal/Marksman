@@ -77,12 +77,12 @@
                 </li>
             </ul>
             <!-- End sidebar -->
-    
+
             <!-- Dashboard -->
             <div id="content-wrapper">
                 <div class="container-fluid">
 
-                    
+
                     <!-- Breadcrumbs -->
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
@@ -98,27 +98,57 @@
                     <!-- End breadcrumbs -->
 
 
+                    <div>
+                        <b-button class="mb-3" variant="success" @click="showModal">
+                            Add Assessment
+                        </b-button>
+                        <b-modal ref="Modal" hide-footer title="Adding an Assessment">
+                            <div class="d-block text-center">
+                                <h3 style="margin-top: 15px">Fill in the details</h3>
+                            </div>
+                            <div>
+                                <b-container fluid>
+                                    <b-row class="my-1" :key="type">
+                                        <b-col class="mt-3" sm="3"><strong>Name: </strong></b-col>
+                                        <b-col class="mt-3" sm="9"><b-form-input></b-form-input></b-col>
+                                        <b-col class="mt-3" sm="3"><strong>Total Mark: </strong></b-col>
+                                        <b-col class="mt-3" sm="9"><b-form-input></b-form-input></b-col>
+                                        <b-col class="mt-3" sm="3"><strong>Actual Mark: </strong></b-col>
+                                        <b-col class="mt-3" sm="9"><b-form-input></b-form-input></b-col>
+                                        <b-col class="mt-3" sm="3"><strong>Goal Mark: </strong></b-col>
+                                        <b-col class="mt-3" sm="9"><b-form-input></b-form-input></b-col>
+                                        <b-col class="mt-3" sm="3"><strong>Weighting Mark: </strong></b-col>
+                                        <b-col class="mt-3 mb-3" sm="9"><b-form-input></b-form-input></b-col>
+                                    </b-row>
+                                </b-container>
+                            </div>
+                            <b-btn class="mt-5" variant="danger" block @click="hideModal">Cancel</b-btn>
+                            <b-btn class = "mt-3" variant="success" block >Save Changes</b-btn>
+                        </b-modal>
+                    </div>
 
-                    <!-- Assessments -->
-                    <!-- If there are assessments -->
-                    <div v-if="assessments.length > 0" class="row">
-                        <div v-for="(assessment, index) in assessments" class="col-xl-12 col-sm-12 mb-3" :key="index">
-                            <div :class="'card text-white ' + colours[index%colours.length] + ' o-hidden h-100'">
-                                <div class="card-body">
-                                    <div class="card-body-icon">
-                                        <i class="fas fa-fw fa-comments"></i>
-                                    </div>
-                                    <div class="mr-5">{{assessment.name}}
-                                        <button type="button" class="btn btn-info btn-sm">Save</button>
-                                    </div>
-                                    <!-- <div class="mr-5">{{JSON.stringify(assessment)}}</div> -->
+
+
+                <!-- Assessments -->
+                <!-- If there are assessments -->
+                <div v-if="assessments.length > 0" class="row">
+                    <div v-for="(assessment, index) in assessments" class="col-xl-12 col-sm-12 mb-3" :key="index">
+                        <div :class="'card text-white ' + colours[index%colours.length] + ' o-hidden h-100'">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fas fa-fw fa-comments"></i>
                                 </div>
-                                <!-- <a v-on:click="next(assessment, $event)" class="card-footer text-white clearfix small z-1" href=""> -->
-                                    <!-- <span class="float-left">View Details</span> -->
-                                    <span class="float">
-                                        <!-- <i class="fas fa-angle-right"></i> -->
+                                <div class="mr-5">{{assessment.name}}
+                                    <button type="button" class="btn btn-info btn-sm">Save</button>
+                                </div>
+                                <!-- <div class="mr-5">{{JSON.stringify(assessment)}}</div> -->
+                            </div>
+                            <!-- <a v-on:click="next(assessment, $event)" class="card-footer text-white clearfix small z-1" href=""> -->
+                                <!-- <span class="float-left">View Details</span> -->
+                                <span class="float">
+                                    <!-- <i class="fas fa-angle-right"></i> -->
 
-                                        <ul class="details">
+                                    <ul class="details">
                                             <!-- <li class="detail-item">
                                                 <a href="#">{{JSON.stringify(assessment)}}</a>
                                                 <a href="#"></a>
@@ -150,16 +180,10 @@
                                                     <label for="detail4">Weighting:</label>
                                                     <input type="detail" class="form-control" id="detail4" placeholder=weighting>
                                                 </div>
-                                                </form>
+                                            </form>
 
                                         </ul>
-
-
                                     </span>
-
-                                    
-
-
                                 </a>
                             </div>
                         </div>
@@ -183,8 +207,10 @@
 </template>
 
 <script>
+    // import Modal from './Modal.vue';
     export default {
         name: 'Subject',
+        // components: { Modal },
         data() {
             return {
                 subjects: [
@@ -192,64 +218,66 @@
                     // {name: "COMP1234"},
                     // {name: "COMP1232"},
                     // {name: "COMP1231"}
-                ],
-                assessments: [],
-                colours: [
+                    ],
+                    assessments: [],
+                    colours: [
                     "bg-primary",
                     "bg-warning",
                     "bg-success",
                     "bg-danger"
-                ]
-            };
-        },
-        methods: {
-            next(subject, event) {
-                event.preventDefault();
-                 alert(JSON.stringify(subject));
+                    ]
+                };
             },
-            next(assessment, event) {
-                event.preventDefault();
-                 alert(JSON.stringify(assessment));
+            methods: {
+                next(subject, event) {
+                    event.preventDefault();
+                    alert(JSON.stringify(subject));
+                },
+                next(assessment, event) {
+                    event.preventDefault();
+                    alert(JSON.stringify(assessment));
+                },
+                goSecure(event) {
+                    event.preventDefault();
+                    this.$router.push({ name: "secure" });
+                },
+                goSubject(event) {
+                    event.preventDefault();
+                    this.$router.push({ name: "subject" });
+                },
+                showModal() { this.$refs.Modal.show() },
+                hideModal() { this.$refs.Modal.hide() }
             },
-            goSecure(event) {
-                event.preventDefault();
-                this.$router.push({ name: "secure" });
-            },
-            goSubject(event) {
-                event.preventDefault();
-                this.$router.push({ name: "subject" });
-           },
-        },
-        mounted() {
-            fetch(`http://localhost:8081/subjects/${this.$parent.user_id}`, {
-                        method: 'GET',
-                    }).then(response => {
-                        if (response.status === 200) {
-                            response.json().then(subs => {
-                                subs.forEach(subject => {
-                                    this.subjects.push(subject);
-                                });
-                                
-                            })                           
-                        } else {
-                            console.log("Cannot retrieve subjects");
-                        }
-            });
+            mounted() {
+                fetch(`http://localhost:8081/subjects/${this.$parent.user_id}`, {
+                    method: 'GET',
+                }).then(response => {
+                    if (response.status === 200) {
+                        response.json().then(subs => {
+                            subs.forEach(subject => {
+                                this.subjects.push(subject);
+                            });
 
-            fetch(`http://localhost:8081/assessments/${this.$parent.subject_id}`, {
-                        method: 'GET',
-                    }).then(response => {
-                        if (response.status === 200) {
-                            response.json().then(asss => {
-                                asss.forEach(assessment => {
-                                    this.assessments.push(assessment);
-                                });
-                                
-                            })                           
-                        } else {
-                            console.log("Cannot retrieve assessments");
-                        }
-            });
+                        })                           
+                    } else {
+                        console.log("Cannot retrieve subjects");
+                    }
+                });
+
+                fetch(`http://localhost:8081/assessments/${this.$parent.subject_id}`, {
+                    method: 'GET',
+                }).then(response => {
+                    if (response.status === 200) {
+                        response.json().then(asss => {
+                            asss.forEach(assessment => {
+                                this.assessments.push(assessment);
+                            });
+
+                        })                           
+                    } else {
+                        console.log("Cannot retrieve assessments");
+                    }
+                });
 
             // fetch('http://localhost:8081/assessments/${this.$parent.subject_id}', {
             //     method: 'GET',
@@ -264,12 +292,21 @@
             //         console.log("Cannot retrieve assessments");
             //     }
             // });
-                
-                
+
+
         }
         
     }
 </script>
+
+
+<style>
+.modal-dialog {
+    margin-top: 150px;
+    width: auto;
+    pointer-events: none;
+}
+</style>
 
 <style src= "../assets/vendor/bootstrap/css/bootstrap.min.css" scoped></style>
 <style src= "../assets/vendor/fontawesome-free/css/all.min.css" scoped></style>
