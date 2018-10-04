@@ -212,14 +212,14 @@
             <!-- End dashboard -->
         </div>
         <!-- End main page --> 
-        <!-- Footer -->
+        <!-- Footer
         <footer class="sticky-footer">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
                     <span>Copyright © Marksman 2018</span>
                 </div>
             </div>
-        </footer>
+        </footer> -->
         <!-- End footer -->   
     </body>
 </template>
