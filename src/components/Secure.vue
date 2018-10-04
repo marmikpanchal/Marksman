@@ -148,9 +148,14 @@
                             <div class="card mb-3"> 
                                 <div class="card-header">Calendar</div>
                                 <div class="card-body">
-                                    <canvas id="myBarChart" width="100%" height="50"></canvas>
+                                        <v-date-picker
+                                            v-model="date2"
+                                            :event-color="date => date[9] % 2 ? 'green' : 'yellow'"
+                                            :events="functionEvents"
+                                            full-width
+                    
+                                        ></v-date-picker>
                                  </div>
-                                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                             </div>
                         </div>
                         <!-- End calendar -->
@@ -199,8 +204,10 @@
                 ],
                 name: '',
                 goal_mark: 0,
-                component: 0
-
+                component: 0,
+                arrayEvents: null,
+                date1: null,
+                date2: null
             };
         },
         methods: {
@@ -261,13 +268,23 @@
                             console.log("Cannot retrieve tasks");
                         }
             });                
-           }
+           },
+            functionEvents (date) {
+            const [,, day] = date.split('-')
+            return parseInt(day, 10) % 3 === 0
+            } 
 
 
 
         },
         mounted() {
-           this.getInfo();
+            this.getInfo();
+            this.arrayEvents = [...Array(6)].map(() => {
+            const day = Math.floor(Math.random() * 30)
+            const d = new Date()
+            d.setDate(day)
+            return d.toISOString().substr(0, 10)
+            })
         }
         
     }
@@ -279,6 +296,12 @@
     width: auto;
     pointer-events: none;
 }
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
 </style>
 
 <style src= "../assets/vendor/bootstrap/css/bootstrap.min.css" scoped></style>
