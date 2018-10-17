@@ -1,9 +1,16 @@
 <template>
 	<div id="app">
-        <div id="nav">
-            <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>
-                <button>Logout</button>
-            </router-link>
+        <div v-if="authenticated" id="nav">
+            <nav class="navbar navbar-dark bg-dark static-top">
+                <div>
+                    <a v-on:click="goSecure($event)" class="navbar-brand mr-1" href="">Marksman</a>
+                </div>
+                <div style="float: right;">
+                    <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>
+                        <b-btn variant="danger">Logout</b-btn>
+                    </router-link>
+                </div>  
+            </nav>
         </div>
         <router-view @authenticated="setAuthenticated" @id="setId" @subject_id="setSubjectId" @subject_name="setSubjectName"/>
         <!-- <router-view @id="setId" /> -->
@@ -18,11 +25,7 @@
                 authenticated: false,
                 user_id: 0,
                 subject_id: 0,
-                subject_name: '',
-                mockAccount: {
-                    username: "ligma",
-                    password: "ballz"
-                }
+                subject_name: ''
             }
         },
 
