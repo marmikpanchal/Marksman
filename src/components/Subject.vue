@@ -106,8 +106,8 @@
                         </div>
                         <div class="card-body">
                             <div class="progress">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-success" role="progressbar" :style="'width:' + marks.curr_total + '%'" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-danger" role="progressbar" :style="'width:' + (marks.total - marks.curr_total) + '%'" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
                         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
@@ -268,7 +268,8 @@
                     total_mark: '',
                     actual_mark: '',
                     goal_mark: '',
-                    weight: ''
+                    weight: '',
+                    marks: {}
                 };
             },
             methods: {
@@ -320,7 +321,19 @@
                             console.log("Cannot retrieve assessments");
                         }
                     });
+                    fetch(`http://localhost:8081/subjects/totals/${this.$parent.subject_id}`, {
+                        method: 'GET',
+                    }).then(response => {
+                        if (response.status === 200) {
+                            response.json().then(marks => {
+                                    this.marks = marks
+                            })                           
+                        } else {
+                            console.log("Cannot retrieve assessments");
+                        }
+                    });
                 }
+                
             },
           
             mounted() {

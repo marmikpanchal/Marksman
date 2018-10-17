@@ -96,46 +96,31 @@
                     <!-- End breadcrumbs -->
                     <!-- Subjects -->
                     <!-- An example pie -->
-                    <div class="row">
-                        <div class="col-xl-3 col-sm-6 mb-3">
-                            <div class="card-body">
-                                <div class="circle-progress" data-percentage="20">
-				                    <span class="circle-progress-left">
-					                    <span class="circle-progress-bar"></span>
-				                    </span>
-				                    <span class="circle-progress-right">
-					                    <span class="circle-progress-bar"></span>
-				                    </span>
-				                    <div class="circle-progress-value">
-					                    <div>
-					                        COMP2111
-					                        <span>20/100</span>
-					                    </div>
-				                    </div>
-			                    </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- If there are subjects -->
                     <div v-if="subjects.length > 0" class="row">
                         <div v-for="(subject, index) in subjects" class="col-xl-3 col-sm-6 mb-3" :key="index">
-                            <div :class="'card text-white ' + colours[index%colours.length] + ' o-hidden h-100'">
+                            <a v-on:click="next(subject, $event)" href="">
                                 <div class="card-body">
-                                    <div class="card-body-icon">
-                                        <i class="fas fa-fw fa-comments"></i>
+                                    <div class="circle-progress"  :data-percentage="subject.total">
+                                        <span class="circle-progress-left">
+                                            <span class="circle-progress-bar"></span>
+                                        </span>
+                                        <span class="circle-progress-right">
+                                            <span class="circle-progress-bar"></span>
+                                        </span>
+                                            
+                                        <div class="circle-progress-value">
+                                                <div>
+                                                    {{subject.name}} 
+                                                    <span>{{subject.curr_total}}/100</span> 
+                                                </div>
+                                        </div>
+                                        
                                     </div>
-                                    <div class="mr-5">{{subject.name}}</div>
                                 </div>
-                                <a v-on:click="next(subject, $event)" class="card-footer text-white clearfix small z-1" href="">
-                                    <span class="float-left">View Details</span>
-                                    <span class="float-right">
-                                        <i class="fas fa-angle-right"></i>
-                                    </span>
-                                </a>
-                            </div>
+                             </a>
                         </div>
+                        
                     </div>
-                    <!-- If there aren't subjects-->
                     <!-- If there aren't subjects -->
                     <div v-else class="row">
                         <div class="card-body">
@@ -242,7 +227,8 @@
                 component: 0,
                 arrayEvents: null,
                 date1: null,
-                date2: null
+                date2: null,
+                marks: []
             };
         },
         methods: {
@@ -280,7 +266,8 @@
                    this.getInfo();
                })
            },
-           getInfo() {
+            getInfo() {
+               this.subjects = []
                fetch(`http://localhost:8081/subjects/${this.$parent.user_id}`, {
                         method: 'GET',
                     }).then(response => {
@@ -302,13 +289,14 @@
                         } else {
                             console.log("Cannot retrieve tasks");
                         }
-            });                
+            });
+           
+            
            },
-            functionEvents (date) {
+        functionEvents (date) {
             const [,, day] = date.split('-')
             return parseInt(day, 10) % 3 === 0
-            } 
-
+        },
 
 
         },
