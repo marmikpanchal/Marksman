@@ -1,12 +1,18 @@
 <template>
 	<div id="app">
-        <div id="nav">
-            <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>
-                <button>Logout</button>
-            </router-link>
+        <div v-if="authenticated" id="nav">
+            <nav class="navbar navbar-dark bg-dark static-top">
+                <div style="color: white; margin-left: auto; margin-right: auto; padding-left: 75px;">
+                    <a v-on:click="goSecure($event)" style="color:white; font-size:24px; font-weight: bold; text-decoration: none;" href="">Marksman</a>
+                </div>
+                <div style="float: right; width: 100px;">
+                    <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>
+                        <b-btn variant="danger" class="mt-1 mb-1" style="width: 100px; font-size: 16px;">Logout</b-btn>
+                    </router-link>
+                </div>  
+            </nav>
         </div>
         <router-view @authenticated="setAuthenticated" @id="setId" @subject_id="setSubjectId" @subject_name="setSubjectName"/>
-        <!-- <router-view @id="setId" /> -->
     </div>
 </template>
 
@@ -18,11 +24,7 @@
                 authenticated: false,
                 user_id: 0,
                 subject_id: 0,
-                subject_name: '',
-                mockAccount: {
-                    username: "ligma",
-                    password: "ballz"
-                }
+                subject_name: ''
             }
         },
 
@@ -37,6 +39,10 @@
         methods: {
             setAuthenticated(status) {
                 this.authenticated = status;
+            },
+            goSecure(event) {
+                event.preventDefault();
+                this.$router.push({ name: "secure" });
             },
             logout() {
                 this.authenticated = false;
@@ -67,6 +73,9 @@
     #app {
         width: 1024px;
         margin: auto;
+    }
+    li a {
+        text-decoration: none;
     }
 }
 </style>
