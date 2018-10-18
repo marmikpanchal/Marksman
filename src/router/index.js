@@ -4,6 +4,7 @@ import LoginComponent from "@/components/Login"
 import SecureComponent from "@/components/Secure"
 import RegisterComponent from "@/components/Register"
 import SubjectComponent from "@/components/Subject"
+import ProfileComponent from "@/components/Profile"
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
         path: "/subject",
         name: "subject",
         component: SubjectComponent
+    },
+    {
+        path: "/profile",
+        name: "profile",
+        component: ProfileComponent
     }
   ]
 })
