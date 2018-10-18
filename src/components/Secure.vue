@@ -51,10 +51,11 @@
                     <!-- Subjects -->
                     <!-- An example pie -->
 
-                    <div class="row">
-                        <div class="col-xl-3 col-sm-6 mb-3">
+                    <div v-if="subjects.length > 0" class="row">
+                        <div  v-for="(subject, index) in subjects" class="col-xl-3 col-sm-6 mb-3" :key="index">
+                        <a v-on:click="next(subject, $event)" href=""> 
                             <div class="card-body">
-                                <div class="circle-progress" data-percentage="20">
+                                <div class="circle-progress" :data-percentage="subject.total">
                                     <span class="circle-progress-left">
                                      <span class="circle-progress-bar"></span>
                                  </span>
@@ -63,32 +64,13 @@
                                  </span>
                                  <div class="circle-progress-value">
                                      <div>
-                                         COMP2111
-                                         <span>20/100</span>
+                                         {{subject.name}}
+                                         <span>{{subject.curr_total}}/100</span>
                                      </div>
                                  </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                 
-                    <!-- If there are subjects -->
-                    <div v-if="subjects.length > 0" class="row">
-                        <div v-for="(subject, index) in subjects" class="col-xl-3 col-sm-6 mb-3" :key="index">
-                            <div :class="'card text-white ' + colours[index%colours.length] + ' o-hidden h-100'">
-                                <div class="card-body">
-                                    <div class="card-body-icon">
-                                        <i class="fas fa-fw fa-comments"></i>
-                                    </div>
-                                    <div class="mr-5">{{subject.name}}</div>
-                                </div>
-                                <a v-on:click="next(subject, $event)" class="card-footer text-white clearfix small z-1" href="">
-                                    <span class="float-left">View Details</span>
-                                    <span class="float-right">
-                                        <i class="fas fa-angle-right"></i>
-                                    </span>
-                                </a>
-                            </div>   
+                        </a>
                         </div>
                     </div>
                 
@@ -226,8 +208,8 @@
                })
            },
             getInfo() {
-               this.subjects = []
-               fetch(`http://localhost:8081/subjects/${this.$parent.user_id}`, {
+                console.log("info")
+                fetch(`http://localhost:8081/subjects/${this.$parent.user_id}`, {
                         method: 'GET',
                     }).then(response => {
                         if (response.status === 200) {
@@ -238,7 +220,7 @@
                             console.log("Cannot retrieve subjects");
                         }
                     });
-                    fetch(`http://localhost:8081/tasks/${this.$parent.user_id}`, {
+                fetch(`http://localhost:8081/tasks/${this.$parent.user_id}`, {
                         method: 'GET',
                     }).then(response => {
                         if (response.status === 200) {
@@ -248,15 +230,17 @@
                         } else {
                             console.log("Cannot retrieve tasks");
                         }
-            });
+                });
            
             
            },
-        functionEvents (date) {
-            const [,, day] = date.split('-')
-            return parseInt(day, 10) % 3 === 0
+            functionEvents (date) {
+                const [,, day] = date.split('-')
+                return parseInt(day, 10) % 3 === 0
+            },
+       
         },
-        mounted() {
+         mounted() {
             this.getInfo();
             this.arrayEvents = [...Array(6)].map(() => {
                 const day = Math.floor(Math.random() * 30)
@@ -264,7 +248,6 @@
                 d.setDate(day)
                 return d.toISOString().substr(0, 10)
             })
-        }
     }
 }
 </script>
