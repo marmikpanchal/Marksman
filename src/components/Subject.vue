@@ -41,8 +41,8 @@
             <div id="content-wrapper">
                 <div class="container-fluid">
                 
-                    <div style="text-align: center; color: black; margin-bottom: 1%; font-size: 36px;">
-                        <span>{{this.$parent.subject_name}}</span>
+                    <div style="text-align: center; color: black; margin-bottom: 1%; font-size: 36px; border: 2px solid black; height: 60px; border-radius: 10px;">
+                        <span style="vertical-align: middle;">{{this.$parent.subject_name}}</span>
                     </div>
 
                     <span style="font-weight: bold; font-size: 16px; margin-bottom: 2%;"> Progress Bar:</span>
