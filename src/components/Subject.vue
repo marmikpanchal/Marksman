@@ -1,51 +1,6 @@
 
 <template>    
     <body id="page-top">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-            <a v-on:click="goSecure($event)" class="navbar-brand mr-1" href="">Marksman</a>
-            <!-- Navbar search -->
-            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-            <!-- End navbar search -->
-            <!-- Navbar icons -->
-            <ul class="navbar-nav ml-auto ml-md-0">
-                <li class="nav-item dropdown no-arrow mx-1">
-                    <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-bell fa-fw"></i>
-                        <span class="badge badge-danger">9+</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
-                        <a class="dropdown-item" href="#">You have 1 new notification</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Some notification</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Check all notifications</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown no-arrow">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user-circle fa-fw"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">Profile</a>
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
-                    </div>
-                </li>
-            </ul>
-            <!-- End navbar icons -->
-        </nav>
-        <!-- End navbar -->
 
         <!-- Main page -->
         <div id="wrapper">
@@ -60,7 +15,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="subjects.html" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Subjects</span><span class="caret"></span>
+                        <span style="color: white; font-weight: bold;">Subjects</span><span class="caret"></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                         <a class="dropdown-item" href="">COMP</a>
@@ -85,6 +40,8 @@
             <!-- Dashboard -->
             <div id="content-wrapper">
                 <div class="container-fluid">
+                
+
                     <!-- Breadcrumbs -->
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
@@ -98,21 +55,21 @@
                         </li>
                     </ol>
                     <!-- End breadcrumbs -->
+                    
+
+
                     <!-- Progress bar -->
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <i class="fas fa-chart-area"></i>
-                            Your current progress
-                        </div>
-                        <div class="card-body">
-                            <div class="progress">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                     <div>
+                        <b-progress height="35px" style="font-size: 16px; font-weight: bold;" class="mt-1 mb-3" :max="max" show-value>
+                            <b-progress-bar :value="50" variant="success"></b-progress-bar>
+                            <b-progress-bar :value="25" variant="warning"></b-progress-bar>
+                            <b-progress-bar :value="15" variant="danger"></b-progress-bar>
+                        </b-progress>
                     </div>
                     <!-- End progress bar -->
+
+                   
+                
                     <!-- Assessment box -->
                     <div class="card mb-3">
                         <div class="card-header">
@@ -166,7 +123,6 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                     </div>
                     <!-- End assessment box -->
 

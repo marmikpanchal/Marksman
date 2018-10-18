@@ -9,7 +9,7 @@
                 <li class="nav-item active">
                     <a v-on:click="goSecure($event)" class="nav-link" href="">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Dashboard</span>
+                        <span style="color: white; font-weight: bold;">Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item dropdown">
