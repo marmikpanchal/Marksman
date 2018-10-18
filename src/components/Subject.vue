@@ -1,79 +1,32 @@
 
 <template>    
     <body id="page-top">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-            <a v-on:click="goSecure($event)" class="navbar-brand mr-1" href="">Marksman</a>
-            <!-- Navbar search -->
-            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-            <!-- End navbar search -->
-            <!-- Navbar icons -->
-            <ul class="navbar-nav ml-auto ml-md-0">
-                <li class="nav-item dropdown no-arrow mx-1">
-                    <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-bell fa-fw"></i>
-                        <span class="badge badge-danger">9+</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
-                        <a class="dropdown-item" href="#">You have 1 new notification</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Some notification</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Check all notifications</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown no-arrow">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user-circle fa-fw"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">Profile</a>
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
-                    </div>
-                </li>
-            </ul>
-            <!-- End navbar icons -->
-        </nav>
-        <!-- End navbar -->
-
         <!-- Main page -->
         <div id="wrapper">
             <!-- Sidebar -->
-            <ul class="sidebar navbar-nav">
-                <li class="nav-item">
+            <ul class="sidebar navbar-nav" style="font-size: 28px; width: 18% !important; vertical-align: middle;">
+                <li class="nav-item"  style="margin-left: 15px;">
                     <a v-on:click="goSecure($event)" class="nav-link" href="">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" style="margin-left: 15px;">
                     <a class="nav-link dropdown-toggle" href="subjects.html" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Subjects</span><span class="caret"></span>
+                        <span style="color: white; font-weight: bold;">Subjects</span><span class="caret"></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                         <a class="dropdown-item" href="">COMP</a>
-                        <a class="dropdown-item" href="">COMP</a>
                     </div>
                 </li> 
-                <li class="nav-item">
+                <li class="nav-item"  style="margin-left: 15px;">
                     <a class="nav-link" href="calendar.html">
                         <i class="fas fa-fw fa-table"></i>
                         <span>Calendar</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item"  style="margin-left: 15px; vertical-align: middle;">
                     <a class="nav-link" href="to-do.html">
                         <i class="fas fa-fw fa-list"></i>
                         <span>To-Do List</span>
@@ -85,62 +38,54 @@
             <!-- Dashboard -->
             <div id="content-wrapper">
                 <div class="container-fluid">
-                    <!-- Breadcrumbs -->
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="#">Assessments for {{this.$parent.subject_name}}</a>
-                        </li>
-                        <li class="breadcrumb-item active">
-                            <div v-if="subjects.length > 0" class="row">
-                                Trying to get it to display subject name but this won't work as subject_id != index in local subjects array
-                                <!-- <div class="mr-5">{{subjects[subject_id].name}}</div> -->
-                            </div>
-                        </li>
-                    </ol>
-                    <!-- End breadcrumbs -->
+                
+                    <div style="text-align: center; color: black; margin-bottom: 1%; font-size: 36px; border: 2px solid black; height: 60px; border-radius: 10px;">
+                        <span style="vertical-align: middle;">{{this.$parent.subject_name}}</span>
+                    </div>
+
+                    <span style="font-weight: bold; font-size: 16px; margin-bottom: 2%;"> Progress Bar:</span>
+
                     <!-- Progress bar -->
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <i class="fas fa-chart-area"></i>
-                            Your current progress
-                        </div>
-                        <div class="card-body">
-                            <div class="progress">
-                                <div class="progress-bar bg-success" role="progressbar" :style="'width:' + marks.curr_total + '%'" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                <div class="progress-bar bg-danger" role="progressbar" :style="'width:' + (marks.total - marks.curr_total) + '%'" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                     <div style="margin-bottom: 2%;">
+                        <b-progress height="35px" style="font-size: 16px; font-weight: bold;" class="mt-1 mb-3" :max="max" show-value>
+                            <b-progress-bar :value="50" variant="success"></b-progress-bar>
+                            <!-- <b-progress-bar :value="25" variant="warning"></b-progress-bar> -->
+                            <b-progress-bar :value="15" variant="danger"></b-progress-bar>
+                        </b-progress>
                     </div>
                     <!-- End progress bar -->
+
+                   
+                
                     <!-- Assessment box -->
                     <div class="card mb-3">
                         <div class="card-header">
-                            Assessments
+                            <span style="font-weight: bold; font-size: 16px;">Assessments</span>
                         </div>
                         <div class="card-body">
-                            <!-- Add assessment modal -->
-                            <div>
-                                <b-button class="mb-3" variant="success" @click="showModal">
-                                    Add Assessment
+                            <!-- Add pending assessment modal -->
+                            <div class="button-next">
+                                <b-button class="mb-3" variant="info" @click="showModal">
+                                    Add Pending Assessment
                                 </b-button>
-                                <b-modal ref="Modal" hide-footer title="Adding an Assessment">
+                                <b-modal ref="Modal" hide-footer title="Add Pending Assessment">
                                     <div class="d-block text-center">
-                                        <h3 style="margin-top: 15px">Fill in the details</h3>
+                                        <h4 style="margin-top: 15px">Fill in the details</h4>
+                                        <button data-tooltip="I’m the tooltip text."><i class="fa fa-question-circle"></i></button>
                                     </div>
                                     <div>
                                         <b-container fluid>
                                             <b-row class="my-1" :key="type">
                                                 <b-col class="mt-3" sm="3"><strong>Name: </strong></b-col>
-                                                <b-col class="mt-3" sm="9"><b-form-input v-model="name"></b-form-input></b-col>
+                                                <b-col class="mt-3" sm="9"><b-form-input v-model="name" placeholder="Assignment 1 - databases"></b-form-input></b-col>
                                                 <b-col class="mt-3" sm="3"><strong>Total Mark: </strong></b-col>
-                                                <b-col class="mt-3" sm="9"><b-form-input v-model="total_mark"></b-form-input></b-col>
-                                                <b-col class="mt-3" sm="3"><strong>Actual Mark: </strong></b-col>
-                                                <b-col class="mt-3" sm="9"><b-form-input v-model="actual_mark"></b-form-input></b-col>
+                                                <b-col class="mt-3" sm="9"><b-form-input v-model="total_mark" placeholder="30"></b-form-input></b-col>
                                                 <b-col class="mt-3" sm="3"><strong>Goal Mark: </strong></b-col>
-                                                <b-col class="mt-3" sm="9"><b-form-input v-model="goal_mark"></b-form-input></b-col>
+                                                <b-col class="mt-3" sm="9"><b-form-input v-model="goal_mark" placeholder="25"></b-form-input></b-col>
                                                 <b-col class="mt-3" sm="3"><strong>Weighting Mark: </strong></b-col>
-                                                <b-col class="mt-3 mb-3" sm="9"><b-form-input v-model="weight"></b-form-input></b-col>
+                                                <b-col class="mt-3 mb-3" sm="9"><b-form-input v-model="weight" placeholder="20%"></b-form-input></b-col>
+                                                <b-col class="mt-3" sm="3"><strong>Due Date: </strong></b-col>
+                                                <b-col class="mt-3 mb-3" sm="9"><b-form-input type="date"></b-form-input></b-col>
                                             </b-row>
                                         </b-container>
                                     </div>
@@ -148,13 +93,62 @@
                                     <b-btn class = "mt-3" variant="success" block v-on:click="createAssessment()">Save Changes</b-btn>
                                 </b-modal>
                             </div>
-                            <!-- End add assessment modal -->
+                            <!-- End add pending assessment modal -->
+                            <!-- Add finished assessment modal -->
+                            <div class="button-next">
+                                <b-button class="mb-3" style="display:inline-block"variant="success" @click="showModal">
+                                    Add Finished Assessment
+                                </b-button>
+                                <b-modal ref="Modal" hide-footer title="Add Finished Assessment">
+                                    <div class="d-block text-center">
+                                        <h4 style="margin-top: 15px">Fill in the details</h4>
+                                    </div>
+                                    <div>
+                                        <b-container fluid>
+                                            <b-row class="my-1" :key="type">
+                                                <b-col class="mt-3" sm="3"><strong>Name: </strong></b-col>
+                                                <b-col class="mt-3" sm="9"><b-form-input v-model="name" placeholder="Assignment 1 - databases"></b-form-input></b-col>
+                                                <b-col class="mt-3" sm="3"><strong>Total Mark: </strong></b-col>
+                                                <b-col class="mt-3" sm="9"><b-form-input v-model="total_mark" placeholder="30"></b-form-input></b-col>
+                                                <b-col class="mt-3" sm="3"><strong>Goal Mark: </strong></b-col>
+                                                <b-col class="mt-3" sm="9"><b-form-input v-model="goal_mark" placeholder="25"></b-form-input></b-col>
+                                                <b-col class="mt-3" sm="3"><strong>Actual Mark: </strong></b-col>
+                                                <b-col class="mt-3" sm="9"><b-form-input v-model="actual_mark" placeholder="20"></b-form-input></b-col>
+                                                
+                                                <b-col class="mt-3" sm="3"><strong>Weighting Mark: </strong></b-col>
+                                                <b-col class="mt-3 mb-3" sm="9"><b-form-input v-model="weight" placeholder="20%"></b-form-input></b-col>
+                                            </b-row>
+                                        </b-container>
+                                    </div>
+                                    <b-btn class="mt-5" variant="danger" block @click="hideModal">Cancel</b-btn>
+                                    <b-btn class = "mt-3" variant="success" block v-on:click="createAssessment()">Save Changes</b-btn>
+                                </b-modal>
+                            </div>
+                            <!-- End add finished assessment modal -->
                             <div class="accordion vertical">
                                 <ul>
                                     <li>
                                         <input type="checkbox" id="checkbox-1" name="checkbox-accordion" />
                                         <label for="checkbox-1">Assignment 1</label>
                                         <div class="content">
+                                            <div class="container float-left">
+                                                <h5>Worth: 50%</h5><br>
+                                                <h5>Goal of 30 out 40 possible marks</h5>
+                                                <div>
+                                                    <b-container fluid>
+                                                        <b-row class="my-1" :key="type">
+                                                            <h5 class="mt-3" sm="3">Received mark:</h5>
+                                                            <b-col class="mt-3" sm="3"><b-form-input v-model="received_mark"></b-form-input></b-col>
+                                                        </b-row>
+                                                    </b-container>
+                                                </div>
+                                            </div>
+                                            <div class="container float-right">
+                                                <h5>Memo</h5>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" id="message" name="message" placeholder="Please enter your notes here..." rows="10"></textarea>
+                                                </div> 
+                                            </div>
                                         </div>
                                     </li>
                                     <li>
@@ -166,7 +160,6 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                     </div>
                     <!-- End assessment box -->
 
@@ -341,15 +334,6 @@
             }  
     }
 </script>
-
-
-<style>
-.modal-dialog {
-    margin-top: 150px;
-    width: auto;
-    pointer-events: none;
-}
-</style>
 
 <style src= "../assets/vendor/bootstrap/css/bootstrap.min.css" scoped></style>
 <style src= "../assets/vendor/fontawesome-free/css/all.min.css" scoped></style>
