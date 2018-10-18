@@ -51,7 +51,7 @@
                      <div style="margin-bottom: 2%;">
                         <b-progress height="35px" style="font-size: 16px; font-weight: bold;" class="mt-1 mb-3" :max="max" show-value>
                             <b-progress-bar :value="50" variant="success"></b-progress-bar>
-                            <b-progress-bar :value="25" variant="warning"></b-progress-bar>
+                            <!-- <b-progress-bar :value="25" variant="warning"></b-progress-bar> -->
                             <b-progress-bar :value="15" variant="danger"></b-progress-bar>
                         </b-progress>
                     </div>
