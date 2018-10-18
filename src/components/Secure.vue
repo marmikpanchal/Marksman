@@ -67,115 +67,104 @@
                                          <span>20/100</span>
                                      </div>
                                  </div>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-                 <!-- If there are subjects -->
-                 <div v-if="subjects.length > 0" class="row">
-                    <div v-for="(subject, index) in subjects" class="col-xl-3 col-sm-6 mb-3" :key="index">
-                        <div :class="'card text-white ' + colours[index%colours.length] + ' o-hidden h-100'">
-                            <div class="card-body">
-                                <div class="card-body-icon">
-                                    <i class="fas fa-fw fa-comments"></i>
                                 </div>
-                                <div class="mr-5">{{subject.name}}</div>
-                            </div>
-                            <a v-on:click="next(subject, $event)" class="card-footer text-white clearfix small z-1" href="">
-                                <span class="float-left">View Details</span>
-                                <span class="float-right">
-                                    <i class="fas fa-angle-right"></i>
-                                </span>
-                            </a>
-                        </div>   
-                    </div>
-                </div>
-                <!-- If there aren't subjects-->
-                <!-- If there aren't subjects -->
-                <div v-else class="row">
-                    <div class="card-body">
-                        <span>No subjects, please add a subject</span>
-                    </div>
-                </div>
-
-                <div>
-                    <b-button class="mb-3" variant="success" @click="showModal">
-                        Add Subject
-                    </b-button>
-                    <b-modal ref="Modal" hide-footer title="Adding a Subject">
-                        <div class="d-block text-center">
-                            <h3 style="margin-top: 15px">Fill in the details</h3>
-                        </div>
-                        <div>
-                            <b-container fluid>
-                                <b-row class="my-1" :key="type">
-                                    <b-col class="mt-5" sm="3"><strong>Subject Name: </strong></b-col>
-                                    <b-col class="mt-5" sm="9"><b-form-input v-model="name"></b-form-input></b-col>
-                                    <b-col class="mt-3" sm="3"><strong>Goal Mark: </strong></b-col>
-                                    <b-col class="mt-3" sm="9"><b-form-input v-model="goal_mark"></b-form-input></b-col>
-                                </b-row>
-                            </b-container>
-                        </div>
-                        <b-btn class="mt-5" variant="danger" block @click="hideModal">Cancel</b-btn>
-                        <b-btn class = "mt-3" variant="success" block v-on:click="createSubject()">Save Changes</b-btn>
-                    </b-modal>
-                </div>
-
-
-                <!-- End subjects -->
-                <div class="row">
-                    <!-- Calendar -->
-                    <div class="col-lg-7">
-                        <div class="card mb-3"> 
-                            <div class="card-header">Calendar</div>
-                            <div class="card-body">
-                                <v-date-picker
-                                v-model="date2"
-                                :event-color="date => date[9] % 2 ? 'green' : 'yellow'"
-                                :events="functionEvents"
-                                full-width
-
-                                ></v-date-picker>
                             </div>
                         </div>
                     </div>
-                    <!-- End calendar -->
-                    <!-- To-do list -->
-                    <div class="col-lg-5">
-                        <div class="card mb-3">
-                            <div class="card-header">To-Do List</div>
-                            <div class="card-body">
-                                <div class="todo-list">
-                                    <div class="tdl-holder tdl-content">
-                                        <ul>
-                                            <li v-for="(task, index) in tasks" :key="index"><label>
-                                                <input type="checkbox"><i :class="colours[index%colours.length]"></i><span>{{task.task_description}}</span>
-                                                <a href='#' class="ti-close"></a>				                                
-                                            </label></li>
-                                        </ul>
-                                        <input type="text" class="tdl-new form-control" placeholder="Type here">                                      
+                 
+                    <!-- If there are subjects -->
+                    <div v-if="subjects.length > 0" class="row">
+                        <div v-for="(subject, index) in subjects" class="col-xl-3 col-sm-6 mb-3" :key="index">
+                            <div :class="'card text-white ' + colours[index%colours.length] + ' o-hidden h-100'">
+                                <div class="card-body">
+                                    <div class="card-body-icon">
+                                        <i class="fas fa-fw fa-comments"></i>
+                                    </div>
+                                    <div class="mr-5">{{subject.name}}</div>
+                                </div>
+                                <a v-on:click="next(subject, $event)" class="card-footer text-white clearfix small z-1" href="">
+                                    <span class="float-left">View Details</span>
+                                    <span class="float-right">
+                                        <i class="fas fa-angle-right"></i>
+                                    </span>
+                                </a>
+                            </div>   
+                        </div>
+                    </div>
+                
+                    <!-- If there aren't subjects -->
+                    <div v-else class="row">
+                        <div class="card-body">
+                            <span>No subjects, please add a subject</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <b-button class="mb-3" variant="success" @click="showModal">
+                            Add Subject
+                        </b-button>
+                        <b-modal ref="Modal" hide-footer title="Adding a Subject">
+                            <div class="d-block text-center">
+                                <h3 style="margin-top: 15px">Fill in the details</h3>
+                            </div>
+                            <div>
+                                <b-container fluid>
+                                    <b-row class="my-1" :key="type">
+                                        <b-col class="mt-5" sm="3"><strong>Subject Name: </strong></b-col>
+                                        <b-col class="mt-5" sm="9"><b-form-input v-model="name"></b-form-input></b-col>
+                                        <b-col class="mt-3" sm="3"><strong>Goal Mark: </strong></b-col>
+                                        <b-col class="mt-3" sm="9"><b-form-input v-model="goal_mark"></b-form-input></b-col>
+                                    </b-row>
+                                </b-container>
+                            </div>
+                            <b-btn class="mt-5" variant="danger" block @click="hideModal">Cancel</b-btn>
+                            <b-btn class = "mt-3" variant="success" block v-on:click="createSubject()">Save Changes</b-btn>
+                        </b-modal>
+                    </div>
+                    <!-- End subjects -->
+
+                    <div class="row">
+                        <!-- Calendar -->
+                        <div class="col-lg-7">
+                            <div class="card mb-3"> 
+                                <div class="card-header">Calendar</div>
+                                <div class="card-body">
+                                    <v-date-picker
+                                    v-model="date2"
+                                    :event-color="date => date[9] % 2 ? 'green' : 'yellow'"
+                                    :events="functionEvents"
+                                    full-width
+
+                                    ></v-date-picker>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End calendar -->
+
+                        <!-- To-do list -->
+                        <div class="col-lg-5">
+                            <div class="card mb-3">
+                                <div class="card-header">To-Do List</div>
+                                <div class="card-body">
+                                    <div class="todo-list">
+                                        <div class="tdl-holder tdl-content">
+                                            <ul>
+                                                <li v-for="(task, index) in tasks" :key="index"><label>
+                                                    <input type="checkbox"><i :class="colours[index%colours.length]"></i><span>{{task.task_description}}</span>
+                                                    <a href='#' class="ti-close"></a>				                                
+                                                </label></li>
+                                            </ul>
+                                            <input type="text" class="tdl-new form-control" placeholder="Type here">                                      
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- End to-do list -->
                     </div>
                 </div>
-                <!-- End to-do list -->
-            </div>
-        </div>     
-    </div>
-    <!-- End dashboard -->
-</div>
-<!-- End main page --> 
-        <!-- Footer
-        <footer class="sticky-footer">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright © Marksman 2018</span>
-                </div>
-            </div>
-        </footer> -->
-        <!-- End footer -->   
+            </div>     
+        </div>
     </body>
 </template>
 
