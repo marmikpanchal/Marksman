@@ -5,30 +5,30 @@
         <!-- Main page -->
         <div id="wrapper">
             <!-- Sidebar -->
-            <ul class="sidebar navbar-nav">
-                <li class="nav-item active">
+            <ul class="sidebar navbar-nav" style="font-size: 28px; width: 18% !important; vertical-align: middle;">
+                <li class="nav-item active" style="margin-left: 15px;">
                     <a v-on:click="goSecure($event)" class="nav-link" href="">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span style="color: white; font-weight: bold;">Dashboard</span>
+                        <span style="font-weight: bold; vertical-align: middle;">Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" style="margin-left: 15px;">
                     <a class="nav-link dropdown-toggle" href="subjects.html" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Subjects</span><span class="caret"></span>
+                        <span style="vertical-align: middle;">Subjects</span><span class="caret"></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                         <a class="dropdown-item" href="">COMP2111</a>
                         <a class="dropdown-item" href="">COMP3121</a>
                     </div>
                 </li> 
-                <li class="nav-item">
+                <li class="nav-item" style="margin-left: 15px;">
                     <a class="nav-link" href="calendar.html">
                         <i class="fas fa-fw fa-table"></i>
                         <span>Calendar</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" style="margin-left: 15px;">
                     <a class="nav-link" href="to-do.html">
                         <i class="fas fa-fw fa-list"></i>
                         <span>To-Do List</span>

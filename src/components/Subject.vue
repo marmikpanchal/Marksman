@@ -5,14 +5,14 @@
         <!-- Main page -->
         <div id="wrapper">
             <!-- Sidebar -->
-            <ul class="sidebar navbar-nav">
-                <li class="nav-item">
+            <ul class="sidebar navbar-nav" style="font-size: 28px; width: 18% !important; vertical-align: middle;">
+                <li class="nav-item"  style="margin-left: 15px;">
                     <a v-on:click="goSecure($event)" class="nav-link" href="">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" style="margin-left: 15px;">
                     <a class="nav-link dropdown-toggle" href="subjects.html" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span style="color: white; font-weight: bold;">Subjects</span><span class="caret"></span>
@@ -22,13 +22,13 @@
                         <a class="dropdown-item" href="">COMP</a>
                     </div>
                 </li> 
-                <li class="nav-item">
+                <li class="nav-item"  style="margin-left: 15px;">
                     <a class="nav-link" href="calendar.html">
                         <i class="fas fa-fw fa-table"></i>
                         <span>Calendar</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item"  style="margin-left: 15px; vertical-align: middle;">
                     <a class="nav-link" href="to-do.html">
                         <i class="fas fa-fw fa-list"></i>
                         <span>To-Do List</span>
@@ -41,25 +41,14 @@
             <div id="content-wrapper">
                 <div class="container-fluid">
                 
+                    <div style="text-align: center; color: black; margin-bottom: 1%; font-size: 36px;">
+                        <span>{{this.$parent.subject_name}}</span>
+                    </div>
 
-                    <!-- Breadcrumbs -->
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="#">Assessments for {{this.$parent.subject_name}}</a>
-                        </li>
-                        <li class="breadcrumb-item active">
-                            <div v-if="subjects.length > 0" class="row">
-                                Trying to get it to display subject name but this won't work as subject_id != index in local subjects array
-                                <!-- <div class="mr-5">{{subjects[subject_id].name}}</div> -->
-                            </div>
-                        </li>
-                    </ol>
-                    <!-- End breadcrumbs -->
-                    
-
+                    <span style="font-weight: bold; font-size: 16px; margin-bottom: 2%;"> Progress Bar:</span>
 
                     <!-- Progress bar -->
-                     <div>
+                     <div style="margin-bottom: 2%;">
                         <b-progress height="35px" style="font-size: 16px; font-weight: bold;" class="mt-1 mb-3" :max="max" show-value>
                             <b-progress-bar :value="50" variant="success"></b-progress-bar>
                             <b-progress-bar :value="25" variant="warning"></b-progress-bar>
@@ -73,7 +62,7 @@
                     <!-- Assessment box -->
                     <div class="card mb-3">
                         <div class="card-header">
-                            Assessments
+                            <span style="font-weight: bold; font-size: 16px;">Assessments</span>
                         </div>
                         <div class="card-body">
                             <!-- Add assessment modal -->
