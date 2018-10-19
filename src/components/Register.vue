@@ -27,7 +27,7 @@
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
               <v-toolbar dark color="primary">
-                <v-toolbar-title>Become a Marksman</v-toolbar-title>
+                <v-toolbar-title><strong>Become a Marksman</strong></v-toolbar-title>
                 <v-spacer></v-spacer>
                 
               </v-toolbar>
@@ -50,10 +50,19 @@
                     placeholder="Create a password"
                     required></v-text-field>
                   <v-text-field 
+                    id="retype_password" 
+                    prepend-icon="lock" 
+                    name="retype_password" 
+                    type="retype_password" 
+                    v-model="input.retype_password" 
+                    label="Verify password"
+                    placeholder="Retype password"
+                    required></v-text-field>
+                  <v-text-field 
                     prepend-icon="email" 
                     name="email" 
                     type="email" 
-                    label="Email" 
+ subject                   label="Email" 
                     placeholder="eg. marksman@gmail.com"
                     required
                     v-model="input.email"></v-text-field>
@@ -87,8 +96,8 @@
         methods: {
             registerAccount() {
                 if(this.input.username != "" && this.input.password != "" 
-                        && this.input.email != "") {
-                    
+                        && this.input.email != "" 
+                        && this.input.retype_password == this.input.password) {
                     const email = this.input.email;
                     const username = this.input.username;
                     const password = this.input.password;

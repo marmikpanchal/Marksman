@@ -8,7 +8,7 @@
             <v-card class="elevation-12">
               
               <v-toolbar dark color="green">
-                <v-toolbar-title>Login</v-toolbar-title>
+                <v-toolbar-title><strong>Login</strong></v-toolbar-title>
                 <v-spacer></v-spacer>
                 <span style="font-weight: bold">Sign in with: </span>
                 <fb-signin-button :params="fbSignInParams" @success="onSignInSuccess" @error="onSignInError">

@@ -17,8 +17,8 @@
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Subjects</span><span class="caret"></span>
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                        <a class="dropdown-item" href="">COMP</a>
+                    <div v-for="(subject, index) in subjects" class="dropdown-menu" aria-labelledby="pagesDropdown">
+                        <a class="dropdown-item" href="">{{subject.name}}</a>
                     </div>
                 </li> 
                 <li class="nav-item">
@@ -50,13 +50,13 @@
                     <!-- Subjects -->
                     <div class="card mb-3">
                         <div class="card-header">
-                            <i class="fas fa-chart-area"></i>
+                            <i class="fas fa-fw fa-chart-area"></i>
                             <strong>Subjects</strong>
                         </div>
                         <!-- An example pie -->
                         <div class="card-body">
                             <div v-if="subjects.length > 0" class="row">
-                                <div  v-for="(subject, index) in subjects" class="col-xl-3 col-sm-6 mb-3" :key="index">
+                                <div v-for="(subject, index) in subjects" class="col-xl-3 col-sm-6 mb-3" :key="index">
                                     <a v-on:click="next(subject, $event)" href=""> 
                                         <div class="card-body">
                                             <div class="circle-progress" :data-percentage="subject.total">

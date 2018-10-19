@@ -17,8 +17,8 @@
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Subjects</span><span class="caret"></span>
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                        <a class="dropdown-item" href="">COMP</a>
+                    <div v-for="(subject, index) in subjects" class="dropdown-menu" aria-labelledby="pagesDropdown">
+                        <a class="dropdown-item" href="">{{subject.name}}</a>
                     </div>
                 </li> 
                 <li class="nav-item">
@@ -51,7 +51,7 @@
                     <div class="card mb-3">
                         <div class="card-header">
                             <i class="fas fa-chart-area"></i>
-                            Your current progress
+                            <strong>Your current progress</strong>
                         </div>
                         <div class="card-body">
                             <div style="margin-bottom: 2%;">
@@ -77,13 +77,14 @@
                         <div class="card-body">
                             <!-- Add pending assessment modal -->
                             <div class="button-next">
-                                <b-button class="mb-3" variant="info" @click="showModal">
+                                <b-button class="mb-3" variant="info" @click="showPendingModal">
                                     Add Pending Assessment
                                 </b-button>
-                                <b-modal ref="Modal" hide-footer title="Add Pending Assessment">
+                                <b-modal ref="Pending_Modal" hide-footer title="Add Pending Assessment">
                                     <div class="d-block text-center">
-                                        <h4 style="margin-top: 15px">Fill in the details</h4>
-                                        <button data-tooltip="I’m the tooltip text."><i class="fa fa-question-circle"></i></button>
+                                        <h4 style="margin-top: 15px">Fill in the details
+                                            <button data-tooltip="For assessments that are in progress."><i class="fa fa-question-circle"></i></button>
+                                        </h4>
                                     </div>
                                     <div>
                                         <b-container fluid>
@@ -113,7 +114,9 @@
                                 </b-button>
                                 <b-modal ref="Modal" hide-footer title="Add Finished Assessment">
                                     <div class="d-block text-center">
-                                        <h4 style="margin-top: 15px">Fill in the details</h4>
+                                        <h4 style="margin-top: 15px">Fill in the details 
+                                            <button data-tooltip="For assessments that you have received marks for."><i class="fa fa-question-circle"></i></button>
+                                        </h4>
                                     </div>
                                     <div>
                                         <b-container fluid>
@@ -137,6 +140,7 @@
                                 </b-modal>
                             </div>
                             <!-- End add finished assessment modal -->
+                            <!-- Assessments accordion -->
                             <div v-if="assessments.length > 0" class="accordion vertical">
                                 <ul v-for="(assessment, index) in assessments" :key="index">
                                     <li>
@@ -144,19 +148,30 @@
                                         <label :for="'checkbox-' + index">{{assessment.name}}</label>
                                         <div class="content">
                                             <div class="container float-left">
-                                                <h5>Worth: {{assessment.weight}}%</h5><br>
-                                                <h5>Goal of {{assessment.goal_mark}} out {{assessment.total_mark}} possible marks</h5>
-                                                <div>
-                                                    <b-container fluid>
-                                                        <b-row class="my-1" :key="type">
-                                                            <h5 class="mt-3" sm="3">Received mark: {{assessment.actual_mark}}</h5>
-                                                            <b-col class="mt-3" sm="3"><b-form-input v-model="received_mark"></b-form-input></b-col>
-                                                        </b-row>
-                                                    </b-container>
-                                                </div>
+                                                <h5><strong>Details</strong></h5>
+                                                <table class="table table-bordered">
+                                                    <tr>
+                                                        <td><h6>Worth: {{assessment.weight}}%</h6></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><h6>Goal of {{assessment.goal_mark}} out {{assessment.total_mark}} possible marks</h6></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div>
+                                                                <b-container fluid>
+                                                                    <b-row class="my-1" :key="type">
+                                                                        <h6>Received mark: {{assessment.actual_mark}}</h6>
+                                                                        <b-col v-if="!assessment.actual_mark" sm="3"><b-form-input v-model="received_mark"></b-form-input></b-col>
+                                                                    </b-row>
+                                                                </b-container>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>  
                                             </div>
                                             <div class="container float-right">
-                                                <h5>Memo</h5>
+                                                <h5><strong>Memo</strong></h5>
                                                 <div class="form-group">
                                                     <textarea class="form-control" id="message" name="message" placeholder="Please enter your notes here..." rows="10"></textarea>
                                                 </div> 
@@ -165,6 +180,7 @@
                                     </li>
                                 </ul>
                             </div>
+                            <!-- End assessments accordion -->
                             <div v-else class="row">
                                 <div class="card-body">
                                     <span>No assessments, please add an assessment</span>
@@ -172,12 +188,8 @@
                             </div> 
                         </div>
                     </div>
-                </div>
                     <!-- End assessment box -->
-                  
-                        <!-- If there aren't assessments-->
-            
-                    <!-- End assessments -->   
+                </div>
             </div>
             <!-- End dashboard -->
         </div>
@@ -232,6 +244,8 @@
                 },
                 showModal() { this.$refs.Modal.show() },
                 hideModal() { this.$refs.Modal.hide() },
+                showPendingModal() { this.$refs.Pending_Modal.show() },
+                hidePendingModal() { this.$refs.Pending_Modal.hide() },
 
                 createAssessment() {
                     fetch(`http://localhost:8081/assessments`, {

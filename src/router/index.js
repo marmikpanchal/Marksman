@@ -5,6 +5,7 @@ import SecureComponent from "@/components/Secure"
 import RegisterComponent from "@/components/Register"
 import SubjectComponent from "@/components/Subject"
 import ProfileComponent from "@/components/Profile"
+import TodoComponent from "@/components/Todo"
 
 Vue.use(Router)
 
@@ -40,6 +41,11 @@ export default new Router({
         path: "/profile",
         name: "profile",
         component: ProfileComponent
+    },
+        {
+        path: "/todo",
+        name: "todo",
+        component: TodoComponent
     }
   ]
 })
