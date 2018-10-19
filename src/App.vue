@@ -1,9 +1,9 @@
 <template>
 	<div id="app">
-        <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+        <nav v-if="authenticated" class="navbar navbar-expand navbar-dark bg-dark static-top">
             <a v-on:click="goSecure($event)" class="navbar-brand mr-1" href="">Marksman</a>
             <ul class="navbar-nav ml-auto mr-0 mr-md-3 my-2 my-md-0">
-                <router-link to="/login" v-on:click.native="logout()" replace>
+                <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>
                     <b-btn variant="danger" class="mt-1 mb-1">Logout</b-btn>
                 </router-link>
             </ul>  
