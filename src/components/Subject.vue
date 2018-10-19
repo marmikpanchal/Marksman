@@ -1,26 +1,6 @@
 
 <template>    
     <body id="page-top">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-            <a v-on:click="goSecure($event)" class="navbar-brand mr-1" href="">Marksman</a>
-            <!-- Navbar icons -->
-            <ul class="navbar-nav ml-auto mr-0 mr-md-3 my-2 my-md-0">
-                <li class="nav-item dropdown no-arrow">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user-circle fa-fw"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">Profile</a>
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
-                    </div>
-                </li>
-            </ul>
-            <!-- End navbar icons -->
-        </nav>
-        <!-- End navbar -->
 
         <!-- Main page -->
         <div id="wrapper">
