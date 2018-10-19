@@ -131,8 +131,11 @@
     }
 
     h1 {
+        font-family: Arial;
         text-align: center;
-        padding-top: 80px;
-        font-size: 48px;
+        margin-top: 80px;
+        margin-bottom: -80px;
+        font-size: 70px;
+        font-weight: bold;
     }
 </style>

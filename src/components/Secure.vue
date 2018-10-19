@@ -2,33 +2,53 @@
 
 <template>    
     <body id="page-top">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+            <a v-on:click="goSecure($event)" class="navbar-brand mr-1" href="">Marksman</a>
+            <!-- Navbar icons -->
+            <ul class="navbar-nav ml-auto mr-0 mr-md-3 my-2 my-md-0">
+                <li class="nav-item dropdown no-arrow">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-circle fa-fw"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                    </div>
+                </li>
+            </ul>
+            <!-- End navbar icons -->
+        </nav>
+        <!-- End navbar -->
+
         <!-- Main page -->
         <div id="wrapper">
             <!-- Sidebar -->
-            <ul class="sidebar navbar-nav" style="font-size: 28px; width: 18% !important; vertical-align: middle;">
-                <li class="nav-item active" style="margin-left: 15px;">
+            <ul class="sidebar navbar-nav">
+                <li class="nav-item">
                     <a v-on:click="goSecure($event)" class="nav-link" href="">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span style="font-weight: bold; vertical-align: middle;">Dashboard</span>
+                        <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-item dropdown" style="margin-left: 15px;">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="subjects.html" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-fw fa-chart-area"></i>
-                        <span style="vertical-align: middle;">Subjects</span><span class="caret"></span>
+                        <span>Subjects</span><span class="caret"></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                        <a class="dropdown-item" href="">COMP2111</a>
-                        <a class="dropdown-item" href="">COMP3121</a>
+                        <a class="dropdown-item" href="">COMP</a>
                     </div>
                 </li> 
-                <li class="nav-item" style="margin-left: 15px;">
+                <li class="nav-item">
                     <a class="nav-link" href="calendar.html">
                         <i class="fas fa-fw fa-table"></i>
                         <span>Calendar</span>
                     </a>
                 </li>
-                <li class="nav-item" style="margin-left: 15px;">
+                <li class="nav-item">
                     <a class="nav-link" href="to-do.html">
                         <i class="fas fa-fw fa-list"></i>
                         <span>To-Do List</span>
@@ -49,67 +69,78 @@
                     </ol>
                     <!-- End breadcrumbs -->
                     <!-- Subjects -->
-                    <!-- An example pie -->
-
-                    <div v-if="subjects.length > 0" class="row">
-                        <div  v-for="(subject, index) in subjects" class="col-xl-3 col-sm-6 mb-3" :key="index">
-                        <a v-on:click="next(subject, $event)" href=""> 
-                            <div class="card-body">
-                                <div class="circle-progress" :data-percentage="subject.total">
-                                    <span class="circle-progress-left">
-                                     <span class="circle-progress-bar"></span>
-                                 </span>
-                                 <span class="circle-progress-right">
-                                     <span class="circle-progress-bar"></span>
-                                 </span>
-                                 <div class="circle-progress-value">
-                                     <div>
-                                         {{subject.name}}
-                                         <span>{{subject.curr_total}}/100</span>
-                                     </div>
-                                 </div>
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fas fa-chart-area"></i>
+                            <strong>Subjects</strong>
+                        </div>
+                        <!-- An example pie -->
+                        <div class="card-body">
+                            <div v-if="subjects.length > 0" class="row">
+                                <div  v-for="(subject, index) in subjects" class="col-xl-3 col-sm-6 mb-3" :key="index">
+                                    <a v-on:click="next(subject, $event)" href=""> 
+                                        <div class="card-body">
+                                            <div class="circle-progress" :data-percentage="subject.total">
+                                                <span class="circle-progress-left">
+                                                 <span class="circle-progress-bar"></span>
+                                             </span>
+                                             <span class="circle-progress-right">
+                                                 <span class="circle-progress-bar"></span>
+                                             </span>
+                                             <div class="circle-progress-value">
+                                                 <div>
+                                                     {{subject.name}}
+                                                     <span>{{subject.curr_total}}/100</span>
+                                                 </div>
+                                             </div>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
-                        </a>
-                        </div>
-                    </div>
-                
-                    <!-- If there aren't subjects -->
-                    <div v-else class="row">
-                        <div class="card-body">
-                            <span>No subjects, please add a subject</span>
-                        </div>
-                    </div>
-
-                    <div>
-                        <b-button class="mb-3" variant="success" @click="showModal">
-                            Add Subject
-                        </b-button>
-                        <b-modal ref="Modal" hide-footer title="Adding a Subject">
-                            <div class="d-block text-center">
-                                <h3 style="margin-top: 15px">Fill in the details</h3>
-                            </div>
+                            <!-- End pie -->
+                            <!-- If there aren't subjects -->
+                            <div v-else class="row">
+                                <div class="card-body">
+                                    <span>No subjects, please add a subject</span>
+                                </div>
+                            </div> 
+                            <!-- Add subject modal -->
                             <div>
-                                <b-container fluid>
-                                    <b-row class="my-1" :key="type">
-                                        <b-col class="mt-5" sm="3"><strong>Subject Name: </strong></b-col>
-                                        <b-col class="mt-5" sm="9"><b-form-input v-model="name"></b-form-input></b-col>
-                                        <b-col class="mt-3" sm="3"><strong>Goal Mark: </strong></b-col>
-                                        <b-col class="mt-3" sm="9"><b-form-input v-model="goal_mark"></b-form-input></b-col>
-                                    </b-row>
-                                </b-container>
+                                <b-button class="mb-3" variant="success" @click="showModal">
+                                    Add Subject
+                                </b-button>
+                                <b-modal ref="Modal" hide-footer title="Adding a Subject">
+                                    <div class="d-block text-center">
+                                        <h4 style="margin-top: 15px">Fill in the details</h4>
+                                    </div>
+                                    <div>
+                                        <b-container fluid>
+                                            <b-row class="my-1" :key="type">
+                                                <b-col class="mt-5" sm="3"><strong>Subject Name: </strong></b-col>
+                                                <b-col class="mt-5" sm="9"><b-form-input v-model="name" placeholder="COMP4920"></b-form-input></b-col>
+                                                <b-col class="mt-3" sm="3"><strong>Goal Mark: </strong></b-col>
+                                                <b-col class="mt-3" sm="9"><b-form-input v-model="goal_mark" placeholder="60"></b-form-input></b-col>
+                                            </b-row>
+                                        </b-container>
+                                    </div>
+                                    <b-btn class="mt-5" variant="danger" block @click="hideModal">Cancel</b-btn>
+                                    <b-btn class = "mt-3" variant="success" block v-on:click="createSubject()">Save Changes</b-btn>
+                                </b-modal>
                             </div>
-                            <b-btn class="mt-5" variant="danger" block @click="hideModal">Cancel</b-btn>
-                            <b-btn class = "mt-3" variant="success" block v-on:click="createSubject()">Save Changes</b-btn>
-                        </b-modal>
+                            <!-- End add subject modal -->
+                        </div>
                     </div>
                     <!-- End subjects -->
 
                     <div class="row">
                         <!-- Calendar -->
                         <div class="col-lg-7">
-                            <div class="card mb-3"> 
-                                <div class="card-header">Calendar</div>
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <i class="fas fa-fw fa-table"></i>
+                                    <strong>Calendar</strong>
+                                </div>
                                 <div class="card-body">
                                     <v-date-picker
                                     v-model="date2"
@@ -126,7 +157,10 @@
                         <!-- To-do list -->
                         <div class="col-lg-5">
                             <div class="card mb-3">
-                                <div class="card-header">To-Do List</div>
+                                <div class="card-header">
+                                    <i class="fas fa-fw fa-list"></i>
+                                    <strong>To-Do List</strong>
+                                </div>
                                 <div class="card-body">
                                     <div class="todo-list">
                                         <div class="tdl-holder tdl-content">

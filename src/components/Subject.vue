@@ -1,32 +1,53 @@
 
 <template>    
     <body id="page-top">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+            <a v-on:click="goSecure($event)" class="navbar-brand mr-1" href="">Marksman</a>
+            <!-- Navbar icons -->
+            <ul class="navbar-nav ml-auto mr-0 mr-md-3 my-2 my-md-0">
+                <li class="nav-item dropdown no-arrow">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-circle fa-fw"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                    </div>
+                </li>
+            </ul>
+            <!-- End navbar icons -->
+        </nav>
+        <!-- End navbar -->
+
         <!-- Main page -->
         <div id="wrapper">
             <!-- Sidebar -->
-            <ul class="sidebar navbar-nav" style="font-size: 28px; width: 18% !important; vertical-align: middle;">
-                <li class="nav-item"  style="margin-left: 15px;">
+            <ul class="sidebar navbar-nav">
+                <li class="nav-item">
                     <a v-on:click="goSecure($event)" class="nav-link" href="">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-item dropdown" style="margin-left: 15px;">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="subjects.html" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-fw fa-chart-area"></i>
-                        <span style="color: white; font-weight: bold;">Subjects</span><span class="caret"></span>
+                        <span>Subjects</span><span class="caret"></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                         <a class="dropdown-item" href="">COMP</a>
                     </div>
                 </li> 
-                <li class="nav-item"  style="margin-left: 15px;">
+                <li class="nav-item">
                     <a class="nav-link" href="calendar.html">
                         <i class="fas fa-fw fa-table"></i>
                         <span>Calendar</span>
                     </a>
                 </li>
-                <li class="nav-item"  style="margin-left: 15px; vertical-align: middle;">
+                <li class="nav-item">
                     <a class="nav-link" href="to-do.html">
                         <i class="fas fa-fw fa-list"></i>
                         <span>To-Do List</span>
@@ -38,20 +59,30 @@
             <!-- Dashboard -->
             <div id="content-wrapper">
                 <div class="container-fluid">
-                
-                    <div style="text-align: center; color: black; margin-bottom: 1%; font-size: 36px; border: 2px solid black; height: 60px; border-radius: 10px;">
-                        <span style="vertical-align: middle;">{{this.$parent.subject_name}}</span>
-                    </div>
-
-                    <span style="font-weight: bold; font-size: 16px; margin-bottom: 2%;"> Progress Bar:</span>
-
+                    <!-- Breadcrumbs -->
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="#">Subjects</a>
+                        </li>
+                        <li class="breadcrumb-item active">{{this.$parent.subject_name}}</li>
+                    </ol>
+                    <!-- End breadcrumbs -->
                     <!-- Progress bar -->
-                     <div style="margin-bottom: 2%;">
-                        <b-progress height="35px" style="font-size: 16px; font-weight: bold;" class="mt-1 mb-3" :max="max" show-value>
-                            <b-progress-bar :value="marks.curr_total" variant="success"></b-progress-bar>
-                            <!-- <b-progress-bar :value="25" variant="warning"></b-progress-bar> -->
-                            <b-progress-bar :value="marks.total - marks.curr_total" variant="danger"></b-progress-bar>
-                        </b-progress>
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fas fa-chart-area"></i>
+                            Your current progress
+                        </div>
+                        <div class="card-body">
+                            <div style="margin-bottom: 2%;">
+                                <b-progress height="35px" style="font-size: 16px; font-weight: bold;" class="mt-1 mb-3" :max="max" show-value>
+                                    <b-progress-bar :value="marks.curr_total" variant="success"></b-progress-bar>
+                                    <!-- <b-progress-bar :value="25" variant="warning"></b-progress-bar> -->
+                                    <b-progress-bar :value="marks.total - marks.curr_total" variant="danger"></b-progress-bar>
+                                </b-progress>
+                            </div>
+                        </div>
+                        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                     </div>
                     <!-- End progress bar -->
 
@@ -60,7 +91,8 @@
                     <!-- Assessment box -->
                     <div class="card mb-3">
                         <div class="card-header">
-                            <span style="font-weight: bold; font-size: 16px;">Assessments</span>
+                            <i class="fas fa-fw fa-book"></i>
+                            <strong>Assessments</strong>
                         </div>
                         <div class="card-body">
                             <!-- Add pending assessment modal -->

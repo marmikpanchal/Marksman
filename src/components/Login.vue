@@ -138,7 +138,7 @@
     }
 
     p {
-        font-family: courier, courier-new;
+        font-family: Arial;
         text-align: center;
         margin-top: 80px;
         margin-bottom: -80px;
