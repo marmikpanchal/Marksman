@@ -113,7 +113,7 @@
 
 <script>
 export default {
-            name: 'Subject',
+        name: 'Subject',
         // components: { Modal },
         data() {
             return {

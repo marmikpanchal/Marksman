@@ -145,13 +145,27 @@
                                 <div class="card-body">
                                     <div class="todo-list">
                                         <div class="tdl-holder tdl-content">
-                                            <ul>
-                                                <li v-for="(task, index) in tasks" :key="index"><label>
-                                                    <input type="checkbox"><i :class="colours[index%colours.length]"></i><span>{{task.task_description}}</span>
-                                                    <a href='#' class="ti-close"></a>				                                
-                                                </label></li>
+                                            <ul v-for="(task, index) in tasks" id="sortable" class="list-unstyled" :key="index">
+                                                <!-- Example of a todo in list -->
+                                                <template v-if="!task.complete">
+                                                <li class="ui-state-default">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input v-on:click="setComplete(task, $event)" type="checkbox" :name="index" />&nbsp;{{task.task_description}}</label>
+                                                            <br>
+                                                    </div>
+                                                </li>
+                                                <br>
+                                                </template>
                                             </ul>
-                                            <input type="text" class="tdl-new form-control" placeholder="Type here">                                      
+                                            <div class="row">
+                                                <div class="col-md-9">
+                                                    <input v-model="task_description" type="text" class="form-control" placeholder="Do work">
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <button v-on:click="createTask()" class="btn btn-success todo-add-secure">Add todo</button>
+                                                </div>
+                                            </div>                                  
                                         </div>
                                     </div>
                                 </div>
