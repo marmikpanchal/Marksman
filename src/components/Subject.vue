@@ -17,7 +17,7 @@
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Subjects</span><span class="caret"></span>
                     </a>
-                    <div v-for="(subject, index) in subjects" class="dropdown-menu" aria-labelledby="pagesDropdown">
+                    <div v-for="(subject, index) in subjects" class="dropdown-menu" aria-labelledby="pagesDropdown" :key="index">
                         <a class="dropdown-item" href="">{{subject.name}}</a>
                     </div>
                 </li> 
