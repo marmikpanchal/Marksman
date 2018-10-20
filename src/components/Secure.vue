@@ -151,7 +151,7 @@
                                                 <li class="ui-state-default">
                                                     <div class="checkbox">
                                                         <label>
-                                                            <input v-on:click="setComplete(task, $event)" type="checkbox" :name="index" />&nbsp;{{task.task_description}}</label>
+                                                            <input type="checkbox" :name="index" />&nbsp;{{task.task_description}}</label>
                                                             <br>
                                                     </div>
                                                 </li>
@@ -240,6 +240,27 @@
                    this.getInfo();
                })
            },
+           createTask() {
+                    const task_description = this.task_description;
+                    const complete = false;
+                    const user_id = this.$parent.user_id;
+                    fetch(`http://localhost:8081/tasks`, {
+                        method: 'POST',
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({
+                            user_id,
+                            complete,
+                            task_description
+                        })
+                    }).then(response => {
+                        if (response.status === 201) {
+                            this.task_description = '';
+                           this.getInfo();                      
+                        } else {
+                            console.log("Cannot");
+                        }
+                    });
+                },
             getInfo() {
                 console.log("info")
                 fetch(`http://localhost:8081/subjects/${this.$parent.user_id}`, {
