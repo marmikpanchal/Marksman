@@ -150,7 +150,7 @@
                                             <li class="ui-state-default">
                                                 <div class="checkbox">
                                                     <label>
-                                                        <input type="checkbox" :name="index" />&nbsp;{{task.task_description}}</label>
+                                                        <input v-on:click="setComplete(task, $event)" type="checkbox" :name="index" />&nbsp;{{task.task_description}}</label>
                                                         <br>
                                                 </div>
                                             </li>
@@ -261,6 +261,28 @@
                            this.getInfo();                      
                         } else {
                             console.log("Cannot");
+                        }
+                    });
+                },
+            setComplete(task, event) {
+                    event.preventDefault();
+                    const task_description = task.task_description;
+                    const complete = true;
+                    const id = task.id;
+                    fetch(`http://localhost:8081/tasks`, {
+                        method: 'PUT',
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({
+                            id,
+                            complete,
+                            task_description
+                        })
+                    }).then(response => {
+                        if (response.status === 200) {
+                           this.getInfo();
+                                               
+                        } else {
+                            console.log("Cannot retrieve assessments");
                         }
                     });
                 },
