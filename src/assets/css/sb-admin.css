@@ -854,11 +854,18 @@ li.ui-state-default:last-child{
     border-bottom:none;
 }
 #checkAll{
-    margin-top:10px;
+    margin-top:0;
 }
 .space {
     padding-top: 30px;
 }
+.todo-add {
+}
 .right-pull {
     float: right;
+}
+.memo-save {
+    float:right;
+    margin-top:10px;
+    margin-bottom:20px;
 }

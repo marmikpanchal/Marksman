@@ -91,13 +91,15 @@
                                             <b-row class="my-1" :key="type">
                                                 <b-col class="mt-3" sm="3"><strong>Name: </strong></b-col>
                                                 <b-col class="mt-3" sm="9"><b-form-input v-model="name" placeholder="Assignment 1 - databases"></b-form-input></b-col>
-                                                <b-col class="mt-3" sm="3"><strong>Total Mark: </strong></b-col>
+                                                <b-col class="mt-3" sm="3"><strong>Total mark: </strong></b-col>
                                                 <b-col class="mt-3" sm="9"><b-form-input v-model="total_mark" placeholder="30"></b-form-input></b-col>
-                                                <b-col class="mt-3" sm="3"><strong>Goal Mark: </strong></b-col>
+                                                <b-col class="mt-3" sm="3"><strong>Goal mark: </strong></b-col>
                                                 <b-col class="mt-3" sm="9"><b-form-input v-model="goal_mark" placeholder="25"></b-form-input></b-col>
-                                                <b-col class="mt-3" sm="3"><strong>Weighting Mark: </strong></b-col>
+                                                <b-col class="mt-3" sm="3"><strong>Weighting mark: </strong></b-col>
                                                 <b-col class="mt-3 mb-3" sm="9"><b-form-input v-model="weight" placeholder="20%"></b-form-input></b-col>
-                                                <b-col class="mt-3" sm="3"><strong>Due Date: </strong></b-col>
+                                                <b-col class="mt-3" sm="3"><strong>Estimated hours til completion: </strong></b-col>
+                                                <b-col class="mt-3 mb-3" sm="9"><b-form-input type="hours" placeholder="3"></b-form-input></b-col>
+                                                <b-col class="mt-3" sm="3"><strong>Due date: </strong></b-col>
                                                 <b-col class="mt-3 mb-3" sm="9"><b-form-input type="date"></b-form-input></b-col>
                                             </b-row>
                                         </b-container>
@@ -123,14 +125,14 @@
                                             <b-row class="my-1" :key="type">
                                                 <b-col class="mt-3" sm="3"><strong>Name: </strong></b-col>
                                                 <b-col class="mt-3" sm="9"><b-form-input v-model="name" placeholder="Assignment 1 - databases"></b-form-input></b-col>
-                                                <b-col class="mt-3" sm="3"><strong>Total Mark: </strong></b-col>
+                                                <b-col class="mt-3" sm="3"><strong>Total mark: </strong></b-col>
                                                 <b-col class="mt-3" sm="9"><b-form-input v-model="total_mark" placeholder="30"></b-form-input></b-col>
-                                                <b-col class="mt-3" sm="3"><strong>Goal Mark: </strong></b-col>
+                                                <b-col class="mt-3" sm="3"><strong>Goal mark: </strong></b-col>
                                                 <b-col class="mt-3" sm="9"><b-form-input v-model="goal_mark" placeholder="25"></b-form-input></b-col>
-                                                <b-col class="mt-3" sm="3"><strong>Actual Mark: </strong></b-col>
+                                                <b-col class="mt-3" sm="3"><strong>Actual mark: </strong></b-col>
                                                 <b-col class="mt-3" sm="9"><b-form-input v-model="actual_mark" placeholder="20"></b-form-input></b-col>
                                                 
-                                                <b-col class="mt-3" sm="3"><strong>Weighting Mark: </strong></b-col>
+                                                <b-col class="mt-3" sm="3"><strong>Weighting mark: </strong></b-col>
                                                 <b-col class="mt-3 mb-3" sm="9"><b-form-input v-model="weight" placeholder="20%"></b-form-input></b-col>
                                             </b-row>
                                         </b-container>
@@ -173,7 +175,9 @@
                                             <div class="container float-right">
                                                 <h5><strong>Memo</strong></h5>
                                                 <div class="form-group">
-                                                    <textarea class="form-control" id="message" name="message" placeholder="Please enter your notes here..." rows="10"></textarea>
+                                                    <textarea class="form-control" id="message" name="message" placeholder="Please enter your notes here..." rows="8"></textarea>
+                                                    <!-- Save button for memo -->
+                                                    <button class="btn btn-success memo-save">Save</button>
                                                 </div> 
                                             </div>
                                         </div>

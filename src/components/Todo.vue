@@ -54,10 +54,17 @@
                                 <strong>To-Dos</strong>
                                 </div>
                                 <div class="card-body">
-                                    <input type="text" class="form-control add-todo" placeholder="Add todo">
-                                    <button id="checkAll" class="btn btn-success">Mark all as done</button>
+                                    <div class="row">
+                                        <div class="col-lg-10">
+                                            <input type="text" class="form-control" placeholder="Do work">
+                                        </div>
+                                        <div class="col-lg-0">
+                                            <button class="btn btn-success todo-add">Add todo</button>
+                                        </div>
+                                    </div>
                                     <div class="space">
                                         <ul id="sortable" class="list-unstyled">
+                                            <!-- Example of a todo in list -->
                                             <li class="ui-state-default">
                                                 <div class="checkbox">
                                                     <label>
@@ -89,6 +96,7 @@
                                 </div>
                                 <div class="card-body">
                                     <ul id="done-items" class="list-unstyled">
+                                        <!-- Todo delete button -->
                                         <li>Some item <button class="remove-item btn btn-default btn-xs right-pull"><span class="fa fa-trash"></span></button></li>
                                         
                                     </ul>
