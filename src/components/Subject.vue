@@ -130,8 +130,7 @@
                                                 <b-col class="mt-3" sm="3"><strong>Goal mark: </strong></b-col>
                                                 <b-col class="mt-3" sm="9"><b-form-input v-model="goal_mark" placeholder="25"></b-form-input></b-col>
                                                 <b-col class="mt-3" sm="3"><strong>Actual mark: </strong></b-col>
-                                                <b-col class="mt-3" sm="9"><b-form-input v-model="actual_mark" placeholder="20"></b-form-input></b-col>
-                                                
+                                                <b-col class="mt-3" sm="9"><b-form-input v-model="actual_mark" placeholder="20"></b-form-input></b-col> 
                                                 <b-col class="mt-3" sm="3"><strong>Weighting mark: </strong></b-col>
                                                 <b-col class="mt-3 mb-3" sm="9"><b-form-input v-model="weight" placeholder="20%"></b-form-input></b-col>
                                             </b-row>
@@ -165,10 +164,17 @@
                                                                     <b-row class="my-1" :key="type">
                                                                         <h6>Received mark: {{assessment.actual_mark}}</h6>
                                                                         <b-col v-if="!assessment.actual_mark" sm="3"><b-form-input v-model="actual_marks[index]"></b-form-input></b-col>
+                                                                        <button v-on:click="updateAssessment(assessment, index)" class="btn btn-success">Save</button>
                                                                     </b-row>
                                                                 </b-container>
                                                             </div>
                                                         </td>
+                                                    </tr>
+                                                    <tr v-if="assessments.pending_time_required">
+                                                        <td><h6>Hours required: {{assessment.pending_time_required}}</h6></td>
+                                                    </tr>
+                                                    <tr v-if="assessments.pending_due_date">
+                                                        <td><h6>Due date: {{assessment.pending_due_date}}</h6></td>
                                                     </tr>
                                                 </table>  
                                             </div>
