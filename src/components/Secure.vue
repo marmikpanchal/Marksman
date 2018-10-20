@@ -81,7 +81,7 @@
                             <!-- If there aren't subjects -->
                             <div v-else class="row">
                                 <div class="card-body">
-                                    <span>No subjects, please add a subject</span>
+                                    <div class = "alert alert-danger">No subjects, please add a subject</div>
                                 </div>
                             </div> 
                             <!-- Add subject modal -->
@@ -91,14 +91,16 @@
                                 </b-button>
                                 <b-modal ref="Modal" hide-footer title="Adding a Subject">
                                     <div class="d-block text-center">
-                                        <h4 style="margin-top: 15px">Fill in the details</h4>
+                                        <h4 style="margin-top: 15px">Fill in the details
+                                            <button data-tooltip="Add current subjects for semester"><i class="fa fa-question-circle"></i></button>
+                                        </h4>
                                     </div>
                                     <div>
                                         <b-container fluid>
                                             <b-row class="my-1" :key="type">
-                                                <b-col class="mt-5" sm="3"><strong>Subject Name: </strong></b-col>
+                                                <b-col class="mt-5" sm="3"><strong>Subject name: </strong></b-col>
                                                 <b-col class="mt-5" sm="9"><b-form-input v-model="name" placeholder="COMP4920"></b-form-input></b-col>
-                                                <b-col class="mt-3" sm="3"><strong>Goal Mark: </strong></b-col>
+                                                <b-col class="mt-3" sm="3"><strong>Overall goal mark: </strong></b-col>
                                                 <b-col class="mt-3" sm="9"><b-form-input v-model="goal_mark" placeholder="60"></b-form-input></b-col>
                                             </b-row>
                                         </b-container>

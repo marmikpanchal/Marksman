@@ -54,6 +54,15 @@
                             <strong>Your current progress</strong>
                         </div>
                         <div class="card-body">
+                            <div class = "alert alert-info"><strong>Goal mark: {{subjects.goal_mark}}</strong>
+                                <br><br>
+                                <p v-if="subjects.actual_mark - subjects.goal_mark > 0">
+                                    You are currently {{subjects.actual_mark - subjects.goal_mark}} pass your goal!
+                                </p>
+                                <p v-else>
+                                    You are currently {{subjects.goal_mark - subjects.actual_mark}} away from your goal!
+                                </p>
+                            </div>
                             <div style="margin-bottom: 2%;">
                                 <b-progress height="35px" style="font-size: 16px; font-weight: bold;" class="mt-1 mb-3" :max="max" show-value>
                                     <b-progress-bar :value="marks.curr_total" variant="success"></b-progress-bar>
@@ -193,7 +202,7 @@
                             <!-- End assessments accordion -->
                             <div v-else class="row">
                                 <div class="card-body">
-                                    <span>No assessments, please add an assessment</span>
+                                    <div class = "alert alert-danger">No assessments, please add an assessment</div>
                                 </div>
                             </div> 
                         </div>
