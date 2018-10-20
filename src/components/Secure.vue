@@ -18,11 +18,11 @@
                         <span>Subjects</span><span class="caret"></span>
                     </a>
                     <div v-for="(subject, index) in subjects" class="dropdown-menu" aria-labelledby="pagesDropdown" :key="index">
-                        <a class="dropdown-item" href="">{{subject.name}}</a>
+                        <a class="dropdown-item" href="" v-on:click="goSubject($event)">{{subject.name}}</a>
                     </div>
                 </li> 
                 <li class="nav-item">
-                    <a class="nav-link" href="calendar.html">
+                    <a class="nav-link" href="" v-on:click="goCalendar($event)">
                         <i class="fas fa-fw fa-table"></i>
                         <span>Calendar</span>
                     </a>
@@ -125,7 +125,7 @@
                                 <div class="card-body">
                                     <v-date-picker
                                     v-model="date2"
-                                    :event-color="date => date[9] % 2 ? 'green' : 'yellow'"
+                                    :event-color="date => date[9] % 2 ? 'green' : 'red'"
                                     :events="functionEvents"
                                     full-width
 
@@ -144,30 +144,29 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="todo-list">
-                                        <div class="tdl-holder tdl-content">
-                                            <ul v-for="(task, index) in tasks" id="sortable" class="list-unstyled" :key="index">
-                                                <!-- Example of a todo in list -->
-                                                <template v-if="!task.complete">
-                                                <li class="ui-state-default">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" :name="index" />&nbsp;{{task.task_description}}</label>
-                                                            <br>
-                                                    </div>
-                                                </li>
-                                                <br>
-                                                </template>
-                                            </ul>
-                                            <div class="row">
-                                                <div class="col-md-9">
-                                                    <input v-model="task_description" type="text" class="form-control" placeholder="Do work">
+                                        <ul v-for="(task, index) in tasks" id="sortable" class="list-unstyled" :key="index">
+                                            <!-- Example of a todo in list -->
+                                            <template v-if="!task.complete">
+                                            <li class="ui-state-default">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" :name="index" />&nbsp;{{task.task_description}}</label>
+                                                        <br>
                                                 </div>
-                                                <div class="col-lg-2">
-                                                    <button v-on:click="createTask()" class="btn btn-success todo-add-secure">Add todo</button>
-                                                </div>
-                                            </div>                                  
-                                        </div>
+                                            </li>
+                                            <br>
+                                            </template>
+                                        </ul>
+                                        <div class="row">
+                                            <div class="col-lg-9">
+                                                <input v-model="task_description" type="text" class="form-control" placeholder="Do work">
+                                            </div>
+                                            <div class="col-lg-0">
+                                                <button v-on:click="createTask()" class="btn btn-success todo-add">Add todo</button>
+                                            </div>
+                                        </div>  
                                     </div>
+                                    <br>
                                 </div>
                             </div>
                         </div>
@@ -223,6 +222,10 @@
            goTodo(event) {
                 event.preventDefault();
                 this.$router.push({ name: "todo" });
+            },
+            goCalendar(event) {
+                event.preventDefault();
+                this.$router.push({ name: "calendar" });
             },
            showModal() { this.$refs.Modal.show() },
            hideModal() { this.$refs.Modal.hide() },

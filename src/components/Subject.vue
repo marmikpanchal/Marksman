@@ -18,11 +18,11 @@
                         <span>Subjects</span><span class="caret"></span>
                     </a>
                     <div v-for="(subject, index) in subjects" class="dropdown-menu" aria-labelledby="pagesDropdown" :key="index">
-                        <a class="dropdown-item" href="">{{subject.name}}</a>
+                        <a class="dropdown-item" href="" v-on:click="goSubject($event)">{{subject.name}}</a>
                     </div>
                 </li> 
                 <li class="nav-item">
-                    <a class="nav-link" href="calendar.html">
+                    <a class="nav-link" href="" v-on:click="goCalendar($event)">
                         <i class="fas fa-fw fa-table"></i>
                         <span>Calendar</span>
                     </a>
@@ -63,6 +63,7 @@
                                     You are currently {{subjects.goal_mark - subjects.actual_mark}} away from your goal!
                                 </p>
                             </div>
+                            <br>
                             <div style="margin-bottom: 2%;">
                                 <b-progress height="35px" style="font-size: 16px; font-weight: bold;" class="mt-1 mb-3" :max="max" show-value>
                                     <b-progress-bar :value="marks.curr_total" variant="success"></b-progress-bar>
@@ -268,6 +269,14 @@
                 goSubject(event) {
                     event.preventDefault();
                     this.$router.push({ name: "subject" });
+                },
+                goTodo(event) {
+                    event.preventDefault();
+                    this.$router.push({ name: "todo" });
+                },
+                goCalendar(event) {
+                    event.preventDefault();
+                    this.$router.push({ name: "calendar" });
                 },
                 showModal() { this.$refs.Modal.show() },
                 hideModal() { this.$refs.Modal.hide() },

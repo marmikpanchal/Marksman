@@ -6,6 +6,7 @@ import RegisterComponent from "@/components/Register"
 import SubjectComponent from "@/components/Subject"
 import ProfileComponent from "@/components/Profile"
 import TodoComponent from "@/components/Todo"
+import CalendarComponent from "@/components/Calendar"
 
 Vue.use(Router)
 
@@ -46,6 +47,11 @@ export default new Router({
         path: "/todo",
         name: "todo",
         component: TodoComponent
+    },
+        {
+        path: "/calendar",
+        name: "calendar",
+        component: CalendarComponent
     }
   ]
 })
