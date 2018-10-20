@@ -156,7 +156,9 @@
                                 <ul v-for="(assessment, index) in assessments" :key="index">
                                     <li>
                                         <input type="checkbox" :id="'checkbox-' + index" name="checkbox-accordion" />
-                                        <label :for="'checkbox-' + index">{{assessment.name}}</label>
+                                        <label :for="'checkbox-' + index" style="height:60px">{{assessment.name}}
+                                            <button v-on:click="deleteAssessment(assessment, index)" class="btn btn-danger float-right-delete">Delete</button>
+                                        </label>
                                         <div class="content">
                                             <div class="container float-left">
                                                 <h5><strong>Details</strong></h5>
@@ -282,10 +284,6 @@
                 hideModal() { this.$refs.Modal.hide() },
                 showPendingModal() { this.$refs.Pending_Modal.show() },
                 hidePendingModal() { this.$refs.Pending_Modal.hide() },
-                goTodo(event) {
-                    event.preventDefault();
-                    this.$router.push({ name: "todo" });
-                },
                 createPendingAssessment() {
                     const name = this.pending_name;
                     const total_mark = this.pending_total_mark;
@@ -370,6 +368,45 @@
                         })
                     }).then(response => {
                         this.getInfo();
+                    })
+                },
+                deleteAssessment(assessment, index) {
+                    const memo = null;
+                    const id = null;
+                    const name = null;
+                    const total_mark = null;
+                    const actual_mark = null;
+                    const goal_mark = null;
+                    const weight = null;
+                    const time_required = null;
+                    const due_date = null;
+                    fetch(`http://localhost:8081/assessments`, {
+                        method: 'DELETE',
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({
+                            id,
+                            name,
+                            total_mark,
+                            actual_mark,
+                            goal_mark,
+                            weight,
+                            time_required,
+                            due_date,
+                            memo,
+                        })
+                    }).then(response => {
+                        if (response.status === 200) {
+                            response.json().then(assessments => {
+                                    this.assessments = assessments
+                                    assessments.forEach((assessment) => {
+                                        if (this == assessment) {
+                                            this == null;
+                                        }
+                                    });
+                            })                           
+                        } else {
+                            console.log("Cannot retrieve assessments");
+                        }
                     })
                 },
                 getInfo() {
