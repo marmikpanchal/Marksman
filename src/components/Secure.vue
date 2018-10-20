@@ -28,7 +28,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="to-do.html">
+                    <a class="nav-link" href="" v-on:click="goTodo($event)">
                         <i class="fas fa-fw fa-list"></i>
                         <span>To-Do List</span>
                     </a>
@@ -69,7 +69,7 @@
                                              <div class="circle-progress-value">
                                                  <div>
                                                      {{subject.name}}
-                                                     <span>{{subject.curr_total}}/100</span>
+                                                     <span>{{Math.round(subject.curr_total * 100) / 100}}/100</span>
                                                  </div>
                                              </div>
                                             </div>
@@ -204,6 +204,10 @@
                 event.preventDefault();
                 this.$router.push({ name: "subject" });
            },
+           goTodo(event) {
+                event.preventDefault();
+                this.$router.push({ name: "todo" });
+            },
            showModal() { this.$refs.Modal.show() },
            hideModal() { this.$refs.Modal.hide() },
            createSubject() {

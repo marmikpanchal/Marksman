@@ -16,7 +16,7 @@
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Subjects</span><span class="caret"></span>
                     </a>
-                    <div v-for="(subject, index) in subjects" class="dropdown-menu" aria-labelledby="pagesDropdown">
+                    <div v-for="(subject, index) in subjects" class="dropdown-menu" aria-labelledby="pagesDropdown" :key="index">
                         <a class="dropdown-item" href="">{{subject.name}}</a>
                     </div>
                 </li> 
@@ -27,7 +27,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="to-do.html">
+                    <a class="nav-link" href="" v-on:click="goTodo($event)">
                         <i class="fas fa-fw fa-list"></i>
                         <span>To-Do List</span>
                     </a>
@@ -113,6 +113,106 @@
         <!-- End main page -->    
     </body>
 </template>
+
+
+
+<script>
+export default {
+            name: 'Subject',
+        // components: { Modal },
+        data() {
+            return {
+                subjects: [],
+                    assessments: [],
+                    colours: [
+                    "bg-primary",
+                    "bg-warning",
+                    "bg-success",
+                    "bg-danger"
+                    ],
+                    name: '',
+                    total_mark: '',
+                    actual_mark: '',
+                    goal_mark: '',
+                    weight: '',
+                    marks: {}
+                };
+            },
+            methods: {
+                next(subject, event) {
+                    event.preventDefault();
+                    alert(JSON.stringify(subject));
+                },
+                next(assessment, event) {
+                    event.preventDefault();
+                    alert(JSON.stringify(assessment));
+                },
+                goSecure(event) {
+                    event.preventDefault();
+                    this.$router.push({ name: "secure" });
+                },
+                goSubject(event) {
+                    event.preventDefault();
+                    this.$router.push({ name: "subject" });
+                },
+                showModal() { this.$refs.Modal.show() },
+                hideModal() { this.$refs.Modal.hide() },
+                showPendingModal() { this.$refs.Pending_Modal.show() },
+                hidePendingModal() { this.$refs.Pending_Modal.hide() },
+                goTodo(event) {
+                    event.preventDefault();
+                    this.$router.push({ name: "todo" });
+                },
+                createAssessment() {
+                    fetch(`http://localhost:8081/assessments`, {
+                        method: 'POST',
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({
+                            subject_id: this.$parent.subject_id,
+                            name: this.name,
+                            total_mark: this.total_mark,
+                            actual_mark: this.actual_mark,
+                            goal_mark: this.goal_mark,
+                            weight: this.weight
+                        })
+                    }).then(response => {
+                        this.hideModal()
+                        this.getInfo();
+                    })
+                },
+                getInfo() {
+                    fetch(`http://localhost:8081/assessments/${this.$parent.subject_id}`, {
+                        method: 'GET',
+                    }).then(response => {
+                        if (response.status === 200) {
+                            response.json().then(assessments => {
+                                    this.assessments = assessments
+                            })                           
+                        } else {
+                            console.log("Cannot retrieve assessments");
+                        }
+                    });
+                    fetch(`http://localhost:8081/subjects/totals/${this.$parent.subject_id}`, {
+                        method: 'GET',
+                    }).then(response => {
+                        if (response.status === 200) {
+                            response.json().then(marks => {
+                                    this.marks = marks
+                            })                           
+                        } else {
+                            console.log("Cannot retrieve assessments");
+                        }
+                    });
+                }
+                
+            },
+          
+            mounted() {
+                this.getInfo();
+            }  
+}
+</script>
+
 
 
 <style src= "../assets/vendor/bootstrap/css/bootstrap.min.css" scoped></style>
