@@ -56,31 +56,25 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-lg-10">
-                                            <input type="text" class="form-control" placeholder="Do work">
+                                            <input v-model="task_description" type="text" class="form-control" placeholder="Do work">
                                         </div>
                                         <div class="col-lg-0">
-                                            <button class="btn btn-success todo-add">Add todo</button>
+                                            <button v-on:click="createTask()" class="btn btn-success todo-add">Add todo</button>
                                         </div>
                                     </div>
                                     <div class="space">
-                                        <ul id="sortable" class="list-unstyled">
+                                        <ul v-for="(task, index) in tasks" id="sortable" class="list-unstyled" :key="index">
                                             <!-- Example of a todo in list -->
+                                            <template v-if="!task.complete">
                                             <li class="ui-state-default">
                                                 <div class="checkbox">
                                                     <label>
-                                                        <input type="checkbox" value=""/>&nbsp Take out the trash</label>
+                                                        <input v-on:click="setComplete(task, $event)" type="checkbox" :name="index" />&nbsp;{{task.task_description}}</label>
                                                         <br>
                                                 </div>
                                             </li>
                                             <br>
-                                            <li class="ui-state-default">
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox" value=""/>&nbsp Buy bread</label>
-                                                        <br>
-                                                </div>
-                                            </li>
-                                            <br>
+                                            </template>
                                         </ul>
                                     </div>
                                 </div>
@@ -95,10 +89,11 @@
                                 <strong>Already Done</strong>
                                 </div>
                                 <div class="card-body">
-                                    <ul id="done-items" class="list-unstyled">
+                                    <ul id="done-items" class="list-unstyled" v-for="(task, index) in tasks" :key="index">
                                         <!-- Todo delete button -->
-                                        <li>Some item <button class="remove-item btn btn-default btn-xs right-pull"><span class="fa fa-trash"></span></button></li>
-                                        
+                                        <template v-if="task.complete">
+                                            <li>{{task.task_description}} <button v-on:click="deleteTask(task)" class="remove-item btn btn-default btn-xs right-pull"><span class="fa fa-trash"></span></button></li>
+                                        </template>
                                     </ul>
                                 </div>
                             </div>
@@ -123,30 +118,11 @@ export default {
         data() {
             return {
                 subjects: [],
-                    assessments: [],
-                    colours: [
-                    "bg-primary",
-                    "bg-warning",
-                    "bg-success",
-                    "bg-danger"
-                    ],
-                    name: '',
-                    total_mark: '',
-                    actual_mark: '',
-                    goal_mark: '',
-                    weight: '',
-                    marks: {}
+                tasks: [],
+                task_description: ''
                 };
             },
             methods: {
-                next(subject, event) {
-                    event.preventDefault();
-                    alert(JSON.stringify(subject));
-                },
-                next(assessment, event) {
-                    event.preventDefault();
-                    alert(JSON.stringify(assessment));
-                },
                 goSecure(event) {
                     event.preventDefault();
                     this.$router.push({ name: "secure" });
@@ -163,22 +139,59 @@ export default {
                     event.preventDefault();
                     this.$router.push({ name: "todo" });
                 },
-                createAssessment() {
-                    fetch(`http://localhost:8081/assessments`, {
+                createTask() {
+                    const task_description = this.task_description;
+                    const complete = false;
+                    const user_id = this.$parent.user_id;
+                    fetch(`http://localhost:8081/tasks`, {
                         method: 'POST',
                         headers: {"Content-Type": "application/json"},
                         body: JSON.stringify({
-                            subject_id: this.$parent.subject_id,
-                            name: this.name,
-                            total_mark: this.total_mark,
-                            actual_mark: this.actual_mark,
-                            goal_mark: this.goal_mark,
-                            weight: this.weight
+                            user_id,
+                            complete,
+                            task_description
                         })
                     }).then(response => {
-                        this.hideModal()
-                        this.getInfo();
-                    })
+                        if (response.status === 201) {
+                            this.task_description = '';
+                           this.getInfo();                      
+                        } else {
+                            console.log("Cannot");
+                        }
+                    });
+                },
+                setComplete(task, event) {
+                    event.preventDefault();
+                    const task_description = task.task_description;
+                    const complete = true;
+                    const id = task.id;
+                    fetch(`http://localhost:8081/tasks`, {
+                        method: 'PUT',
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({
+                            id,
+                            complete,
+                            task_description
+                        })
+                    }).then(response => {
+                        if (response.status === 200) {
+                           this.getInfo();
+                                               
+                        } else {
+                            console.log("Cannot retrieve assessments");
+                        }
+                    });
+                },
+                deleteTask(task) {
+                    fetch(`http://localhost:8081/tasks/${task.id}`, {
+                        method: 'DELETE',
+                    }).then(response => {
+                        if (response.status === 200) {
+                            this.getInfo();                       
+                        } else {
+                            console.log("Cannot retrieve assessments");
+                        }
+                    });
                 },
                 getInfo() {
                     fetch(`http://localhost:8081/assessments/${this.$parent.subject_id}`, {
@@ -192,17 +205,18 @@ export default {
                             console.log("Cannot retrieve assessments");
                         }
                     });
-                    fetch(`http://localhost:8081/subjects/totals/${this.$parent.subject_id}`, {
+                    fetch(`http://localhost:8081/tasks/${this.$parent.user_id}`, {
                         method: 'GET',
                     }).then(response => {
                         if (response.status === 200) {
-                            response.json().then(marks => {
-                                    this.marks = marks
+                            response.json().then(tasks => {
+                                    this.tasks = tasks;
                             })                           
                         } else {
                             console.log("Cannot retrieve assessments");
                         }
                     });
+                    
                 }
                 
             },
