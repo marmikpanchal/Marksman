@@ -16,69 +16,73 @@
 
     </div>
 </template> -->
-
-
 <template>
-  <v-app id="inspire">
-      <h1>Marksman</h1>
-    <v-content>
-      <v-container fluid fill-height>
-        <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4>
-            <v-card class="elevation-12">
-              <v-toolbar dark color="primary">
-                <v-toolbar-title><strong>Become a Marksman</strong></v-toolbar-title>
-                <v-spacer></v-spacer>
-                
-              </v-toolbar>
-              <v-card-text>
-                <v-form>
-                  <v-text-field 
-                    prepend-icon="person" 
-                    name="username" 
-                    type="text" 
-                    v-model="input.username" 
-                    label="Username"
-                    placeholder="Create a username"></v-text-field>
-                  <v-text-field 
-                    id="password" 
-                    prepend-icon="lock" 
-                    name="password" 
-                    type="password" 
-                    v-model="input.password" 
-                    label="Password"
-                    placeholder="Create a password"
-                    required></v-text-field>
-                  <v-text-field 
-                    id="retype_password" 
-                    prepend-icon="lock" 
-                    name="retype_password" 
-                    type="retype_password" 
-                    v-model="input.retype_password" 
-                    label="Verify password"
-                    placeholder="Retype password"
-                    required></v-text-field>
-                  <v-text-field 
-                    prepend-icon="email" 
-                    name="email" 
-                    type="email" 
- subject                   label="Email" 
-                    placeholder="eg. marksman@gmail.com"
-                    required
-                    v-model="input.email"></v-text-field>
-                </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="primary" v-on:click="registerAccount()">Register</v-btn>
-                <v-btn color="grey" v-on:click="back()">Back</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-content>
-  </v-app>
+    <v-app id="inspire" style="background=#ffffff; padding-top:10%">
+	    <section class="banner-area">
+		    <div class="container">
+			    <div class="row fullscreen align-items-center justify-content-between">
+				    <div class="col-lg-6 col-md-6 banner-left">
+					    <!-- class not working -->
+    <img src="../assets/icons/M.png" style="display:block;margin-left:auto;margin-right:auto;width:400px;"/>
+
+                        <br>
+					    <p>
+						    Track all your marks at university and be the best you can be.
+					    </p>
+				    </div>
+				    <div class="col-lg-6 col-md-6 banner-right d-flex align-self-end">
+                        <div class="card mb-3">
+                            <div class="card-header"><strong style="font-size:15pt">Become a Marksman</strong>
+                            </div>
+                            <v-spacer></v-spacer>
+                            <v-card-text>
+                                <v-form>
+                                    <v-text-field 
+                                    prepend-icon="person" 
+                                    name="username" 
+                                    type="text" 
+                                    v-model="input.username" 
+                                    label="Username"
+                                    placeholder="Create a username"></v-text-field>
+                                    <v-text-field 
+                                    id="password" 
+                                    prepend-icon="lock" 
+                                    name="password" 
+                                    type="password" 
+                                    v-model="input.password" 
+                                    label="Password"
+                                    placeholder="Create a password"
+                                    required></v-text-field>
+                                    <v-text-field 
+                                    id="retype_password" 
+                                    prepend-icon="lock" 
+                                    name="retype_password" 
+                                    type="retype_password" 
+                                    v-model="input.retype_password" 
+                                    label="Verify password"
+                                    placeholder="Retype password"
+                                    required></v-text-field>
+                                    <v-text-field 
+                                    prepend-icon="email" 
+                                    name="email" 
+                                    type="email" 
+                                    subject                   label="Email" 
+                                    placeholder="eg. marksman@gmail.com"
+                                    required
+                                    v-model="input.email"></v-text-field>
+                                </v-form>
+                            </v-card-text>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn class="vbtn" color="grey" style="text-transform: capitalize;" v-on:click="back()">Back</v-btn>
+                                <v-btn class="vbtn" color="primary" style="text-transform: capitalize;" v-on:click="registerAccount()">Register</v-btn>
+                            </v-card-actions>
+                        </div>
+				    </div>
+			    </div>
+		    </div>					
+	    </section>
+    </v-app>
 </template>
 
 <script>
@@ -132,19 +136,67 @@
 </script>
 
 <style scoped>
-    #register {
-        background-color: #FFFFFF;
-        border: 1px solid #CCCCCC;
-        padding: 20px;
-        margin-top: 10px;
-    }
 
-    h1 {
+    app {
+        color: #000000;
+        font-family: Helvetica, 'Open Sans', Arial, sans-serif;
+        font-size: 48px;
+        font-weight: bold;
+        text-align: center;
+        padding-top: 80px;
+    }
+    
+    p {
         font-family: Arial;
         text-align: center;
-        margin-top: 80px;
-        margin-bottom: -80px;
-        font-size: 70px;
+    }
+
+    #title {
+        padding-top: 80px;
+        text-align: center;
+    }
+
+    #inputBox {
+        text-align: center;
+        width: 500px;
+        border: 1px solid #CCCCCC;
+        background-color: #FFFFFF;
+        margin: auto;
+        margin-top: 200px;
+        padding: 20px;
+    }
+
+    .fb-signin-button {
+        font-weight: bold;
+        margin-left: 10px;
+        width: 100px;
+        text-align: center;
+        height: 30px;
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 3px;
+        background-color: #4267b2;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .g-signin-button {
+        margin-left: 10px;
+        cursor: pointer;
+        font-weight: bold;
+        width: 100px;
+        text-align: center;
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 3px;
+        background-color: red;
+        color: white;
+        /*box-shadow: 0 3px 0 #0f69ff;*/
+    }
+
+    .vbtn {
+        color: white;
         font-weight: bold;
     }
+
 </style>

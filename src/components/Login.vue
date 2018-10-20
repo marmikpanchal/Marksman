@@ -1,56 +1,51 @@
 <template>
-  <v-app id="inspire">
-      <p>Marksman</p>
-    <v-content>
-      <v-container fluid fill-height>
-        <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4>
-            <v-card class="elevation-12">
-              
-              <v-toolbar dark color="green">
-                <v-toolbar-title><strong>Login</strong></v-toolbar-title>
-                <v-spacer></v-spacer>
-                <span style="font-weight: bold">Sign in with: </span>
-                <fb-signin-button :params="fbSignInParams" @success="onSignInSuccess" @error="onSignInError">
-                    Facebook
-                </fb-signin-button>
-                
-                <g-signin-button :params="googleSignInParams" @success="onSignInSuccess" @error="onSignInError">
-                    Google
-                </g-signin-button>
-               <!--  <v-tooltip bottom>
-                  <v-btn slot="activator" :href="source" icon large target="_blank">
-                    <v-icon medium></v-icon>
-                  </v-btn>
-                  <span>Login with Facebook</span>
-                </v-tooltip>
-                <v-tooltip right>
-                  <v-btn slot="activator" icon large href="https://codepen.io/johnjleider/pen/wyYVVj" target="_blank">
-                    <v-icon medium></v-icon>
-                  </v-btn>
-                  <span>Login with Google</span>
-                </v-tooltip> -->
-              </v-toolbar>
-              
-              <v-card-text>
-                <v-form>
-                  <v-text-field prepend-icon="person" name="login" type="text" v-model="input.username" label="Username"></v-text-field>
-                  <v-text-field id="password" prepend-icon="lock" name="password" type="password" v-model="input.password" label="Password"></v-text-field>
-                </v-form>
-              </v-card-text>
+    <v-app id="inspire" style="background=#ffffff; padding-top:10%">
+	    <section class="banner-area">
+		    <div class="container">
+			    <div class="row fullscreen align-items-center justify-content-between">
+				    <div class="col-lg-6 col-md-6 banner-left">
+					    <!-- class not working -->
+    <img src="../assets/icons/M.png" style="display:block;margin-left:auto;margin-right:auto;width:400px;"/>
 
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn class = "vbtn" color ="primary" v-on:click="register()" depressed target="_blank">Register</v-btn>
-                <v-btn class="vbtn" color="green" text v-on:click="login()">Login</v-btn>
-              </v-card-actions>
-            
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-content>
-  </v-app>
+                        <br>
+					    <p>
+						    Track all your marks at university and be the best you can be.
+					    </p>
+				    </div>
+				    <div class="col-lg-6 col-md-6 banner-right d-flex align-self-end">
+                        <div class="card mb-3">
+                            <div class="card-header"><strong style="font-size:15pt">Login</strong>
+                                <div style="float:right">
+                                    <span style="font-weight: bold;">Sign in with: </span>
+                                    <fb-signin-button :params="fbSignInParams" @success="onSignInSuccess" @error="onSignInError">
+                                        Facebook
+                                    </fb-signin-button>
+                                    
+                                    <g-signin-button :params="googleSignInParams" @success="onSignInSuccess" @error="onSignInError">
+                                        Google
+                                    </g-signin-button>                
+                                </div>   
+                            </div>
+                            <v-spacer></v-spacer>
+                            <v-card-text>
+                                <v-form>
+                                    <v-text-field prepend-icon="person" name="login" type="text" v-model="input.username" label="Username"></v-text-field>
+                                    <v-text-field id="password" prepend-icon="lock" name="password" type="password" v-model="input.password" label="Password"></v-text-field>
+                                </v-form>
+                            </v-card-text>
+
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn class = "vbtn" style="text-transform: capitalize;" color ="primary" v-on:click="register()" depressed target="_blank">Register</v-btn>
+                                <v-btn class="vbtn" style="text-transform: capitalize;" color="green" text v-on:click="login()">Login</v-btn>
+                            </v-card-actions>
+                        
+                        </div>
+				    </div>
+			    </div>
+		    </div>					
+	    </section>
+    </v-app>
 </template>
 
 <!-- <template>
@@ -136,14 +131,10 @@
         text-align: center;
         padding-top: 80px;
     }
-
+    
     p {
         font-family: Arial;
         text-align: center;
-        margin-top: 80px;
-        margin-bottom: -80px;
-        font-size: 70px;
-        font-weight: bold;
     }
 
     #title {
@@ -184,8 +175,8 @@
         display: inline-block;
         padding: 4px 8px;
         border-radius: 3px;
-        background-color: white;
-        color: red;
+        background-color: red;
+        color: white;
         /*box-shadow: 0 3px 0 #0f69ff;*/
     }
 
