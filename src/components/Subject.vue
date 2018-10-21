@@ -59,7 +59,8 @@
                                     <a class="dropdown-item" @click="showSubjectEditModal">Edit subject</a>
                                     
                                     <a class="dropdown-item">Hide subject</a>
-                                    <a class="dropdown-item" @click="showSubjectDeleteModal">Delete subject</a>
+                                    
+                                    <a class="dropdown-item" v-on:click="deleteAssessment(assessment)">Delete</a>
                                 </div>
                             </div> 
                         </div>
@@ -182,7 +183,8 @@
                                     <li>
                                         <input type="checkbox" :id="'checkbox-' + index" name="checkbox-accordion" />
                                         <label :for="'checkbox-' + index" style="height:60px">{{assessment.name}}
-                                            <b-button  @click="showAssessDeleteModal"  class="mb-3 btn btn-danger float-right-delete">Delete</b-button>
+                                            <button v-on:click="deleteAssessment(assessment)" class="btn btn-danger float-right-delete">Delete</button>
+                                            <!--<b-button  @click="showAssessDeleteModal"  class="mb-3 btn btn-danger float-right-delete">Delete</b-button>-->
                                             <b-button class="mb-3 btn btn-warning float-right-delete">Hide</b-button>
                                             <b-button @click="showEditAssessModal" class="mb-3 btn btn-primary float-right-delete">Edit</b-button>
                                         </label>
@@ -256,8 +258,8 @@
                                 </b-row>
                             </b-container>
                         </div>
-                        <button class="mt-5" variant="danger" block @click="hideSubjectEditModal">Cancel</button>
-                        <button class = "mt-3" variant="success" block  v-on:click="editSubject(this.$parent)">Save Changes</button>
+                        <b-btn class="mt-5" variant="danger" block @click="hideSubjectEditModal">Cancel</b-btn>
+                        <b-btn class = "mt-3" variant="success" block  v-on:click="editSubject(this.$parent)">Save Changes</b-btn>
                     </b-modal>
                     <!-- End edit subject modal -->  
                     <!-- Delete subject modal -->
@@ -266,8 +268,8 @@
                             <h4 style="margin-top: 15px">Delete subject?</h4>
                             This will delete it forever
                         </div>
-                        <button class="mt-5" variant="danger" block @click="hideSubjectDeleteModal">Cancel</button>
-                        <button class = "mt-3" variant="success" block v-on:click="deleteSubject(this.$parent)">Yes, delete it</button>
+                        <b-btn class="mt-5" variant="danger" block @click="hideSubjectDeleteModal">Cancel</b-btn>
+                        <b-btn class = "mt-3" variant="success" block v-on:click="deleteSubject(this.$parent)">Yes, delete it</b-btn>
                     </b-modal>
                     <!-- End delete subject modal -->
                     <!-- Edit assessment modal -->  
@@ -297,8 +299,8 @@
                                 </b-row>
                             </b-container>
                         </div>
-                        <button class="mt-5" variant="danger" block @click="hideEditAssessModal">Cancel</button>
-                        <button class = "mt-3" variant="success" block  v-on:click="editAssessment(assessment, index)">Save Changes</button>
+                        <b-btn class="mt-5" variant="danger" block @click="hideEditAssessModal">Cancel</b-btn>
+                        <b-btn class = "mt-3" variant="success" block  v-on:click="editAssessment(assessment, index)">Save Changes</b-btn>
                     </b-modal>
                     <!-- End edit assessment modal -->  
                     <!-- Delete assessment modal -->
@@ -307,8 +309,8 @@
                             <h4 style="margin-top: 15px">Delete assessment?</h4>
                             This will delete it forever
                         </div>
-                        <button class="mt-5" variant="danger" block @click="hideAssessDeleteModal">Cancel</button>
-                        <button class = "mt-3" variant="success" v-on:click="deleteAssessment(assessment)">Yes, delete it</button>
+                        <b-btn class="mt-5" variant="danger" block @click="hideAssessDeleteModal">Cancel</b-btn>
+                        <b-btn class = "mt-3" variant="success"  v-on:click="deleteAssessment(assessment)">Yes, delete it</b-btn>
                     </b-modal>
                 </div>
             </div>
