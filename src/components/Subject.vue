@@ -186,7 +186,46 @@
                                             <b-button @click="showEditAssessModal" class="mb-3 btn btn-warning float-right-delete">Hide</b-button>
                                             <b-button @click="showEditAssessModal" class="mb-3 btn btn-primary float-right-delete">Edit</b-button>
                                         </label>
-                                        
+                                        <!-- Edit assessment modal -->
+                                        <b-modal ref="Edit_Assess_Modal" hide-footer title="Edit Assessment">
+                                            <div class="d-block text-center">
+                                                <h4 style="margin-top: 15px">Edit the details
+                                                </h4>
+                                            </div>
+                                            <div>
+                                                <b-container fluid>
+                                                    <b-row class="my-1" :key="type">
+                                                        <b-col class="mt-3" sm="3"><strong>Name: </strong></b-col>
+                                                        <b-col class="mt-3" sm="9"><b-form-input v-model="name" :placeholder=assessment.name></b-form-input></b-col>
+                                                        <b-col class="mt-3" sm="3"><strong>Total mark: </strong></b-col>
+                                                        <b-col class="mt-3" sm="9"><b-form-input v-model="total_mark" :placeholder=assessment.total_mark></b-form-input></b-col>
+                                                        <b-col class="mt-3" sm="3"><strong>Goal mark: </strong></b-col>
+                                                        <b-col class="mt-3" sm="9"><b-form-input v-model="goal_mark" :placeholder=assessment.total_mark></b-form-input></b-col>
+                                                        <b-col class="mt-3" sm="3" v-if="assessment.actual_mark"><strong>Actual mark: </strong></b-col>
+                                                        <b-col class="mt-3" sm="9" v-if="assessment.actual_mark"><b-form-input v-model="actual_mark" :placeholder=assessment.actual_mark></b-form-input></b-col> 
+                                                        <b-col class="mt-3" sm="3"><strong>Weighting mark: </strong></b-col>
+                                                        <b-col class="mt-3 mb-3" sm="9"><b-form-input v-model="weight" :placeholder=assessment.weight></b-form-input></b-col>
+                                                        <b-col class="mt-3" sm="3" v-if="assessment.time_required"><strong>Estimated hours til completion: </strong></b-col>
+                                                        <b-col class="mt-3 mb-3" sm="9" v-if="assessment.time_required"><b-form-input v-model="pending_time_required" type="hours" :placeholder=assessment.time_required></b-form-input></b-col>
+                                                        <b-col class="mt-3" sm="3" v-if="assessment.due_date"><strong>Due date: </strong></b-col>
+                                                        <b-col class="mt-3 mb-3" sm="9" v-if="assessment.due_date"><b-form-input v-model="pending_due_date" type="date" :placeholder=assessment.due_date></b-form-input></b-col>
+                                                    </b-row>
+                                                </b-container>
+                                            </div>
+                                            <b-btn class="mt-5" variant="danger" block @click="hideEditAssessModal">Cancel</b-btn>
+                                            <b-btn class = "mt-3" variant="success" block  v-on:click="editAssessment(assessment, index)">Save Changes</b-btn>
+                                        </b-modal>
+                                        <!-- End edit assessment modal -->  
+                                        <!-- Delete assessment modal -->
+                                        <b-modal ref="Assess_Delete_Modal" hide-footer title="Delete Assessment">
+                                            <div class="d-block text-center">
+                                                <h4 style="margin-top: 15px">Delete assessment?</h4>
+                                                This will delete it forever
+                                            </div>
+                                            <b-btn class="mt-5" variant="danger" block @click="hideAssessDeleteModal">Cancel</b-btn>
+                                            <b-btn class = "mt-3" variant="success" block v-on:click="deleteAssessment(assessment)">Yes, delete it</b-btn>
+                                        </b-modal>
+                                        <!-- End delete subject modal -->
                                         <div class="content">
                                             <div class="container float-left">
                                                 <h5><strong>Details</strong></h5>
@@ -239,46 +278,6 @@
                         </div>
                     </div>
                     <!-- End assessment box -->  
-                    <!-- Edit assessment modal -->
-                    <b-modal ref="Edit_Assess_Modal" hide-footer title="Edit Assessment">
-                        <div class="d-block text-center">
-                            <h4 style="margin-top: 15px">Edit the details
-                            </h4>
-                        </div>
-                        <div>
-                            <b-container fluid>
-                                <b-row class="my-1" :key="type">
-                                    <b-col class="mt-3" sm="3"><strong>Name: </strong></b-col>
-                                    <b-col class="mt-3" sm="9"><b-form-input v-model="name" :placeholder=assessment.name></b-form-input></b-col>
-                                    <b-col class="mt-3" sm="3"><strong>Total mark: </strong></b-col>
-                                    <b-col class="mt-3" sm="9"><b-form-input v-model="total_mark" :placeholder=assessment.total_mark></b-form-input></b-col>
-                                    <b-col class="mt-3" sm="3"><strong>Goal mark: </strong></b-col>
-                                    <b-col class="mt-3" sm="9"><b-form-input v-model="goal_mark" :placeholder=assessment.total_mark></b-form-input></b-col>
-                                    <b-col class="mt-3" sm="3" v-if="assessment.actual_mark"><strong>Actual mark: </strong></b-col>
-                                    <b-col class="mt-3" sm="9" v-if="assessment.actual_mark"><b-form-input v-model="actual_mark" :placeholder=assessment.actual_mark></b-form-input></b-col> 
-                                    <b-col class="mt-3" sm="3"><strong>Weighting mark: </strong></b-col>
-                                    <b-col class="mt-3 mb-3" sm="9"><b-form-input v-model="weight" :placeholder=assessment.weight></b-form-input></b-col>
-                                    <b-col class="mt-3" sm="3" v-if="assessment.time_required"><strong>Estimated hours til completion: </strong></b-col>
-                                    <b-col class="mt-3 mb-3" sm="9" v-if="assessment.time_required"><b-form-input v-model="pending_time_required" type="hours" :placeholder=assessment.time_required></b-form-input></b-col>
-                                    <b-col class="mt-3" sm="3" v-if="assessment.due_date"><strong>Due date: </strong></b-col>
-                                    <b-col class="mt-3 mb-3" sm="9" v-if="assessment.due_date"><b-form-input v-model="pending_due_date" type="date" :placeholder=assessment.due_date></b-form-input></b-col>
-                                </b-row>
-                            </b-container>
-                        </div>
-                        <b-btn class="mt-5" variant="danger" block @click="hideEditAssessModal">Cancel</b-btn>
-                        <b-btn class = "mt-3" variant="success" block  v-on:click="editAssessment(assessment, index)">Save Changes</b-btn>
-                    </b-modal>
-                    <!-- End edit assessment modal -->  
-                    <!-- Delete assessment modal -->
-                    <b-modal ref="Assess_Delete_Modal" hide-footer title="Delete Assessment">
-                        <div class="d-block text-center">
-                            <h4 style="margin-top: 15px">Delete assessment?</h4>
-                            This will delete it forever
-                        </div>
-                        <b-btn class="mt-5" variant="danger" block @click="hideAssessDeleteModal">Cancel</b-btn>
-                        <b-btn class = "mt-3" variant="success" block v-on:click="deleteAssessment(assessment)">Yes, delete it</b-btn>
-                    </b-modal>
-                    <!-- End delete subject modal -->
                     <!-- Edit subject modal doesn't work when it's in button -->    
                     <b-modal ref="Edit_Subject_Modal" hide-footer title="Edit Subject">
                         <div class="d-block text-center">
