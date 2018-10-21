@@ -54,13 +54,13 @@
                             <strong>Your current progress</strong>
                         </div>
                         <div class="card-body">
-                            <div class = "alert alert-info"><strong>Goal mark: {{subjects.goal_mark}}</strong>
+                            <div class = "alert alert-info"><strong>Goal mark: {{this.$parent.subject_goal_mark}}</strong>
                                 <br><br>
-                                <p v-if="subjects.actual_mark - subjects.goal_mark > 0">
-                                    You are currently {{subjects.actual_mark - subjects.goal_mark}} pass your goal!
+                                <p v-if="subjects.actual_mark - this.$parent.subject_goal_mark > 0">
+                                    You are currently {{Math.round((this.$parent.subject_goal_mark - marks.curr_total) * 100) / 100}} marks passed your goal!
                                 </p>
                                 <p v-else>
-                                    You are currently {{subjects.goal_mark - subjects.actual_mark}} away from your goal!
+                                    You are currently {{Math.round((this.$parent.subject_goal_mark - marks.curr_total) * 100) / 100}} marks away from your goal!
                                 </p>
                             </div>
                             <br>
@@ -157,7 +157,7 @@
                                     <li>
                                         <input type="checkbox" :id="'checkbox-' + index" name="checkbox-accordion" />
                                         <label :for="'checkbox-' + index" style="height:60px">{{assessment.name}}
-                                            <button v-on:click="deleteAssessment(assessment, index)" class="btn btn-danger float-right-delete">Delete</button>
+                                            <button v-on:click="deleteAssessment(assessment)" class="btn btn-danger float-right-delete">Delete</button>
                                         </label>
                                         <div class="content">
                                             <div class="container float-left">
@@ -370,40 +370,13 @@
                         this.getInfo();
                     })
                 },
-                deleteAssessment(assessment, index) {
-                    const memo = null;
-                    const id = null;
-                    const name = null;
-                    const total_mark = null;
-                    const actual_mark = null;
-                    const goal_mark = null;
-                    const weight = null;
-                    const time_required = null;
-                    const due_date = null;
-                    fetch(`http://localhost:8081/assessments`, {
-                        method: 'DELETE',
-                        headers: {"Content-Type": "application/json"},
-                        body: JSON.stringify({
-                            id,
-                            name,
-                            total_mark,
-                            actual_mark,
-                            goal_mark,
-                            weight,
-                            time_required,
-                            due_date,
-                            memo,
-                        })
+                deleteAssessment(assessment) {
+                    const id = assessment.id;
+                    fetch(`http://localhost:8081/assessments/${id}`, {
+                        method: 'DELETE'
                     }).then(response => {
                         if (response.status === 200) {
-                            response.json().then(assessments => {
-                                    this.assessments = assessments
-                                    assessments.forEach((assessment) => {
-                                        if (this == assessment) {
-                                            this == null;
-                                        }
-                                    });
-                            })                           
+                            this.getInfo();                                                       
                         } else {
                             console.log("Cannot retrieve assessments");
                         }

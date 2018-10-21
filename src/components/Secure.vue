@@ -206,6 +206,7 @@
 
                 this.$emit("subject_id", subject.id);
                 this.$emit("subject_name", subject.name);
+                this.$emit("subject_goal", subject.goal_mark);
                 console.log("TRYING TO DEBUG");
                 console.log(subject);
                 console.log(subject.id); // this works

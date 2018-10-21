@@ -8,7 +8,7 @@
                 </router-link>
             </ul>  
         </nav>
-        <router-view @authenticated="setAuthenticated" @id="setId" @subject_id="setSubjectId" @subject_name="setSubjectName"/>
+        <router-view @authenticated="setAuthenticated" @id="setId" @subject_id="setSubjectId" @subject_name="setSubjectName" @subject_goal="setSubjectGoal"/>
     </div>
 </template>
 
@@ -20,7 +20,9 @@
                 authenticated: false,
                 user_id: 0,
                 subject_id: 0,
-                subject_name: ''
+                subject_name: '',
+                subject_goal_mark: 0,
+                
             }
         },
 
@@ -51,6 +53,9 @@
             },
             setSubjectName(name) {
                 this.subject_name = name;
+            },
+            setSubjectGoal(goal) {
+                this.subject_goal_mark = goal;
             }
             
         }
