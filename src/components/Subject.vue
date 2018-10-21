@@ -52,6 +52,16 @@
                         <div class="card-header">
                             <i class="fas fa-chart-area"></i>
                             <strong>Your current progress</strong>
+                            <div class="nav-item dropdown" style="float:right">
+                                <a class="fa fa-cog nav-link dropdown-toggle" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="pagesDropdown" :key="index">
+                                    <a class="dropdown-item" @click="showSubjectEditModal">Edit subject</a>
+                                    
+                                    <a class="dropdown-item">Hide subject</a>
+                                    <a class="dropdown-item" @click="showSubjectDeleteModal">Delete subject</a>
+                                </div>
+                            </div> 
                         </div>
                         <div class="card-body">
                             <div class = "alert alert-info"><strong>Goal mark: {{this.$parent.subject_goal_mark}}</strong>
@@ -75,7 +85,22 @@
                         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                     </div>
                     <!-- End progress bar -->
-
+                    <!-- Subject memo -->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fas fa-fw  fa-list"></i>
+                            <strong>Memo</strong>&nbsp&nbsp<button data-tooltip="Write down any notes you have for this subject"><i class="fa fa-question-circle"></i></button>
+                             
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <b-form-textarea class="form-control" v-model="this.$parent.memo" id="message" name="message" placeholder="Please enter your notes here..." rows="8"><!--{{subject.memo}}--></b-form-textarea>
+                                <!-- Save button for memo -->
+                                <button v-on:click="updateSubjectMemo(this.$parent)" class="btn btn-success memo-save">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End subject memo -->
                    
                 
                     <!-- Assessment box -->
@@ -157,8 +182,50 @@
                                     <li>
                                         <input type="checkbox" :id="'checkbox-' + index" name="checkbox-accordion" />
                                         <label :for="'checkbox-' + index" style="height:60px">{{assessment.name}}
-                                            <button v-on:click="deleteAssessment(assessment)" class="btn btn-danger float-right-delete">Delete</button>
+                                            <b-button  @click="showAssessDeleteModal"  class="mb-3 btn btn-danger float-right-delete">Delete</b-button>
+                                            <b-button @click="showEditAssessModal" class="mb-3 btn btn-warning float-right-delete">Hide</b-button>
+                                            <b-button @click="showEditAssessModal" class="mb-3 btn btn-primary float-right-delete">Edit</b-button>
                                         </label>
+                                        <!-- Edit assessment modal -->
+                                        <b-modal ref="Edit_Assess_Modal" hide-footer title="Edit Assessment">
+                                            <div class="d-block text-center">
+                                                <h4 style="margin-top: 15px">Edit the details
+                                                </h4>
+                                            </div>
+                                            <div>
+                                                <b-container fluid>
+                                                    <b-row class="my-1" :key="type">
+                                                        <b-col class="mt-3" sm="3"><strong>Name: </strong></b-col>
+                                                        <b-col class="mt-3" sm="9"><b-form-input v-model="name" :placeholder=assessment.name></b-form-input></b-col>
+                                                        <b-col class="mt-3" sm="3"><strong>Total mark: </strong></b-col>
+                                                        <b-col class="mt-3" sm="9"><b-form-input v-model="total_mark" :placeholder=assessment.total_mark></b-form-input></b-col>
+                                                        <b-col class="mt-3" sm="3"><strong>Goal mark: </strong></b-col>
+                                                        <b-col class="mt-3" sm="9"><b-form-input v-model="goal_mark" :placeholder=assessment.total_mark></b-form-input></b-col>
+                                                        <b-col class="mt-3" sm="3" v-if="assessment.actual_mark"><strong>Actual mark: </strong></b-col>
+                                                        <b-col class="mt-3" sm="9" v-if="assessment.actual_mark"><b-form-input v-model="actual_mark" :placeholder=assessment.actual_mark></b-form-input></b-col> 
+                                                        <b-col class="mt-3" sm="3"><strong>Weighting mark: </strong></b-col>
+                                                        <b-col class="mt-3 mb-3" sm="9"><b-form-input v-model="weight" :placeholder=assessment.weight></b-form-input></b-col>
+                                                        <b-col class="mt-3" sm="3" v-if="assessment.time_required"><strong>Estimated hours til completion: </strong></b-col>
+                                                        <b-col class="mt-3 mb-3" sm="9" v-if="assessment.time_required"><b-form-input v-model="pending_time_required" type="hours" :placeholder=assessment.time_required></b-form-input></b-col>
+                                                        <b-col class="mt-3" sm="3" v-if="assessment.due_date"><strong>Due date: </strong></b-col>
+                                                        <b-col class="mt-3 mb-3" sm="9" v-if="assessment.due_date"><b-form-input v-model="pending_due_date" type="date" :placeholder=assessment.due_date></b-form-input></b-col>
+                                                    </b-row>
+                                                </b-container>
+                                            </div>
+                                            <b-btn class="mt-5" variant="danger" block @click="hideEditAssessModal">Cancel</b-btn>
+                                            <b-btn class = "mt-3" variant="success" block  v-on:click="editAssessment(assessment, index)">Save Changes</b-btn>
+                                        </b-modal>
+                                        <!-- End edit assessment modal -->  
+                                        <!-- Delete assessment modal -->
+                                        <b-modal ref="Assess_Delete_Modal" hide-footer title="Delete Assessment">
+                                            <div class="d-block text-center">
+                                                <h4 style="margin-top: 15px">Delete assessment?</h4>
+                                                This will delete it forever
+                                            </div>
+                                            <b-btn class="mt-5" variant="danger" block @click="hideAssessDeleteModal">Cancel</b-btn>
+                                            <b-btn class = "mt-3" variant="success" block v-on:click="deleteAssessment(assessment)">Yes, delete it</b-btn>
+                                        </b-modal>
+                                        <!-- End delete subject modal -->
                                         <div class="content">
                                             <div class="container float-left">
                                                 <h5><strong>Details</strong></h5>
@@ -210,7 +277,37 @@
                             </div> 
                         </div>
                     </div>
-                    <!-- End assessment box -->
+                    <!-- End assessment box -->  
+                    <!-- Edit subject modal doesn't work when it's in button -->    
+                    <b-modal ref="Edit_Subject_Modal" hide-footer title="Edit Subject">
+                        <div class="d-block text-center">
+                            <h4 style="margin-top: 15px">Edit the details</h4>
+                        </div>
+                        <div>
+                            <b-container fluid>
+                                <b-row class="my-1" :key="type">
+                                    <b-col class="mt-3" sm="3"><strong>Name: </strong></b-col>
+                                    <b-col class="mt-3" sm="9"><b-form-input v-model="name" :placeholder=this.$parent.subject_name></b-form-input></b-col>
+                                    <b-col class="mt-3" sm="3"><strong>Goal mark: </strong></b-col>
+                                    <b-col class="mt-3" sm="9"><b-form-input v-model="goal_mark" :placeholder=this.$parent.goal_mark></b-form-input></b-col>
+                                </b-row>
+                            </b-container>
+                        </div>
+                        <b-btn class="mt-5" variant="danger" block @click="hideSubjectEditModal">Cancel</b-btn>
+                        <b-btn class = "mt-3" variant="success" block  v-on:click="editSubject(this.$parent, index)">Save Changes</b-btn>
+                    </b-modal>
+                    <!-- End edit subject modal -->  
+                    <!-- Delete subject modal -->
+                    <b-modal ref="Delete_Modal" hide-footer title="Delete Subject">
+                        <div class="d-block text-center">
+                            <h4 style="margin-top: 15px">Delete subject?</h4>
+                            This will delete it forever
+                        </div>
+                        <b-btn class="mt-5" variant="danger" block @click="hideSubjectDeleteModal">Cancel</b-btn>
+                        <b-btn class = "mt-3" variant="success" block v-on:click="deleteSubject(this.$parent.subject_name)">Yes, delete it</b-btn>
+                    </b-modal>
+                    <!-- End delete subject modal -->
+                    
                 </div>
             </div>
             <!-- End dashboard -->
@@ -284,6 +381,14 @@
                 hideModal() { this.$refs.Modal.hide() },
                 showPendingModal() { this.$refs.Pending_Modal.show() },
                 hidePendingModal() { this.$refs.Pending_Modal.hide() },
+                showSubjectEditModal() { this.$refs.Edit_Subject_Modal.show() },
+                hideSubjectEditModal() { this.$refs.Edit_Subject_Modal.hide() },
+                showSubjectDeleteModal() { this.$refs.Delete_Modal.show() },
+                hideSubjectDeleteModal() { this.$refs.Delete_Modal.hide() },
+                showEditAssessModal() { this.$refs.Edit_Assess_Modal.show() },
+                hideEditAssessModal() { this.$refs.Edit_Assess_Modal.hide() },
+                showAssessDeleteModal() { this.$refs.Assess_Delete_Modal.show() },
+                hideAssessDeleteModal() { this.$refs.Assess_Delete_Modal.hide() },
                 createPendingAssessment() {
                     const name = this.pending_name;
                     const total_mark = this.pending_total_mark;
@@ -341,7 +446,34 @@
                         this.getInfo();
                     })
                 },
-
+                editAssessment(assessment, index) {
+                    const memo = memos[index];
+                    const id = assessment.id;
+                    const name = this.assessment.name;
+                    const total_mark = this.assessment.total_mark;
+                    const actual_mark = this.actual_marks[index];
+                    const goal_mark = this.assessment.goal_mark;
+                    const weight = this.assessment.weight;
+                    const time_required = this.assessment.time_required;
+                    const due_date = this.assessment.due_date;
+                    fetch(`http://localhost:8081/assessments`, {
+                        method: 'PUT',
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({
+                            id,
+                            name,
+                            total_mark,
+                            actual_mark,
+                            goal_mark,
+                            weight,
+                            time_required,
+                            due_date,
+                            memo,
+                        })
+                    }).then(response => {
+                        this.getInfo();
+                    })
+                },
                 updateAssessment(assessment, index) {
                     const memo = this.memos[index];
                     const id = assessment.id;
@@ -373,6 +505,54 @@
                 deleteAssessment(assessment) {
                     const id = assessment.id;
                     fetch(`http://localhost:8081/assessments/${id}`, {
+                        method: 'DELETE'
+                    }).then(response => {
+                        if (response.status === 200) {
+                            this.getInfo();                                                       
+                        } else {
+                            console.log("Cannot retrieve assessments");
+                        }
+                    })
+                },
+                editSubject(subject) {
+                    const id = subject.id;
+                    const name = this.subject.name;
+                    const goal_mark = this.subject.goal_mark;
+                    const memo = subject.memo;
+                    fetch(`http://localhost:8081/subject`, {
+                        method: 'PUT',
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({
+                            id,
+                            name,
+                            goal_mark,
+                            memo,
+                        })
+                    }).then(response => {
+                        this.getInfo();
+                    })
+                },
+                updateSubjectMemo(subject) {
+                    const id = subject.id;
+                    const name = subject.name;
+                    const goal_mark = subject.goal_mark;
+                    const memo = this.subject.memo;
+                    fetch(`http://localhost:8081/subject`, {
+                        method: 'PUT',
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({
+                            id,
+                            name,
+                            goal_mark,
+                            memo,
+                        })
+                    }).then(response => {
+                        this.getInfo();
+                    })
+                },
+                deleteSubject(subject) {
+                    const id = subject.id;
+                    fetch(`http://localhost:8081/subject/${id}`, {
                         method: 'DELETE'
                     }).then(response => {
                         if (response.status === 200) {

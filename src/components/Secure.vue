@@ -126,7 +126,7 @@
                                     <v-date-picker
                                     v-model="date2"
                                     :event-color="date => date[9] % 2 ? 'green' : 'red'"
-                                    :events="functionEvents"
+                                    :events="arrayEvents"
                                     full-width
 
                                     ></v-date-picker>
@@ -314,20 +314,18 @@
            
             
            },
-            functionEvents (date) {
-                const [,, day] = date.split('-')
-                return parseInt(day, 10) % 3 === 0
-            },
        
         },
-         mounted() {
+        mounted() {
             this.getInfo();
             this.arrayEvents = [...Array(6)].map(() => {
-                const day = Math.floor(Math.random() * 30)
-                const d = new Date()
-                d.setDate(day)
-                return d.toISOString().substr(0, 10)
-            })
+                assessments.forEach((assessment) => {
+                    if (assessment.due_date) {
+                        const d = new Date(assessment.due_date)
+                        return d.toISOString().substr(0, 10)
+                    }
+                })
+        })
     }
 }
 </script>
