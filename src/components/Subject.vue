@@ -256,8 +256,8 @@
                                 </b-row>
                             </b-container>
                         </div>
-                        <b-btn class="mt-5" variant="danger" block @click="hideSubjectEditModal">Cancel</b-btn>
-                        <b-btn class = "mt-3" variant="success" block  v-on:click="editSubject(this.$parent)">Save Changes</b-btn>
+                        <button class="mt-5" variant="danger" block @click="hideSubjectEditModal">Cancel</button>
+                        <button class = "mt-3" variant="success" block  v-on:click="editSubject(this.$parent)">Save Changes</button>
                     </b-modal>
                     <!-- End edit subject modal -->  
                     <!-- Delete subject modal -->
@@ -266,8 +266,8 @@
                             <h4 style="margin-top: 15px">Delete subject?</h4>
                             This will delete it forever
                         </div>
-                        <b-btn class="mt-5" variant="danger" block @click="hideSubjectDeleteModal">Cancel</b-btn>
-                        <b-btn class = "mt-3" variant="success" block v-on:click="deleteSubject(this.$parent)">Yes, delete it</b-btn>
+                        <button class="mt-5" variant="danger" block @click="hideSubjectDeleteModal">Cancel</button>
+                        <button class = "mt-3" variant="success" block v-on:click="deleteSubject(this.$parent)">Yes, delete it</button>
                     </b-modal>
                     <!-- End delete subject modal -->
                     <!-- Edit assessment modal -->  
@@ -297,8 +297,8 @@
                                 </b-row>
                             </b-container>
                         </div>
-                        <b-btn class="mt-5" variant="danger" block @click="hideEditAssessModal">Cancel</b-btn>
-                        <b-btn class = "mt-3" variant="success" block  v-on:click="editAssessment(assessment, index)">Save Changes</b-btn>
+                        <button class="mt-5" variant="danger" block @click="hideEditAssessModal">Cancel</button>
+                        <button class = "mt-3" variant="success" block  v-on:click="editAssessment(assessment, index)">Save Changes</button>
                     </b-modal>
                     <!-- End edit assessment modal -->  
                     <!-- Delete assessment modal -->
@@ -307,8 +307,8 @@
                             <h4 style="margin-top: 15px">Delete assessment?</h4>
                             This will delete it forever
                         </div>
-                        <b-btn class="mt-5" variant="danger" block @click="hideAssessDeleteModal">Cancel</b-btn>
-                        <b-btn class = "mt-3" variant="success" block v-on:click="deleteAssessment(assessment)">Yes, delete it</b-btn>
+                        <button class="mt-5" variant="danger" block @click="hideAssessDeleteModal">Cancel</button>
+                        <button class = "mt-3" variant="success" v-on:click="deleteAssessment(assessment)">Yes, delete it</button>
                     </b-modal>
                 </div>
             </div>
