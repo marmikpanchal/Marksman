@@ -214,10 +214,10 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    <tr v-if="assessments.time_required">
+                                                    <tr>
                                                         <td><h6>Hours required: {{assessment.time_required}}</h6></td>
                                                     </tr>
-                                                    <tr v-if="assessments.due_date">
+                                                    <tr>
                                                         <td><h6>Due date: {{assessment.due_date}}</h6></td>
                                                     </tr>
                                                 </table>  
