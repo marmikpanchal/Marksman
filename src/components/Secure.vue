@@ -18,7 +18,7 @@
                         <span>Subjects</span><span class="caret"></span>
                     </a>
                     <div v-for="(subject, index) in subjects" class="dropdown-menu" aria-labelledby="pagesDropdown" :key="index">
-                        <a class="dropdown-item" href="" v-on:click="goSubject($event)">{{subject.name}}</a>
+                        <a class="dropdown-item" href="" v-on:click="next(subject, $event)">{{subject.name}}</a>
                     </div>
                 </li> 
                 <li class="nav-item">
